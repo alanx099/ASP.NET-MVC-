@@ -3,17 +3,14 @@
     "userPromptSubmitted": [
       {
         "type": "command",
-        "powershell": "$input | Add-Content -Path '.github/hooks/agent_log.txt'",
-        "cwd": ".",
-        "timeoutSec": 10
+        "command": "powershell.exe -ExecutionPolicy Bypass -Command \"$input | Add-Content -Path 'F:\\faks\\MVC ASAPNE\\ASP.NET-MVC-\\.github\\hooks\\agent_log.txt'\""
       }
     ],
     "preToolUse": [
       {
         "type": "command",
-        "powershell": "$input | Add-Content -Path '.github/hooks/agent_log.txt'",
-        "cwd": ".",
-        "timeoutSec": 10
+        "command":"powershell.exe -ExecutionPolicy Bypass -Command \"$input | Add-Content -Path 'F:\\faks\\MVC ASAPNE\\ASP.NET-MVC-\\.github\\hooks\\agent_log.txt'\""
+
       }
     ]
   }
