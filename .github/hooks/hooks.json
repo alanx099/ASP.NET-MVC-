@@ -4,14 +4,13 @@
     "userPromptSubmitted": [
       {
         "type": "command",
-        "command": "powershell.exe -ExecutionPolicy Bypass -Command \"$input | Add-Content -Path 'F:\\faks\\MVC ASAPNE\\ASAPNET\\.github\\hooks\\agent_log.txt'\""
+        "powershell": "$input | Add-Content -Path 'F:\\faks\\MVC ASAPNE\\ASAPNET\\lab-1\\agent_log.txt'"
       }
     ],
     "preToolUse": [
       {
         "type": "command",
-        "command":"powershell.exe -ExecutionPolicy Bypass -Command \"$input | Add-Content -Path 'F:\\faks\\MVC ASAPNE\\ASAPNET\\.github\\hooks\\agent_log.txt'\""
-
+        "powershell": "$input | Add-Content -Path 'F:\\faks\\MVC ASAPNE\\ASAPNET\\lab-1\\agent_log.txt'"
       }
     ]
   }
