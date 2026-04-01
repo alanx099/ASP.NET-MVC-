@@ -4,13 +4,13 @@
     "userPromptSubmitted": [
       {
         "type": "command",
-        "powershell": "$input | Add-Content -Path '.\\agent_log.txt'"
+        "powershell": "$input | Add-Content -Path '.\\lab-1\\agent_log.txt'"
       }
     ],
     "preToolUse": [
       {
         "type": "command",
-        "powershell": "$input | Add-Content -Path '.\\agent_log.txt'"
+        "powershell": "$input | Add-Content -Path '.\\lab-1\\agent_log.txt'"
       }
     ]
   }
