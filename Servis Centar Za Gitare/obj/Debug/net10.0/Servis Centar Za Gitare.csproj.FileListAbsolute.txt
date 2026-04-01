@@ -1,0 +1,14 @@
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.exe
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.deps.json
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.runtimeconfig.json
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.dll
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.pdb
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.AssemblyInfoInputs.cache
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.AssemblyInfo.cs
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.csproj.CoreCompileInputs.cache
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.dll
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\refint\Servis Centar Za Gitare.dll
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.pdb
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.genruntimeconfig.cache
+C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\ref\Servis Centar Za Gitare.dll

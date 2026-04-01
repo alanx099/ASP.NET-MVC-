@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\servis centar za gitare\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97A5A60F-AA7F-4B07-B6CA-797A5C71BC58}|..\\Vjezba1.Model\\Vjezba1.Model.csproj|c:\\users\\marko\\source\\repos\\vjezba1.model\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\Vjezba1.Model\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\Vjezba1.Model\\Class1.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\Vjezba1.Model\\Class1.cs",
+              "RelativeToolTip": "..\\Vjezba1.Model\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T19:14:19.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T18:28:42.35Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

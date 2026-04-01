@@ -1,0 +1,89 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\servis centar za gitare\\models\\stranka.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|solutionrelative:models\\stranka.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\servis centar za gitare\\models\\zaposlenik.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|solutionrelative:models\\zaposlenik.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\servis centar za gitare\\models\\gitara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|solutionrelative:models\\gitara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\servis centar za gitare\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E21AD699-BE3C-4C60-9C1C-D13C52B495C4}|Servis Centar Za Gitare.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Gitara.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\models\\Gitara.cs",
+              "RelativeDocumentMoniker": "models\\Gitara.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\models\\Gitara.cs",
+              "RelativeToolTip": "models\\Gitara.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T19:46:37.559Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Zaposlenik.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\models\\Zaposlenik.cs",
+              "RelativeDocumentMoniker": "models\\Zaposlenik.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\models\\Zaposlenik.cs",
+              "RelativeToolTip": "models\\Zaposlenik.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:03:16.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Stranka.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\models\\Stranka.cs",
+              "RelativeDocumentMoniker": "models\\Stranka.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\models\\Stranka.cs",
+              "RelativeToolTip": "models\\Stranka.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T19:43:54.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T18:28:42.35Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
