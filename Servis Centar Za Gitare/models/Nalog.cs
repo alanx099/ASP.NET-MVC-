@@ -15,6 +15,67 @@ namespace Servis_Centar_Za_Gitare.models
         private String _status;
         private String _vrstaPopravka;
 
+        public Gitara Gitara
+        {
+            get { return _gitara; }
+            set { _gitara = value; }
+        }
 
+        public Stranka Stranka
+        {
+            get { return _stranka; }
+            set { _stranka = value; }
+        }
+
+        public ZapTehnicar Tehnicar
+        {
+            get { return _tehnicar; }
+            set { _tehnicar = value; }
+        }
+
+        public String OpisKvara
+        {
+            get { return _opisKvara; }
+            set { _opisKvara = value; }
+        }
+
+        public DateTime DatumOtvaranja
+        {
+            get { return _datumOtvaranja; }
+            set { _datumOtvaranja = value; }
+        }
+
+        public DateTime DatumZatvaranja
+        {
+            get { return _datumZatvaranja; }
+            set { _datumZatvaranja = value; }
+        }
+
+        public String Status
+        {
+            get { return _status; }
+            set { _status = value; }
+        }
+
+        public String VrstaPopravka
+        {
+            get { return _vrstaPopravka; }
+            set { _vrstaPopravka = value; }
+        }
+
+        public Nalog() { }
+
+        public Nalog(Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
+            DateTime datumOtvaranja, DateTime datumZatvaranja, String status, String vrstaPopravka)
+        {
+            Gitara = gitara;
+            Stranka = stranka;
+            Tehnicar = tehnicar;
+            OpisKvara = opisKvara;
+            DatumOtvaranja = datumOtvaranja;
+            DatumZatvaranja = datumZatvaranja;
+            Status = status;
+            VrstaPopravka = vrstaPopravka;
+        }
     }
 }
