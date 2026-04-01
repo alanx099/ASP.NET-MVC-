@@ -18,22 +18,30 @@ namespace Servis_Centar_Za_Gitare.models
 
         public Stranka()
         {
+            _gitare = new List<Gitara>();
         }
 
-        public Stranka(long id, string ime, string prezime, string email, string brojTelefona, string adresa, string datumRegistracije, string napomena, List<Gitara> gitare)
-        {
-            _id = id;
-            Ime = ime;
-            _prezime = prezime;
-            _email = email;
-            _brojTelefona = brojTelefona;
-            _adresa = adresa;
-            _datumRegistracije = datumRegistracije;
-            _napomena = napomena;
-            _gitare = gitare;
-        }
+    public Stranka(long id, string ime, string prezime, string email, string brojTelefona, string adresa, string datumRegistracije, string napomena, List<Gitara> gitare)
+    {
+        Id = id;
+        Ime = ime;
+        Prezime = prezime;
+        Email = email;
+        BrojTelefona = brojTelefona;
+        Adresa = adresa;
+        DatumRegistracije = datumRegistracije;
+        Napomena = napomena;
+        Gitare = gitare;
+    }
 
+        public long Id { get => _id; set => _id = value; }
         public string Ime { get => _ime; set => _ime = value; }
         public string Prezime { get => _prezime; set => _prezime = value; }
+        public string Email { get => _email; set => _email = value; }
+        public string BrojTelefona { get => _brojTelefona; set => _brojTelefona = value; }
+        public string Adresa { get => _adresa; set => _adresa = value; }
+        public string DatumRegistracije { get => _datumRegistracije; set => _datumRegistracije = value; }
+        public string Napomena { get => _napomena; set => _napomena = value; }
+        public List<Gitara> Gitare { get => _gitare; set => _gitare = value; }
     }
 }

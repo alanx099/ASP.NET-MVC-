@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj": {}
+    "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj": {
+    "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj",
+        "projectUniqueName": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj",
         "projectName": "Servis Centar Za Gitare",
-        "projectPath": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj",
+        "projectPath": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Servis Centar Za Gitare.csproj",
         "packagesPath": "C:\\Users\\Marko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Marko\\source\\repos\\Servis Centar Za Gitare\\obj\\",
+        "outputPath": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
