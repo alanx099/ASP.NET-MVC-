@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Servis_Centar_Za_Gitare.enums;
 
 namespace Servis_Centar_Za_Gitare.models
 {
@@ -12,8 +13,8 @@ namespace Servis_Centar_Za_Gitare.models
         private String _opisKvara;
         private DateTime _datumOtvaranja;
         private DateTime _datumZatvaranja;
-        private String _status;
-        private String _vrstaPopravka;
+        private StatusNalogaEnum _status;
+        private VrstaPopravkaEnum _vrstaPopravka;
 
         public Gitara Gitara
         {
@@ -51,13 +52,13 @@ namespace Servis_Centar_Za_Gitare.models
             set { _datumZatvaranja = value; }
         }
 
-        public String Status
+        public StatusNalogaEnum Status
         {
             get { return _status; }
             set { _status = value; }
         }
 
-        public String VrstaPopravka
+        public VrstaPopravkaEnum VrstaPopravka
         {
             get { return _vrstaPopravka; }
             set { _vrstaPopravka = value; }
@@ -66,7 +67,7 @@ namespace Servis_Centar_Za_Gitare.models
         public Nalog() { }
 
         public Nalog(Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
-            DateTime datumOtvaranja, DateTime datumZatvaranja, String status, String vrstaPopravka)
+            DateTime datumOtvaranja, DateTime datumZatvaranja, StatusNalogaEnum status, VrstaPopravkaEnum vrstaPopravka)
         {
             Gitara = gitara;
             Stranka = stranka;

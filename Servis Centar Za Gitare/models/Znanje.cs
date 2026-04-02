@@ -1,21 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Servis_Centar_Za_Gitare.enums;
 
 namespace Servis_Centar_Za_Gitare.models
 {
     public class Znanje
     {
-        private string _tipGitare;
-        private string _vrstaPopravka;
+        private TipGitareEnum _tipGitare;
+        private VrstaPopravkaEnum _vrstaPopravka;
 
-        public string TipGitare
+        public TipGitareEnum TipGitare
         {
             get { return _tipGitare; }
             set { _tipGitare = value; }
         }
 
-        public string VrstaPopravka
+        public VrstaPopravkaEnum VrstaPopravka
         {
             get { return _vrstaPopravka; }
             set { _vrstaPopravka = value; }
@@ -23,7 +24,7 @@ namespace Servis_Centar_Za_Gitare.models
 
         public Znanje() { }
 
-        public Znanje(string tipGitare, string vrstaPopravka)
+        public Znanje(TipGitareEnum tipGitare, VrstaPopravkaEnum vrstaPopravka)
         {
             TipGitare = tipGitare;
             VrstaPopravka = vrstaPopravka;
