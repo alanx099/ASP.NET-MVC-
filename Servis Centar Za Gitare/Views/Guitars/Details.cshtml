@@ -33,7 +33,7 @@
                 {
                     <p class="meta-value">@Model.Customer.Ime @Model.Customer.Prezime</p>
                     <p class="section-copy">@Model.Customer.Email</p>
-                    <a class="inline-link" asp-controller="Customers" asp-action="Details" asp-route-id="@Model.Customer.Id">Open customer</a>
+                    <a class="action-btn" asp-controller="Customers" asp-action="Details" asp-route-id="@Model.Customer.Id">Open customer</a>
                 }
             </div>
             <div class="meta-card">
@@ -42,7 +42,7 @@
                 {
                     <p class="meta-value">@Model.Repair.VrstaPopravka</p>
                     <p class="section-copy">@Model.Repair.OpisKvara</p>
-                    <a class="inline-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@Model.Repair.Id">Open repair</a>
+                    <a class="action-btn" asp-controller="Repairs" asp-action="Details" asp-route-id="@Model.Repair.Id">Open repair</a>
                 }
                 else
                 {

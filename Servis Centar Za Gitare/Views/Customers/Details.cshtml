@@ -48,7 +48,7 @@
                             <h4 class="entity-title">@guitar.SerijskiBroj</h4>
                             <p class="entity-subtitle">@guitar.TipGitare</p>
                         </div>
-                        <a class="details-link" asp-controller="Guitars" asp-action="Details" asp-route-id="@guitar.Id">Open</a>
+                        <a class="action-btn" asp-controller="Guitars" asp-action="Details" asp-route-id="@guitar.Id">Open</a>
                     </div>
                 </article>
             }
@@ -63,14 +63,14 @@
                 <article class="queue-card">
                     <div class="queue-head">
                         <div>
-                            <p class="section-label">@repair.VrstaPopravka</p>
+                            <p class="section-label">@repair.VrstaPopravka.GetDisplayName()</p>
                             <h4 class="queue-title">@repair.OpisKvara</h4>
                             <p class="queue-subtitle">@repair.DatumOtvaranja.ToString("dd MMM yyyy")</p>
                         </div>
-                        <span class="status-chip info">@repair.Status</span>
+                        <span class="status-chip info">@repair.Status.GetDisplayName()</span>
                     </div>
                     <div class="queue-footer">
-                        <a class="details-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View repair</a>
+                        <a class="action-btn" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View repair</a>
                     </div>
                 </article>
             }

@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\enums\\vrstapopravkaenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:enums\\vrstapopravkaenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\enums\\markeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:enums\\markeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\enums\\statusnalogaenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:enums\\statusnalogaenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\models\\zaposlenik.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:models\\zaposlenik.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\models\\nalog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\models\\gitara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:models\\gitara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\enums\\markeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:enums\\markeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,37 +38,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "VrstaPopravkaEnum.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\enums\\VrstaPopravkaEnum.cs",
+              "RelativeDocumentMoniker": "enums\\VrstaPopravkaEnum.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\enums\\VrstaPopravkaEnum.cs",
+              "RelativeToolTip": "enums\\VrstaPopravkaEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T15:06:47.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StatusNalogaEnum.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\enums\\StatusNalogaEnum.cs",
+              "RelativeDocumentMoniker": "enums\\StatusNalogaEnum.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\enums\\StatusNalogaEnum.cs",
+              "RelativeToolTip": "enums\\StatusNalogaEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T15:05:20.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Zaposlenik.cs",
               "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\models\\Zaposlenik.cs",
               "RelativeDocumentMoniker": "models\\Zaposlenik.cs",
               "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\models\\Zaposlenik.cs",
               "RelativeToolTip": "models\\Zaposlenik.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowB0AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-03T13:05:21.6Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Nalog.cs",
               "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\models\\Nalog.cs",
               "RelativeDocumentMoniker": "models\\Nalog.cs",
               "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\models\\Nalog.cs",
               "RelativeToolTip": "models\\Nalog.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAADYAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-03T13:03:06.297Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Gitara.cs",
               "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\models\\Gitara.cs",
               "RelativeDocumentMoniker": "models\\Gitara.cs",
@@ -68,12 +102,11 @@
               "RelativeToolTip": "models\\Gitara.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-03T13:02:57.598Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-03T13:02:57.598Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -86,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "MarkeEnum.cs",
               "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\enums\\MarkeEnum.cs",
               "RelativeDocumentMoniker": "enums\\MarkeEnum.cs",
@@ -94,7 +127,8 @@
               "RelativeToolTip": "enums\\MarkeEnum.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T14:37:53.22Z"
+              "WhenOpened": "2026-04-02T14:37:53.22Z",
+              "EditorCaption": ""
             }
           ]
         }

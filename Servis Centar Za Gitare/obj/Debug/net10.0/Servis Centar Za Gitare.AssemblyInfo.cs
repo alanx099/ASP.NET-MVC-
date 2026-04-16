@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Servis Centar Za Gitare")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6122529f66c26757f91c049e46e02894aaa82de7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fafcb483d258eb49d8f26772fa6d19a145596634")]
 [assembly: System.Reflection.AssemblyProductAttribute("Servis Centar Za Gitare")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Servis Centar Za Gitare")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

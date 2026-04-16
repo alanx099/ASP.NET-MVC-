@@ -25,11 +25,11 @@
         <article class="queue-card">
             <div class="queue-head">
                 <div>
-                    <p class="section-label">@repair.VrstaPopravka</p>
+                    <p class="section-label">@repair.VrstaPopravka.GetDisplayName()</p>
                     <h2 class="queue-title">@repair.Stranka.Ime @repair.Stranka.Prezime</h2>
                     <p class="queue-subtitle">@repair.OpisKvara</p>
                 </div>
-                <span class="status-chip @chipClass">@repair.Status</span>
+                <span class="status-chip @chipClass">@repair.Status.GetDisplayName()</span>
             </div>
 
             <div class="queue-line">
@@ -40,7 +40,7 @@
             </div>
 
             <div class="queue-footer">
-                <a class="details-link" asp-action="Details" asp-route-id="@repair.Id">View repair details</a>
+                <a class="action-btn" asp-action="Details" asp-route-id="@repair.Id">View repair details</a>
             </div>
         </article>
     }

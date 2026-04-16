@@ -65,10 +65,10 @@
                 <article class="queue-card">
                     <div class="queue-head">
                         <div>
-                            <h3 class="queue-title">@repair.VrstaPopravka</h3>
+                            <h3 class="queue-title">@repair.VrstaPopravka.GetDisplayName()</h3>
                             <p class="queue-subtitle">@repair.OpisKvara</p>
                         </div>
-                        <span class="status-chip @chipClass">@repair.Status</span>
+                        <span class="status-chip @chipClass">@repair.Status.GetDisplayName()</span>
                     </div>
                     <div class="queue-line">
                         <span><strong>Customer:</strong> @repair.Stranka.Ime @repair.Stranka.Prezime</span>
@@ -77,7 +77,7 @@
                         <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
                     </div>
                     <div class="queue-footer">
-                        <a class="inline-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View details</a>
+                        <a class="action-btn" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View details</a>
                     </div>
                 </article>
             }
