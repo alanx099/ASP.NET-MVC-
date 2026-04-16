@@ -1,0 +1,123 @@
+@model HomeDashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Operations overview</p>
+    <h1 class="hero-title">@Model.OfficeName</h1>
+    <p class="hero-subtitle">@Model.OfficeAddress</p>
+    <p class="hero-subtitle">A premium repair studio dashboard for tracking customers, guitars, repairs, and technicians in a single atmospheric command center.</p>
+
+    <div class="hero-actions">
+        <a class="action-link primary" asp-controller="Repairs" asp-action="Index">Open work queue</a>
+        <a class="action-link secondary" asp-controller="Customers" asp-action="Index">Browse customers</a>
+        <a class="action-link secondary" asp-controller="Guitars" asp-action="Index">Browse guitars</a>
+    </div>
+</section>
+
+<section class="kpi-grid">
+    <article class="stat-card accent">
+        <div class="stat-label">Customers</div>
+        <div class="stat-value">@Model.TotalCustomers</div>
+        <div class="stat-note">Active relationships in the studio CRM layer.</div>
+    </article>
+    <article class="stat-card">
+        <div class="stat-label">Guitars</div>
+        <div class="stat-value">@Model.TotalGuitars</div>
+        <div class="stat-note">Instrument inventory currently in service.</div>
+    </article>
+    <article class="stat-card">
+        <div class="stat-label">Repairs</div>
+        <div class="stat-value">@Model.TotalRepairs</div>
+        <div class="stat-note">Open and completed repair tickets combined.</div>
+    </article>
+    <article class="stat-card">
+        <div class="stat-label">Technicians</div>
+        <div class="stat-value">@Model.TotalTechnicians</div>
+        <div class="stat-note">Qualified luthiers and repair specialists available.</div>
+    </article>
+</section>
+
+<section class="detail-grid">
+    <article class="detail-card">
+        <div class="detail-head">
+            <div>
+                <p class="section-label">Priority feed</p>
+                <h2 class="section-title">Recent repairs</h2>
+                <p class="section-copy">The latest service activity arranged as a queue rather than a generic table.</p>
+            </div>
+            <span class="surface-chip">@Model.OpenRepairs open</span>
+        </div>
+
+        <div class="entity-body card-grid">
+            @foreach (var repair in Model.RecentRepairs)
+            {
+                var chipClass = repair.Status switch
+                {
+                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.Zavrsen => "success",
+                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.Otkazan => "danger",
+                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.CekaDijelove => "warning",
+                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.UObradi => "info",
+                    _ => "info"
+                };
+
+                <article class="queue-card">
+                    <div class="queue-head">
+                        <div>
+                            <h3 class="queue-title">@repair.VrstaPopravka</h3>
+                            <p class="queue-subtitle">@repair.OpisKvara</p>
+                        </div>
+                        <span class="status-chip @chipClass">@repair.Status</span>
+                    </div>
+                    <div class="queue-line">
+                        <span><strong>Customer:</strong> @repair.Stranka.Ime @repair.Stranka.Prezime</span>
+                        <span><strong>Guitar:</strong> @repair.Gitara.Marka @repair.Gitara.SerijskiBroj</span>
+                        <span><strong>Technician:</strong> @repair.Tehnicar.Ime @repair.Tehnicar.Prezime</span>
+                        <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
+                    </div>
+                    <div class="queue-footer">
+                        <a class="inline-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View details</a>
+                    </div>
+                </article>
+            }
+        </div>
+    </article>
+
+    <article class="detail-card">
+        <div class="detail-head">
+            <div>
+                <p class="section-label">Studio roster</p>
+                <h2 class="section-title">Technicians & clients</h2>
+                <p class="section-copy">A compact view of the people and capacity behind the repair floor.</p>
+            </div>
+        </div>
+
+        <div class="meta-grid">
+            <div class="meta-card">
+                <h3>Technicians</h3>
+                <div class="skill-grid">
+                    @foreach (var technician in Model.Technicians)
+                    {
+                        <div class="surface-chip">@technician.Ime @technician.Prezime</div>
+                    }
+                </div>
+            </div>
+
+            <div class="meta-card">
+                <h3>Featured customers</h3>
+                <div class="card-grid">
+                    @foreach (var customer in Model.FeaturedCustomers)
+                    {
+                        <div class="surface-chip">@customer.Ime @customer.Prezime</div>
+                    }
+                </div>
+            </div>
+
+            <div class="meta-card">
+                <h3>Operational summary</h3>
+                <p class="section-copy">The home page is built to feel like a luxury repair studio control room, with activity-first cards and clear status cues.</p>
+            </div>
+        </div>
+    </article>
+</section>

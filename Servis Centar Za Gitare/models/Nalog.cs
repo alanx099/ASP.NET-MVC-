@@ -7,14 +7,21 @@ namespace Servis_Centar_Za_Gitare.models
 {
     public class Nalog
     {
-        private Gitara _gitara;
-        private Stranka _stranka;
-        private ZapTehnicar _tehnicar;
-        private String _opisKvara;
+        private long _id;
+        private Gitara _gitara = null!;
+        private Stranka _stranka = null!;
+        private ZapTehnicar _tehnicar = null!;
+        private String _opisKvara = string.Empty;
         private DateTime _datumOtvaranja;
         private DateTime _datumZatvaranja;
         private StatusNalogaEnum _status;
         private VrstaPopravkaEnum _vrstaPopravka;
+
+        public long Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         public Gitara Gitara
         {
@@ -65,6 +72,20 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         public Nalog() { }
+
+        public Nalog(long id, Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
+            DateTime datumOtvaranja, DateTime datumZatvaranja, StatusNalogaEnum status, VrstaPopravkaEnum vrstaPopravka)
+        {
+            Id = id;
+            Gitara = gitara;
+            Stranka = stranka;
+            Tehnicar = tehnicar;
+            OpisKvara = opisKvara;
+            DatumOtvaranja = datumOtvaranja;
+            DatumZatvaranja = datumZatvaranja;
+            Status = status;
+            VrstaPopravka = vrstaPopravka;
+        }
 
         public Nalog(Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
             DateTime datumOtvaranja, DateTime datumZatvaranja, StatusNalogaEnum status, VrstaPopravkaEnum vrstaPopravka)

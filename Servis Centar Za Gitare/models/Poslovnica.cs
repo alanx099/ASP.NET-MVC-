@@ -7,12 +7,12 @@ namespace Servis_Centar_Za_Gitare.models
 {
     public class Poslovnica
     {
-        private List<ZapTehnicar> _tehnicari;
-        private List<Zaposlenik> _menadzeri;
-        private List<Nalog> _nalozi;
-        private List<Stranka> _stranke;
-        private String _ime;
-        private String _adresa;
+        private List<ZapTehnicar> _tehnicari = new List<ZapTehnicar>();
+        private List<Zaposlenik> _menadzeri = new List<Zaposlenik>();
+        private List<Nalog> _nalozi = new List<Nalog>();
+        private List<Stranka> _stranke = new List<Stranka>();
+        private String _ime = string.Empty;
+        private String _adresa = string.Empty;
 
         public Poslovnica()
         {

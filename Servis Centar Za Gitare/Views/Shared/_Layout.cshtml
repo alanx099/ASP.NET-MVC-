@@ -1,0 +1,71 @@
+@using Servis_Centar_Za_Gitare.ViewModels
+@{
+    var controllerName = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+    var actionName = ViewContext.RouteData.Values["action"]?.ToString() ?? string.Empty;
+    var breadcrumbs = ViewData["Breadcrumbs"] as IEnumerable<BreadcrumbItemViewModel>;
+    var pageTitle = ViewData["Title"]?.ToString() ?? "Guitar Service Center";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@pageTitle - Guitar Service Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="ambient ambient-three"></div>
+
+    <div class="shell">
+        <header class="topbar glass-panel">
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <span class="brand-mark">G</span>
+                <span class="brand-copy">
+                    <strong>Guitar Service Center</strong>
+                    <span>Premium repair studio operations</span>
+                </span>
+            </a>
+
+            <nav class="primary-nav" aria-label="Primary">
+                <a class="nav-link @(controllerName == "Home" ? "active" : string.Empty)" asp-controller="Home" asp-action="Index">Dashboard</a>
+                <a class="nav-link @(controllerName == "Customers" ? "active" : string.Empty)" asp-controller="Customers" asp-action="Index">Customers</a>
+                <a class="nav-link @(controllerName == "Guitars" ? "active" : string.Empty)" asp-controller="Guitars" asp-action="Index">Guitars</a>
+                <a class="nav-link @(controllerName == "Repairs" ? "active" : string.Empty)" asp-controller="Repairs" asp-action="Index">Repairs</a>
+                <a class="nav-link @(controllerName == "Technicians" ? "active" : string.Empty)" asp-controller="Technicians" asp-action="Index">Technicians</a>
+            </nav>
+        </header>
+
+        <main class="page-stage">
+            @if (breadcrumbs != null)
+            {
+                <nav class="breadcrumbs glass-panel" aria-label="Breadcrumb">
+                    <ol>
+                        @foreach (var breadcrumb in breadcrumbs)
+                        {
+                            <li class="@(breadcrumb.IsActive ? "active" : string.Empty)">
+                                @if (breadcrumb.IsActive)
+                                {
+                                    <span>@breadcrumb.Text</span>
+                                }
+                                else
+                                {
+                                    <a href="@breadcrumb.Url">@breadcrumb.Text</a>
+                                }
+                            </li>
+                        }
+                    </ol>
+                </nav>
+            }
+
+            @RenderBody()
+        </main>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

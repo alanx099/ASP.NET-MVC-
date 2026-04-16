@@ -1,0 +1,60 @@
+@model TechnicianDetailsViewModel
+@{
+    ViewData["Title"] = "Technician Details";
+    var technician = Model.Technician;
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Technician dossier</p>
+    <h1 class="hero-title">@technician.Ime @technician.Prezime</h1>
+    <p class="hero-subtitle">@technician.Email</p>
+    <div class="hero-actions">
+        <span class="status-chip success">@technician.Znanja.Count skills</span>
+        <span class="status-chip info">@technician.DatumZaposlenja</span>
+        <span class="status-chip warning">@technician.Placa.ToString("C0")</span>
+    </div>
+</section>
+
+<section class="detail-grid">
+    <article class="detail-card">
+        <h3>Profile</h3>
+        <dl class="definition-list">
+            <div><dt>Phone</dt><dd>@technician.BrojTelefona</dd></div>
+            <div><dt>Address</dt><dd>@technician.Adresa</dd></div>
+            <div><dt>Hire date</dt><dd>@technician.DatumZaposlenja</dd></div>
+            <div><dt>Salary</dt><dd>@technician.Placa.ToString("C0")</dd></div>
+        </dl>
+    </article>
+
+    <article class="detail-card">
+        <h3>Knowledge areas</h3>
+        <div class="tag-row">
+            @foreach (var skill in technician.Znanja)
+            {
+                <span class="tag-chip">@skill.TipGitare / @skill.VrstaPopravka</span>
+            }
+        </div>
+    </article>
+</section>
+
+<section class="detail-card">
+    <h3>Assigned repairs</h3>
+    <div class="card-grid">
+        @foreach (var repair in Model.Repairs)
+        {
+            <article class="queue-card">
+                <div class="queue-head">
+                    <div>
+                        <p class="section-label">@repair.VrstaPopravka</p>
+                        <h4 class="queue-title">@repair.Stranka.Ime @repair.Stranka.Prezime</h4>
+                        <p class="queue-subtitle">@repair.Gitara.Marka @repair.Gitara.SerijskiBroj</p>
+                    </div>
+                    <span class="status-chip info">@repair.Status</span>
+                </div>
+                <div class="queue-footer">
+                    <a class="details-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View repair</a>
+                </div>
+            </article>
+        }
+    </div>
+</section>

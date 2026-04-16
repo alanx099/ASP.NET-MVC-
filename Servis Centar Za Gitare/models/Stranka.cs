@@ -7,14 +7,14 @@ namespace Servis_Centar_Za_Gitare.models
     public class Stranka
     {
         private long _id;
-        private String _ime;
-        private String _prezime;
-        private String _email;
-        private String _brojTelefona;
-        private String _adresa;
-        private String _datumRegistracije;
-        private String _napomena;
-        private List<Gitara> _gitare;
+        private String _ime = string.Empty;
+        private String _prezime = string.Empty;
+        private String _email = string.Empty;
+        private String _brojTelefona = string.Empty;
+        private String _adresa = string.Empty;
+        private String _datumRegistracije = string.Empty;
+        private String _napomena = string.Empty;
+        private List<Gitara> _gitare = new List<Gitara>();
 
         public Stranka()
         {

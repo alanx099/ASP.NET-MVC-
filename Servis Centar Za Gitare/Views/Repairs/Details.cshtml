@@ -1,0 +1,66 @@
+@using Servis_Centar_Za_Gitare.enums
+@model RepairDetailsViewModel
+@{
+    ViewData["Title"] = "Repair Details";
+    var chipClass = Model.Repair.Status switch
+    {
+        StatusNalogaEnum.Zavrsen => "success",
+        StatusNalogaEnum.Otkazan => "danger",
+        StatusNalogaEnum.CekaDijelove => "warning",
+        StatusNalogaEnum.UObradi => "info",
+        _ => "info"
+    };
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Repair dossier</p>
+    <h1 class="hero-title">@Model.Repair.VrstaPopravka</h1>
+    <p class="hero-subtitle">@Model.Repair.OpisKvara</p>
+    <div class="hero-actions">
+        <span class="status-chip @chipClass">@Model.Repair.Status</span>
+        <span class="status-chip info">@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
+        <span class="status-chip success">@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
+    </div>
+</section>
+
+<section class="detail-grid">
+    <article class="detail-card">
+        <h3>Repair timeline</h3>
+        <dl class="definition-list">
+            <div><dt>Opened</dt><dd>@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</dd></div>
+            <div><dt>Planned close</dt><dd>@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</dd></div>
+            <div><dt>Status</dt><dd>@Model.Repair.Status</dd></div>
+            <div><dt>Description</dt><dd>@Model.Repair.OpisKvara</dd></div>
+        </dl>
+    </article>
+
+    <article class="detail-card">
+        <h3>Related records</h3>
+        <div class="meta-grid">
+            <div class="meta-card">
+                <h3>Customer</h3>
+                @if (Model.Customer != null)
+                {
+                    <p class="meta-value">@Model.Customer.Ime @Model.Customer.Prezime</p>
+                    <a class="inline-link" asp-controller="Customers" asp-action="Details" asp-route-id="@Model.Customer.Id">Open customer</a>
+                }
+            </div>
+            <div class="meta-card">
+                <h3>Guitar</h3>
+                @if (Model.Guitar != null)
+                {
+                    <p class="meta-value">@Model.Guitar.Marka @Model.Guitar.SerijskiBroj</p>
+                    <a class="inline-link" asp-controller="Guitars" asp-action="Details" asp-route-id="@Model.Guitar.Id">Open guitar</a>
+                }
+            </div>
+            <div class="meta-card">
+                <h3>Technician</h3>
+                @if (Model.Technician != null)
+                {
+                    <p class="meta-value">@Model.Technician.Ime @Model.Technician.Prezime</p>
+                    <a class="inline-link" asp-controller="Technicians" asp-action="Details" asp-route-id="@Model.Technician.Id">Open technician</a>
+                }
+            </div>
+        </div>
+    </article>
+</section>

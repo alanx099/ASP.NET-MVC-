@@ -1,0 +1,47 @@
+@using Servis_Centar_Za_Gitare.enums
+@model IEnumerable<Nalog>
+@{
+    ViewData["Title"] = "Repairs";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Repair queue</p>
+    <h1 class="hero-title">Repairs</h1>
+    <p class="hero-subtitle">A high-clarity work queue that surfaces repair status, owner, guitar, and technician assignments without a plain table layout.</p>
+</section>
+
+<section class="card-grid">
+    @foreach (var repair in Model)
+    {
+        var chipClass = repair.Status switch
+        {
+            StatusNalogaEnum.Zavrsen => "success",
+            StatusNalogaEnum.Otkazan => "danger",
+            StatusNalogaEnum.CekaDijelove => "warning",
+            StatusNalogaEnum.UObradi => "info",
+            _ => "info"
+        };
+
+        <article class="queue-card">
+            <div class="queue-head">
+                <div>
+                    <p class="section-label">@repair.VrstaPopravka</p>
+                    <h2 class="queue-title">@repair.Stranka.Ime @repair.Stranka.Prezime</h2>
+                    <p class="queue-subtitle">@repair.OpisKvara</p>
+                </div>
+                <span class="status-chip @chipClass">@repair.Status</span>
+            </div>
+
+            <div class="queue-line">
+                <span><strong>Guitar:</strong> @repair.Gitara.Marka @repair.Gitara.SerijskiBroj</span>
+                <span><strong>Technician:</strong> @repair.Tehnicar.Ime @repair.Tehnicar.Prezime</span>
+                <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
+                <span><strong>Planned close:</strong> @repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
+            </div>
+
+            <div class="queue-footer">
+                <a class="details-link" asp-action="Details" asp-route-id="@repair.Id">View repair details</a>
+            </div>
+        </article>
+    }
+</section>

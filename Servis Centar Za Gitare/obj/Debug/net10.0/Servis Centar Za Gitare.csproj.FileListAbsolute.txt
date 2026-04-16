@@ -27,3 +27,19 @@ c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.pdb
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.genruntimeconfig.cache
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\ref\Servis Centar Za Gitare.dll
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.staticwebassets.endpoints.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\rpswa.dswa.cache.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.MvcApplicationPartsAssemblyInfo.cache
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\rjimswa.dswa.cache.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\scopedcss\bundle\Servis Centar Za Gitare.styles.css
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\staticwebassets.build.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\staticwebassets.build.json.cache
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\staticwebassets.development.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\swae.build.ex.cache
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.staticwebassets.runtime.json
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.RazorAssemblyInfo.cache
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.RazorAssemblyInfo.cs
+c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\compressed\ziej7isweh-{0}-jff7b3navt-jff7b3navt.gz

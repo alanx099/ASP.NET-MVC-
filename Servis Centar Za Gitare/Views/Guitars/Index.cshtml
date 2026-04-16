@@ -1,0 +1,36 @@
+@model IEnumerable<Gitara>
+@{
+    ViewData["Title"] = "Guitars";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Instrument inventory</p>
+    <h1 class="hero-title">Guitars</h1>
+    <p class="hero-subtitle">A curated instrument index with owner context, intake information, and elegant card-based browsing.</p>
+</section>
+
+<section class="entity-grid">
+    @foreach (var guitar in Model)
+    {
+        <article class="entity-card">
+            <div class="entity-head">
+                <div>
+                    <p class="section-label">@guitar.Marka</p>
+                    <h2 class="entity-title">@guitar.SerijskiBroj</h2>
+                    <p class="entity-subtitle">@guitar.TipGitare</p>
+                </div>
+                <span class="status-chip info">@guitar.BrojZica strings</span>
+            </div>
+
+            <div class="entity-body">
+                <div class="badge-row">
+                    <span class="info-chip">Owner #@guitar.KupacId</span>
+                    <span class="info-chip">@guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
+                </div>
+                <div class="queue-footer">
+                    <a class="details-link" asp-action="Details" asp-route-id="@guitar.Id">View guitar details</a>
+                </div>
+            </div>
+        </article>
+    }
+</section>

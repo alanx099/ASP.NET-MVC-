@@ -1,0 +1,79 @@
+@model CustomerDetailsViewModel
+@{
+    ViewData["Title"] = "Customer Details";
+    var customer = Model.Customer;
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Customer dossier</p>
+    <h1 class="hero-title">@customer.Ime @customer.Prezime</h1>
+    <p class="hero-subtitle">@customer.Napomena</p>
+    <div class="hero-actions">
+        <span class="status-chip info">@customer.Gitare.Count guitars</span>
+        <span class="status-chip success">@customer.DatumRegistracije</span>
+    </div>
+</section>
+
+<section class="detail-grid">
+    <article class="detail-card">
+        <h3>Profile</h3>
+        <dl class="definition-list">
+            <div><dt>Email</dt><dd>@customer.Email</dd></div>
+            <div><dt>Phone</dt><dd>@customer.BrojTelefona</dd></div>
+            <div><dt>Address</dt><dd>@customer.Adresa</dd></div>
+            <div><dt>Registration date</dt><dd>@customer.DatumRegistracije</dd></div>
+        </dl>
+    </article>
+
+    <article class="detail-card">
+        <h3>Quick context</h3>
+        <div class="meta-grid">
+            <div class="meta-card"><span class="stat-label">Guitars</span><div class="stat-value">@customer.Gitare.Count</div></div>
+            <div class="meta-card"><span class="stat-label">Repairs</span><div class="stat-value">@Model.Repairs.Count()</div></div>
+            <div class="meta-card"><span class="stat-label">Status</span><div class="stat-value">Active</div></div>
+        </div>
+    </article>
+</section>
+
+<section class="detail-grid">
+    <article class="detail-card">
+        <h3>Guitars</h3>
+        <div class="card-grid">
+            @foreach (var guitar in Model.Guitars)
+            {
+                <article class="entity-card">
+                    <div class="entity-head">
+                        <div>
+                            <p class="section-label">@guitar.Marka</p>
+                            <h4 class="entity-title">@guitar.SerijskiBroj</h4>
+                            <p class="entity-subtitle">@guitar.TipGitare</p>
+                        </div>
+                        <a class="details-link" asp-controller="Guitars" asp-action="Details" asp-route-id="@guitar.Id">Open</a>
+                    </div>
+                </article>
+            }
+        </div>
+    </article>
+
+    <article class="detail-card">
+        <h3>Repairs</h3>
+        <div class="card-grid">
+            @foreach (var repair in Model.Repairs)
+            {
+                <article class="queue-card">
+                    <div class="queue-head">
+                        <div>
+                            <p class="section-label">@repair.VrstaPopravka</p>
+                            <h4 class="queue-title">@repair.OpisKvara</h4>
+                            <p class="queue-subtitle">@repair.DatumOtvaranja.ToString("dd MMM yyyy")</p>
+                        </div>
+                        <span class="status-chip info">@repair.Status</span>
+                    </div>
+                    <div class="queue-footer">
+                        <a class="details-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View repair</a>
+                    </div>
+                </article>
+            }
+        </div>
+    </article>
+</section>

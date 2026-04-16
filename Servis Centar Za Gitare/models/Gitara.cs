@@ -8,9 +8,9 @@ namespace Servis_Centar_Za_Gitare.models
     public class Gitara
     {
         private long _id;
-        private String _serijskiBroj;
+        private String _serijskiBroj = string.Empty;
         private MarkeEnum _marka;
-        private String _brojZica;
+        private String _brojZica = string.Empty;
         private TipGitareEnum _tipGitare;
         private DateTime _datumZaprimanja;
         private long _kupacId;

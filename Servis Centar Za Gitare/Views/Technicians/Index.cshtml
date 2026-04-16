@@ -1,0 +1,45 @@
+@model IEnumerable<ZapTehnicar>
+@{
+    ViewData["Title"] = "Technicians";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Technician roster</p>
+    <h1 class="hero-title">Technicians</h1>
+    <p class="hero-subtitle">Skilled repair specialists displayed as premium profile cards with their knowledge areas and service context.</p>
+</section>
+
+<section class="entity-grid">
+    @foreach (var technician in Model)
+    {
+        <article class="entity-card">
+            <div class="entity-head">
+                <div class="brand" style="align-items:flex-start;">
+                    <span class="profile-badge">@(technician.Ime.Substring(0, 1) + technician.Prezime.Substring(0, 1))</span>
+                    <div>
+                        <h2 class="entity-title">@technician.Ime @technician.Prezime</h2>
+                        <p class="entity-subtitle">@technician.Email</p>
+                    </div>
+                </div>
+                <span class="status-chip success">@technician.Znanja.Count skills</span>
+            </div>
+
+            <div class="entity-body">
+                <div class="badge-row">
+                    <span class="info-chip">@technician.BrojTelefona</span>
+                    <span class="info-chip">@technician.DatumZaposlenja</span>
+                    <span class="info-chip">@technician.Placa.ToString("C0")</span>
+                </div>
+                <div class="tag-row">
+                    @foreach (var skill in technician.Znanja)
+                    {
+                        <span class="tag-chip">@skill.TipGitare / @skill.VrstaPopravka</span>
+                    }
+                </div>
+                <div class="queue-footer">
+                    <a class="details-link" asp-action="Details" asp-route-id="@technician.Id">View technician details</a>
+                </div>
+            </div>
+        </article>
+    }
+</section>

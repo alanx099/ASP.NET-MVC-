@@ -1,0 +1,39 @@
+@model IEnumerable<Stranka>
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Customer directory</p>
+    <h1 class="hero-title">Customers</h1>
+    <p class="hero-subtitle">A premium contact roster with relationship context, guitar counts, and quick access to each customer dossier.</p>
+</section>
+
+<section class="entity-grid">
+    @foreach (var customer in Model)
+    {
+        <article class="entity-card">
+            <div class="entity-head">
+                <div class="brand" style="align-items:flex-start;">
+                    <span class="profile-badge">@(customer.Ime.Substring(0, 1) + customer.Prezime.Substring(0, 1))</span>
+                    <div>
+                        <h2 class="entity-title">@customer.Ime @customer.Prezime</h2>
+                        <p class="entity-subtitle">@customer.Email</p>
+                    </div>
+                </div>
+                <span class="status-chip info">@customer.Gitare.Count guitars</span>
+            </div>
+
+            <div class="entity-body">
+                <div class="badge-row">
+                    <span class="info-chip">@customer.BrojTelefona</span>
+                    <span class="info-chip">@customer.DatumRegistracije</span>
+                </div>
+                <p class="section-copy">@customer.Napomena</p>
+                <div class="queue-footer">
+                    <a class="details-link" asp-action="Details" asp-route-id="@customer.Id">View customer details</a>
+                </div>
+            </div>
+        </article>
+    }
+</section>

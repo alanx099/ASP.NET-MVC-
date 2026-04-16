@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">System message</p>
+    <h1 class="hero-title">Something interrupted the session</h1>
+    <p class="hero-subtitle">The Guitar Service Center encountered an unexpected issue. Return to the dashboard or try the requested page again.</p>
+    <div class="hero-actions">
+        <a class="action-link primary" asp-controller="Home" asp-action="Index">Back to dashboard</a>
+        <a class="action-link secondary" asp-controller="Repairs" asp-action="Index">Open repairs</a>
+    </div>
+</section>

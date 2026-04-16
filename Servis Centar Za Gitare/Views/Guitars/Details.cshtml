@@ -1,0 +1,54 @@
+@model GuitarDetailsViewModel
+@{
+    ViewData["Title"] = "Guitar Details";
+}
+
+<section class="hero-panel">
+    <p class="hero-kicker">Instrument dossier</p>
+    <h1 class="hero-title">@Model.Guitar.SerijskiBroj</h1>
+    <p class="hero-subtitle">@Model.Guitar.Marka @Model.Guitar.TipGitare with @Model.Guitar.BrojZica strings.</p>
+    <div class="hero-actions">
+        <span class="status-chip info">Owner #@Model.Guitar.KupacId</span>
+        <span class="status-chip success">@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
+    </div>
+</section>
+
+<section class="detail-grid">
+    <article class="detail-card">
+        <h3>Instrument details</h3>
+        <dl class="definition-list">
+            <div><dt>Brand</dt><dd>@Model.Guitar.Marka</dd></div>
+            <div><dt>Type</dt><dd>@Model.Guitar.TipGitare</dd></div>
+            <div><dt>String count</dt><dd>@Model.Guitar.BrojZica</dd></div>
+            <div><dt>Intake date</dt><dd>@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</dd></div>
+        </dl>
+    </article>
+
+    <article class="detail-card">
+        <h3>Owner and repair context</h3>
+        <div class="meta-grid">
+            <div class="meta-card">
+                <h3>Customer</h3>
+                @if (Model.Customer != null)
+                {
+                    <p class="meta-value">@Model.Customer.Ime @Model.Customer.Prezime</p>
+                    <p class="section-copy">@Model.Customer.Email</p>
+                    <a class="inline-link" asp-controller="Customers" asp-action="Details" asp-route-id="@Model.Customer.Id">Open customer</a>
+                }
+            </div>
+            <div class="meta-card">
+                <h3>Linked repair</h3>
+                @if (Model.Repair != null)
+                {
+                    <p class="meta-value">@Model.Repair.VrstaPopravka</p>
+                    <p class="section-copy">@Model.Repair.OpisKvara</p>
+                    <a class="inline-link" asp-controller="Repairs" asp-action="Details" asp-route-id="@Model.Repair.Id">Open repair</a>
+                }
+                else
+                {
+                    <p class="section-copy">No repair ticket is linked to this guitar yet.</p>
+                }
+            </div>
+        </div>
+    </article>
+</section>
