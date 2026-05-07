@@ -1,2 +1,4 @@
 wwwroot\css\site.css
+wwwroot\js\gc-select.js
 C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\wwwroot\css\site.css
+C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\wwwroot\js\gc-select.js

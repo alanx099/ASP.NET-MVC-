@@ -9,48 +9,60 @@
     var vrstePopravke = ViewData["VrstePopravke"] as SelectList;
 }
 
-<h2>New Repair</h2>
+<h2 class="section-title">New Repair</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" class="gc-form" novalidate>
     @Html.AntiForgeryToken()
-    <div class="form-group">
-        <label asp-for="GitaraId"></label>
-        <select asp-for="GitaraId" class="form-control" asp-items="gitare"></select>
-        <span asp-validation-for="GitaraId" class="text-danger"></span>
+    <div class="gc-card--form">
+    <div class="form-group gc-form-group">
+        <label asp-for="GitaraId" class="gc-label">Guitar</label>
+        <div class="gc-select">
+            <select asp-for="GitaraId" class="form-control gc-input" asp-items="gitare" data-gc-select="true" aria-describedby="GitaraId-error"></select>
+        </div>
+        <span asp-validation-for="GitaraId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="StrankaId"></label>
-        <select asp-for="StrankaId" class="form-control" asp-items="stranke"></select>
-        <span asp-validation-for="StrankaId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="StrankaId" class="gc-label">Customer</label>
+        <div class="gc-select">
+            <select asp-for="StrankaId" class="form-control gc-input" asp-items="stranke" data-gc-select="true" aria-describedby="StrankaId-error"></select>
+        </div>
+        <span asp-validation-for="StrankaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="TehnicarId"></label>
-        <select asp-for="TehnicarId" class="form-control" asp-items="tehnicari"></select>
-        <span asp-validation-for="TehnicarId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="TehnicarId" class="gc-label">Technician</label>
+        <div class="gc-select">
+            <select asp-for="TehnicarId" class="form-control gc-input" asp-items="tehnicari" data-gc-select="true" aria-describedby="TehnicarId-error"></select>
+        </div>
+        <span asp-validation-for="TehnicarId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="VrstaPopravkaId"></label>
-        <select asp-for="VrstaPopravkaId" class="form-control" asp-items="vrstePopravke"></select>
-        <span asp-validation-for="VrstaPopravkaId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="VrstaPopravkaId" class="gc-label">Repair Type</label>
+        <div class="gc-select">
+            <select asp-for="VrstaPopravkaId" class="form-control gc-input" asp-items="vrstePopravke" data-gc-select="true" aria-describedby="VrstaPopravkaId-error"></select>
+        </div>
+        <span asp-validation-for="VrstaPopravkaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="StatusNalogaId"></label>
-        <select asp-for="StatusNalogaId" class="form-control" asp-items="statusiNaloga"></select>
-        <span asp-validation-for="StatusNalogaId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="OpisKvara" class="gc-label">Description of Issue</label>
+        <textarea asp-for="OpisKvara" class="form-control gc-input" aria-describedby="OpisKvara-error"></textarea>
+        <span asp-validation-for="OpisKvara" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="OpisKvara"></label>
-        <textarea asp-for="OpisKvara" class="form-control"></textarea>
-        <span asp-validation-for="OpisKvara" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="DatumOtvaranja" class="gc-label">Opening Date</label>
+        <input asp-for="DatumOtvaranja" class="form-control gc-input" aria-describedby="DatumOtvaranja-error" />
+        <span asp-validation-for="DatumOtvaranja" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="DatumOtvaranja"></label>
-        <input asp-for="DatumOtvaranja" class="form-control" />
-        <span asp-validation-for="DatumOtvaranja" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="StatusNalogaId" class="gc-label">Status</label>
+        <div class="gc-select">
+            <select asp-for="StatusNalogaId" class="form-control gc-input" asp-items="statusiNaloga" data-gc-select="true" aria-describedby="StatusNalogaId-error"></select>
+        </div>
+        <span asp-validation-for="StatusNalogaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <div class="gc-actions">
+        <button type="submit" class="btn gc-btn-primary">Create</button>
+        <a asp-action="Index" class="btn gc-btn-secondary">Cancel</a>
+    </div>
     </div>
 </form>
 

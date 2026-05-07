@@ -33,7 +33,7 @@
                 <div class="tag-row">
                     @foreach (var skill in technician.Znanja)
                     {
-                        <span class="tag-chip">@skill.TipGitare / @skill.VrstaPopravka</span>
+                        <span class="tag-chip">@skill.TipGitare?.Naziv / @skill.VrstaPopravka?.Naziv</span>
                     }
                 </div>
                 <div class="queue-footer">

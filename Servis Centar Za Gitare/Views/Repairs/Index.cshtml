@@ -7,6 +7,10 @@
     <p class="hero-kicker">Repair queue</p>
     <h1 class="hero-title">Repairs</h1>
     <p class="hero-subtitle">A high-clarity work queue that surfaces repair status, owner, guitar, and technician assignments without a plain table layout.</p>
+    <div class="hero-actions">
+        <a class="action-link primary" asp-action="Create">Create new repair</a>
+        <a class="action-link secondary" asp-controller="Home" asp-action="Index">Back to dashboard</a>
+    </div>
 </section>
 
 <section class="card-grid">
@@ -40,6 +44,7 @@
 
             <div class="queue-footer">
                 <a class="action-btn" asp-action="Details" asp-route-id="@repair.Id">View repair details</a>
+                <a class="action-btn secondary" asp-action="Edit" asp-route-id="@repair.Id">Edit repair</a>
             </div>
         </article>
     }

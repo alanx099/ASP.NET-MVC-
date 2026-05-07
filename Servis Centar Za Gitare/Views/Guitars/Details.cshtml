@@ -8,7 +8,7 @@
     <h1 class="hero-title">@Model.Guitar.SerijskiBroj</h1>
     <p class="hero-subtitle">@Model.Guitar.Marka?.Naziv @Model.Guitar.TipGitare?.Naziv with @Model.Guitar.BrojZica strings.</p>
     <div class="hero-actions">
-        <span class="status-chip info">Owner #@Model.Guitar.KupacId</span>
+        <span class="status-chip info">Owner @(Model.Customer != null ? Model.Customer.Ime + " " + Model.Customer.Prezime : "Unknown")</span>
         <span class="status-chip success">@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
     </div>
 </section>
@@ -40,7 +40,7 @@
                 <h3>Linked repair</h3>
                 @if (Model.Repair != null)
                 {
-                    <p class="meta-value">@Model.Repair.VrstaPopravka</p>
+                    <p class="meta-value">@Model.Repair.VrstaPopravka?.Naziv</p>
                     <p class="section-copy">@Model.Repair.OpisKvara</p>
                     <a class="action-btn" asp-controller="Repairs" asp-action="Details" asp-route-id="@Model.Repair.Id">Open repair</a>
                 }

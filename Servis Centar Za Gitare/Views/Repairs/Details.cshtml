@@ -19,6 +19,8 @@
         <span class="status-chip @chipClass">@Model.Repair.StatusNaloga?.Naziv</span>
         <span class="status-chip info">@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
         <span class="status-chip success">@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
+        <a class="action-link primary" asp-controller="Repairs" asp-action="Edit" asp-route-id="@Model.Repair.Id">Edit repair</a>
+        <a class="action-link secondary" asp-controller="Repairs" asp-action="Index">Back to repairs</a>
     </div>
 </section>
 

@@ -26,6 +26,12 @@ namespace Servis_Centar_Za_Gitare.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure table names for lookup tables (explicit mapping to match migration names)
+            modelBuilder.Entity<VrstaPopravka>().ToTable("VrstePopravke");
+            modelBuilder.Entity<StatusNaloga>().ToTable("StatusiNaloga");
+            modelBuilder.Entity<TipGitare>().ToTable("TipoveGitara");
+            modelBuilder.Entity<Marka>().ToTable("Marke");
+
             // Seed Lookup Tables
             modelBuilder.Entity<Marka>().HasData(
                 new Marka { Id = 1, Naziv = "Fender" },

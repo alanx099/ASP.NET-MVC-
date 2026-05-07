@@ -24,7 +24,7 @@
 
             <div class="entity-body">
                 <div class="badge-row">
-                    <span class="info-chip">Owner #@guitar.KupacId</span>
+                    <span class="info-chip">Owner @(guitar.Kupac != null ? guitar.Kupac.Ime + " " + guitar.Kupac.Prezime : "Unknown")</span>
                     <span class="info-chip">@guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
                 </div>
                 <div class="queue-footer">

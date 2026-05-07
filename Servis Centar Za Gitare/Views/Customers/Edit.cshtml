@@ -5,49 +5,53 @@
     var poslovnice = ViewData["Poslovnice"] as SelectList;
 }
 
-<h2>Edit Customer</h2>
+<h2 class="section-title">Edit Customer</h2>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post" class="gc-form" novalidate>
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="Ime"></label>
-        <input asp-for="Ime" class="form-control" />
-        <span asp-validation-for="Ime" class="text-danger"></span>
+    <div class="gc-card--form">
+    <div class="form-group gc-form-group">
+        <label asp-for="Ime" class="gc-label">First Name</label>
+        <input asp-for="Ime" class="form-control gc-input" aria-describedby="Ime-error" />
+        <span asp-validation-for="Ime" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Prezime"></label>
-        <input asp-for="Prezime" class="form-control" />
-        <span asp-validation-for="Prezime" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="Prezime" class="gc-label">Last Name</label>
+        <input asp-for="Prezime" class="form-control gc-input" aria-describedby="Prezime-error" />
+        <span asp-validation-for="Prezime" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="Email" class="gc-label">Email</label>
+        <input asp-for="Email" class="form-control gc-input" aria-describedby="Email-error" />
+        <span asp-validation-for="Email" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="BrojTelefona"></label>
-        <input asp-for="BrojTelefona" class="form-control" />
-        <span asp-validation-for="BrojTelefona" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="BrojTelefona" class="gc-label">Phone Number</label>
+        <input asp-for="BrojTelefona" class="form-control gc-input" aria-describedby="BrojTelefona-error" />
+        <span asp-validation-for="BrojTelefona" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Adresa"></label>
-        <input asp-for="Adresa" class="form-control" />
-        <span asp-validation-for="Adresa" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="Adresa" class="gc-label">Address</label>
+        <input asp-for="Adresa" class="form-control gc-input" aria-describedby="Adresa-error" />
+        <span asp-validation-for="Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="DatumRegistracije"></label>
-        <input asp-for="DatumRegistracije" class="form-control" />
-        <span asp-validation-for="DatumRegistracije" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="DatumRegistracije" class="gc-label">Registration Date</label>
+        <input asp-for="DatumRegistracije" class="form-control gc-input" aria-describedby="DatumRegistracije-error" />
+        <span asp-validation-for="DatumRegistracije" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PoslovnicaId"></label>
-        <select asp-for="PoslovnicaId" class="form-control" asp-items="poslovnice"></select>
-        <span asp-validation-for="PoslovnicaId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="PoslovnicaId" class="gc-label">Office Location</label>
+        <div class="gc-select">
+            <select asp-for="PoslovnicaId" class="form-control gc-input" asp-items="poslovnice" data-gc-select="true" aria-describedby="PoslovnicaId-error"></select>
+        </div>
+        <span asp-validation-for="PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <div class="gc-actions">
+        <button type="submit" class="btn gc-btn-primary">Save</button>
+        <a asp-action="Index" class="btn gc-btn-secondary">Cancel</a>
+    </div>
     </div>
 </form>
 

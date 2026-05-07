@@ -19,6 +19,9 @@ namespace Servis_Centar_Za_Gitare.Data.Repositories
         {
             return _context.Tehnicari
                 .Include(t => t.Znanja)
+                    .ThenInclude(z => z.TipGitare)
+                .Include(t => t.Znanja)
+                    .ThenInclude(z => z.VrstaPopravka)
                 .AsNoTracking()
                 .ToList();
         }
@@ -27,6 +30,9 @@ namespace Servis_Centar_Za_Gitare.Data.Repositories
         {
             return _context.Tehnicari
                 .Include(t => t.Znanja)
+                    .ThenInclude(z => z.TipGitare)
+                .Include(t => t.Znanja)
+                    .ThenInclude(z => z.VrstaPopravka)
                 .AsNoTracking()
                 .FirstOrDefault(t => t.Id == id);
         }

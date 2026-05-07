@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\migrations\\20260503222631_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:migrations\\20260503222631_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\migrations\\20260503225641_convertenumstolookuptables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:migrations\\20260503225641_convertenumstolookuptables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\data\\repositories\\technicianrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:data\\repositories\\technicianrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|c:\\users\\marko\\source\\repos\\asp.net-mvc-\\servis centar za gitare\\data\\repositories\\repairrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E789E0C-47DC-AC26-4EBE-1922D3FC997E}|Servis Centar Za Gitare.csproj|solutionrelative:data\\repositories\\repairrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +30,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20260503225641_ConvertEnumsToLookupTables.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Migrations\\20260503225641_ConvertEnumsToLookupTables.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260503225641_ConvertEnumsToLookupTables.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Migrations\\20260503225641_ConvertEnumsToLookupTables.cs",
+              "RelativeToolTip": "Migrations\\20260503225641_ConvertEnumsToLookupTables.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAADgvx8AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T14:40:50.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "20260503222631_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Migrations\\20260503222631_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260503222631_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Migrations\\20260503222631_InitialCreate.cs",
+              "RelativeToolTip": "Migrations\\20260503222631_InitialCreate.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAADgv6sAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T14:39:52.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RepairRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Data\\Repositories\\RepairRepository.cs",
+              "RelativeDocumentMoniker": "Data\\Repositories\\RepairRepository.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Data\\Repositories\\RepairRepository.cs",
+              "RelativeToolTip": "Data\\Repositories\\RepairRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T14:36:22.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TechnicianRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Data\\Repositories\\TechnicianRepository.cs",
+              "RelativeDocumentMoniker": "Data\\Repositories\\TechnicianRepository.cs",
+              "ToolTip": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Data\\Repositories\\TechnicianRepository.cs",
+              "RelativeToolTip": "Data\\Repositories\\TechnicianRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T14:35:49.674Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Marko\\source\\repos\\ASP.NET-MVC-\\Servis Centar Za Gitare\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",

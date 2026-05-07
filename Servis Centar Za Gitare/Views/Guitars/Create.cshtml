@@ -7,43 +7,51 @@
     var kupci = ViewData["Kupci"] as SelectList;
 }
 
-<h2>New Guitar</h2>
+<h2 class="section-title">New Guitar</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" class="gc-form" novalidate>
     @Html.AntiForgeryToken()
-    <div class="form-group">
-        <label asp-for="SerijskiBroj"></label>
-        <input asp-for="SerijskiBroj" class="form-control" />
-        <span asp-validation-for="SerijskiBroj" class="text-danger"></span>
+    <div class="gc-card--form">
+    <div class="form-group gc-form-group">
+        <label asp-for="SerijskiBroj" class="gc-label">Serial Number</label>
+        <input asp-for="SerijskiBroj" class="form-control gc-input" aria-describedby="SerijskiBroj-error" />
+        <span asp-validation-for="SerijskiBroj" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="MarkaId"></label>
-        <select asp-for="MarkaId" class="form-control" asp-items="marke"></select>
-        <span asp-validation-for="MarkaId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="MarkaId" class="gc-label">Brand</label>
+        <div class="gc-select">
+            <select asp-for="MarkaId" class="form-control gc-input" asp-items="marke" data-gc-select="true" aria-describedby="MarkaId-error"></select>
+        </div>
+        <span asp-validation-for="MarkaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="BrojZica"></label>
-        <input asp-for="BrojZica" class="form-control" />
-        <span asp-validation-for="BrojZica" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="BrojZica" class="gc-label">Number of Strings</label>
+        <input asp-for="BrojZica" class="form-control gc-input" aria-describedby="BrojZica-error" />
+        <span asp-validation-for="BrojZica" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="TipGitareId"></label>
-        <select asp-for="TipGitareId" class="form-control" asp-items="tipoviGitare"></select>
-        <span asp-validation-for="TipGitareId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="TipGitareId" class="gc-label">Guitar Type</label>
+        <div class="gc-select">
+            <select asp-for="TipGitareId" class="form-control gc-input" asp-items="tipoviGitare" data-gc-select="true" aria-describedby="TipGitareId-error"></select>
+        </div>
+        <span asp-validation-for="TipGitareId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="DatumZaprimanja"></label>
-        <input asp-for="DatumZaprimanja" class="form-control" />
-        <span asp-validation-for="DatumZaprimanja" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="DatumZaprimanja" class="gc-label">Received Date</label>
+        <input asp-for="DatumZaprimanja" class="form-control gc-input" aria-describedby="DatumZaprimanja-error" />
+        <span asp-validation-for="DatumZaprimanja" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="KupacId"></label>
-        <select asp-for="KupacId" class="form-control" asp-items="kupci"></select>
-        <span asp-validation-for="KupacId" class="text-danger"></span>
+    <div class="form-group gc-form-group">
+        <label asp-for="KupacId" class="gc-label">Owner</label>
+        <div class="gc-select">
+            <select asp-for="KupacId" class="form-control gc-input" asp-items="kupci" data-gc-select="true" aria-describedby="KupacId-error"></select>
+        </div>
+        <span asp-validation-for="KupacId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <div class="gc-actions">
+        <button type="submit" class="btn gc-btn-primary">Create</button>
+        <a asp-action="Index" class="btn gc-btn-secondary">Cancel</a>
+    </div>
     </div>
 </form>
 
