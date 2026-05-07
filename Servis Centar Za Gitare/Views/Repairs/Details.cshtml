@@ -1,23 +1,22 @@
-@using Servis_Centar_Za_Gitare.enums
 @model RepairDetailsViewModel
 @{
     ViewData["Title"] = "Repair Details";
-    var chipClass = Model.Repair.Status switch
+    var chipClass = Model.Repair.StatusNaloga?.Id switch
     {
-        StatusNalogaEnum.Zavrsen => "success",
-        StatusNalogaEnum.Otkazan => "danger",
-        StatusNalogaEnum.CekaDijelove => "warning",
-        StatusNalogaEnum.UObradi => "info",
+        4 => "success",
+        5 => "danger",
+        3 => "warning",
+        2 => "info",
         _ => "info"
     };
 }
 
 <section class="hero-panel">
     <p class="hero-kicker">Repair dossier</p>
-    <h1 class="hero-title">@Model.Repair.VrstaPopravka</h1>
+    <h1 class="hero-title">@Model.Repair.VrstaPopravka?.Naziv</h1>
     <p class="hero-subtitle">@Model.Repair.OpisKvara</p>
     <div class="hero-actions">
-        <span class="status-chip @chipClass">@Model.Repair.Status.GetDisplayName()</span>
+        <span class="status-chip @chipClass">@Model.Repair.StatusNaloga?.Naziv</span>
         <span class="status-chip info">@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
         <span class="status-chip success">@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
     </div>
@@ -29,7 +28,7 @@
         <dl class="definition-list">
             <div><dt>Opened</dt><dd>@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</dd></div>
             <div><dt>Planned close</dt><dd>@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</dd></div>
-            <div><dt>Status</dt><dd>@Model.Repair.Status.GetDisplayName()</dd></div>
+            <div><dt>Status</dt><dd>@Model.Repair.StatusNaloga?.Naziv</dd></div>
             <div><dt>Description</dt><dd>@Model.Repair.OpisKvara</dd></div>
         </dl>
     </article>

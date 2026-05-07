@@ -1,4 +1,3 @@
-@using Servis_Centar_Za_Gitare.enums
 @model IEnumerable<Nalog>
 @{
     ViewData["Title"] = "Repairs";
@@ -13,27 +12,27 @@
 <section class="card-grid">
     @foreach (var repair in Model)
     {
-        var chipClass = repair.Status switch
+        var chipClass = repair.StatusNaloga?.Id switch
         {
-            StatusNalogaEnum.Zavrsen => "success",
-            StatusNalogaEnum.Otkazan => "danger",
-            StatusNalogaEnum.CekaDijelove => "warning",
-            StatusNalogaEnum.UObradi => "info",
+            4 => "success",
+            5 => "danger",
+            3 => "warning",
+            2 => "info",
             _ => "info"
         };
 
         <article class="queue-card">
             <div class="queue-head">
                 <div>
-                    <p class="section-label">@repair.VrstaPopravka.GetDisplayName()</p>
+                    <p class="section-label">@repair.VrstaPopravka?.Naziv</p>
                     <h2 class="queue-title">@repair.Stranka.Ime @repair.Stranka.Prezime</h2>
                     <p class="queue-subtitle">@repair.OpisKvara</p>
                 </div>
-                <span class="status-chip @chipClass">@repair.Status.GetDisplayName()</span>
+                <span class="status-chip @chipClass">@repair.StatusNaloga?.Naziv</span>
             </div>
 
             <div class="queue-line">
-                <span><strong>Guitar:</strong> @repair.Gitara.Marka @repair.Gitara.SerijskiBroj</span>
+                <span><strong>Guitar:</strong> @repair.Gitara.Marka?.Naziv @repair.Gitara.SerijskiBroj</span>
                 <span><strong>Technician:</strong> @repair.Tehnicar.Ime @repair.Tehnicar.Prezime</span>
                 <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
                 <span><strong>Planned close:</strong> @repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Servis_Centar_Za_Gitare.enums;
 using Servis_Centar_Za_Gitare.models;
 
 namespace Servis_Centar_Za_Gitare.Data.Mock
@@ -28,9 +27,9 @@ namespace Servis_Centar_Za_Gitare.Data.Mock
                 1800,
                 new List<Znanje>
                 {
-                    new Znanje(TipGitareEnum.Elektricna, VrstaPopravkaEnum.ZamjenaZica),
-                    new Znanje(TipGitareEnum.Aukusticna, VrstaPopravkaEnum.PodesavanjeVrata),
-                    new Znanje(TipGitareEnum.Elektricna, VrstaPopravkaEnum.PopravakElektronike)
+                    new Znanje(2, 1),
+                    new Znanje(1, 2),
+                    new Znanje(2, 6)
                 });
 
             var technicianTwo = new ZapTehnicar(
@@ -44,8 +43,8 @@ namespace Servis_Centar_Za_Gitare.Data.Mock
                 1850,
                 new List<Znanje>
                 {
-                    new Znanje(TipGitareEnum.Klasicna, VrstaPopravkaEnum.PodesavanjeIntonacije),
-                    new Znanje(TipGitareEnum.BasGitara, VrstaPopravkaEnum.ZamjenaMasinica)
+                    new Znanje(3, 3),
+                    new Znanje(4, 8)
                 });
 
             _technicians.AddRange(new[] { technicianOne, technicianTwo });
@@ -91,23 +90,24 @@ namespace Servis_Centar_Za_Gitare.Data.Mock
 
             _customers.AddRange(new[] { customerOne, customerTwo, customerThree });
 
-            var guitarOne = new Gitara(1, "SN001", MarkeEnum.Fender, "6", TipGitareEnum.Elektricna, new DateTime(2026, 3, 22), 1);
-            var guitarTwo = new Gitara(2, "SN002", MarkeEnum.Yamaha, "6", TipGitareEnum.Aukusticna, new DateTime(2026, 3, 27), 2);
-            var guitarThree = new Gitara(3, "SN003", MarkeEnum.Gibson, "6", TipGitareEnum.Elektricna, new DateTime(2026, 4, 1), 3);
-            var guitarFour = new Gitara(4, "SN004", MarkeEnum.Taylor, "12", TipGitareEnum.Aukusticna, new DateTime(2026, 4, 4), 1);
+            var guitarOne = new Gitara(1, "SN001", 1, "6", 2, new DateTime(2026, 3, 22), 1);
+            var guitarTwo = new Gitara(2, "SN002", 3, "6", 1, new DateTime(2026, 3, 27), 2);
+            var guitarThree = new Gitara(3, "SN003", 2, "6", 2, new DateTime(2026, 4, 1), 3);
+            var guitarFour = new Gitara(4, "SN004", 5, "12", 1, new DateTime(2026, 4, 4), 1);
 
             _guitars.AddRange(new[] { guitarOne, guitarTwo, guitarThree, guitarFour });
 
-            customerOne.Gitare.AddRange(new[] { guitarOne, guitarFour });
+            customerOne.Gitare.Add(guitarOne);
+            customerOne.Gitare.Add(guitarFour);
             customerTwo.Gitare.Add(guitarTwo);
             customerThree.Gitare.Add(guitarThree);
 
             _repairs.AddRange(new[]
             {
-                new Nalog(1, guitarOne, customerOne, technicianOne, "Pukla zica", new DateTime(2026, 4, 8), new DateTime(2026, 4, 12), StatusNalogaEnum.Zaprimljen, VrstaPopravkaEnum.ZamjenaZica),
-                new Nalog(2, guitarTwo, customerTwo, technicianOne, "Visok action", new DateTime(2026, 4, 10), new DateTime(2026, 4, 14), StatusNalogaEnum.UObradi, VrstaPopravkaEnum.PodesavanjeVrata),
-                new Nalog(3, guitarThree, customerThree, technicianTwo, "Neispravna elektronika", new DateTime(2026, 4, 11), new DateTime(2026, 4, 18), StatusNalogaEnum.CekaDijelove, VrstaPopravkaEnum.PopravakElektronike),
-                new Nalog(4, guitarFour, customerOne, technicianTwo, "Zamjena pragova", new DateTime(2026, 4, 13), new DateTime(2026, 4, 20), StatusNalogaEnum.Zavrsen, VrstaPopravkaEnum.ZamjenaPragova)
+                new Nalog(1, guitarOne, customerOne, technicianOne, "Pukla zica", new DateTime(2026, 4, 8), new DateTime(2026, 4, 12), 1, 1),
+                new Nalog(2, guitarTwo, customerTwo, technicianOne, "Visok action", new DateTime(2026, 4, 10), new DateTime(2026, 4, 14), 2, 2),
+                new Nalog(3, guitarThree, customerThree, technicianTwo, "Neispravna elektronika", new DateTime(2026, 4, 11), new DateTime(2026, 4, 18), 3, 6),
+                new Nalog(4, guitarFour, customerOne, technicianTwo, "Zamjena pragova", new DateTime(2026, 4, 13), new DateTime(2026, 4, 20), 4, 4)
             });
 
             _office = new Poslovnica(

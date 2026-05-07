@@ -53,26 +53,26 @@
         <div class="entity-body card-grid">
             @foreach (var repair in Model.RecentRepairs)
             {
-                var chipClass = repair.Status switch
+                var chipClass = repair.StatusNaloga?.Id switch
                 {
-                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.Zavrsen => "success",
-                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.Otkazan => "danger",
-                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.CekaDijelove => "warning",
-                    Servis_Centar_Za_Gitare.enums.StatusNalogaEnum.UObradi => "info",
+                    4 => "success",
+                    5 => "danger",
+                    3 => "warning",
+                    2 => "info",
                     _ => "info"
                 };
 
                 <article class="queue-card">
                     <div class="queue-head">
                         <div>
-                            <h3 class="queue-title">@repair.VrstaPopravka.GetDisplayName()</h3>
+                            <h3 class="queue-title">@repair.VrstaPopravka?.Naziv</h3>
                             <p class="queue-subtitle">@repair.OpisKvara</p>
                         </div>
-                        <span class="status-chip @chipClass">@repair.Status.GetDisplayName()</span>
+                        <span class="status-chip @chipClass">@repair.StatusNaloga?.Naziv</span>
                     </div>
                     <div class="queue-line">
                         <span><strong>Customer:</strong> @repair.Stranka.Ime @repair.Stranka.Prezime</span>
-                        <span><strong>Guitar:</strong> @repair.Gitara.Marka @repair.Gitara.SerijskiBroj</span>
+                        <span><strong>Guitar:</strong> @repair.Gitara.Marka?.Naziv @repair.Gitara.SerijskiBroj</span>
                         <span><strong>Technician:</strong> @repair.Tehnicar.Ime @repair.Tehnicar.Prezime</span>
                         <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
                     </div>

@@ -1,0 +1,53 @@
+@model Servis_Centar_Za_Gitare.models.Gitara
+
+@{
+    ViewData["Title"] = "Edit Guitar";
+    var marke = ViewData["Marke"] as SelectList;
+    var tipoviGitare = ViewData["TipoviGitare"] as SelectList;
+    var kupci = ViewData["Kupci"] as SelectList;
+}
+
+<h2>Edit Guitar</h2>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="SerijskiBroj"></label>
+        <input asp-for="SerijskiBroj" class="form-control" />
+        <span asp-validation-for="SerijskiBroj" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MarkaId"></label>
+        <select asp-for="MarkaId" class="form-control" asp-items="marke"></select>
+        <span asp-validation-for="MarkaId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BrojZica"></label>
+        <input asp-for="BrojZica" class="form-control" />
+        <span asp-validation-for="BrojZica" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TipGitareId"></label>
+        <select asp-for="TipGitareId" class="form-control" asp-items="tipoviGitare"></select>
+        <span asp-validation-for="TipGitareId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumZaprimanja"></label>
+        <input asp-for="DatumZaprimanja" class="form-control" />
+        <span asp-validation-for="DatumZaprimanja" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="KupacId"></label>
+        <select asp-for="KupacId" class="form-control" asp-items="kupci"></select>
+        <span asp-validation-for="KupacId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

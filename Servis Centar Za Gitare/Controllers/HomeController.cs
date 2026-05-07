@@ -2,7 +2,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Servis_Centar_Za_Gitare.Data.Interfaces;
 using Servis_Centar_Za_Gitare.Data.Mock;
-using Servis_Centar_Za_Gitare.enums;
 using Servis_Centar_Za_Gitare.ViewModels;
 
 namespace Servis_Centar_Za_Gitare.Controllers
@@ -31,9 +30,9 @@ namespace Servis_Centar_Za_Gitare.Controllers
             var repairs = _repairRepository.GetAll().ToList();
             var openStatuses = new[]
             {
-                StatusNalogaEnum.Zaprimljen,
-                StatusNalogaEnum.UObradi,
-                StatusNalogaEnum.CekaDijelove
+                1,
+                2,
+                3
             };
 
             var model = new HomeDashboardViewModel
@@ -43,7 +42,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 TotalCustomers = _customerRepository.GetAll().Count(),
                 TotalGuitars = _guitarRepository.GetAll().Count(),
                 TotalRepairs = repairs.Count,
-                OpenRepairs = repairs.Count(repair => openStatuses.Contains(repair.Status)),
+                OpenRepairs = repairs.Count(repair => openStatuses.Contains(repair.StatusNalogaId)),
                 TotalTechnicians = _technicianRepository.GetAll().Count(),
                 RecentRepairs = repairs.OrderByDescending(repair => repair.DatumOtvaranja).Take(3),
                 FeaturedCustomers = _customerRepository.GetAll().Take(3),

@@ -1,33 +1,60 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Servis_Centar_Za_Gitare.enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Servis_Centar_Za_Gitare.models
 {
     public class Znanje
     {
-        private TipGitareEnum _tipGitare;
-        private VrstaPopravkaEnum _vrstaPopravka;
+        private long _tehnicarId;
+        private int _tipGitareId;
+        private int _vrstaPopravkaId;
 
-        public TipGitareEnum TipGitare
+        [Required]
+        public long TehnicarId
         {
-            get { return _tipGitare; }
-            set { _tipGitare = value; }
+            get { return _tehnicarId; }
+            set { _tehnicarId = value; }
         }
 
-        public VrstaPopravkaEnum VrstaPopravka
+        [ForeignKey(nameof(TehnicarId))]
+        public virtual ZapTehnicar Tehnicar { get; set; } = null!;
+
+        [Required]
+        public int TipGitareId
         {
-            get { return _vrstaPopravka; }
-            set { _vrstaPopravka = value; }
+            get { return _tipGitareId; }
+            set { _tipGitareId = value; }
         }
+
+        [ForeignKey(nameof(TipGitareId))]
+        public virtual TipGitare TipGitare { get; set; } = null!;
+
+        [Required]
+        public int VrstaPopravkaId
+        {
+            get { return _vrstaPopravkaId; }
+            set { _vrstaPopravkaId = value; }
+        }
+
+        [ForeignKey(nameof(VrstaPopravkaId))]
+        public virtual VrstaPopravka VrstaPopravka { get; set; } = null!;
 
         public Znanje() { }
 
-        public Znanje(TipGitareEnum tipGitare, VrstaPopravkaEnum vrstaPopravka)
+        public Znanje(int tipGitareId, int vrstaPopravkaId)
         {
-            TipGitare = tipGitare;
-            VrstaPopravka = vrstaPopravka;
+            TipGitareId = tipGitareId;
+            VrstaPopravkaId = vrstaPopravkaId;
+        }
+
+        public Znanje(long tehnicarId, int tipGitareId, int vrstaPopravkaId)
+        {
+            TehnicarId = tehnicarId;
+            TipGitareId = tipGitareId;
+            VrstaPopravkaId = vrstaPopravkaId;
         }
     }
 }

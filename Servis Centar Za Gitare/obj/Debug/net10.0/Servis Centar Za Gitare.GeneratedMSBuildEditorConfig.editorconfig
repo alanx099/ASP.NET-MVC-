@@ -1,14 +1,22 @@
 is_global = true
 build_property.TargetFramework = net10.0
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = Servis_Centar_Za_Gitare
 build_property.RootNamespace = Servis_Centar_Za_Gitare
 build_property.ProjectDir = C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\
@@ -22,16 +30,32 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Customers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Customers/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Customers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Customers/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Guitars/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3VpdGFyc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Guitars/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3VpdGFyc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Guitars/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3VpdGFyc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Guitars/Index.cshtml]
@@ -46,8 +70,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Repairs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwYWlyc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Repairs/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwYWlyc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Repairs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwYWlyc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Marko/source/repos/ASP.NET-MVC-/Servis Centar Za Gitare/Views/Repairs/Index.cshtml]

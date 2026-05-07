@@ -1,46 +1,99 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Servis_Centar_Za_Gitare.enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Servis_Centar_Za_Gitare.models
 {
     public class Nalog
     {
         private long _id;
+        private long _gitaraId;
+        private long _strankaId;
+        private long _tehnicarId;
+        private long? _poslovnicaId;
         private Gitara _gitara = null!;
         private Stranka _stranka = null!;
         private ZapTehnicar _tehnicar = null!;
         private String _opisKvara = string.Empty;
         private DateTime _datumOtvaranja;
         private DateTime _datumZatvaranja;
-        private StatusNalogaEnum _status;
-        private VrstaPopravkaEnum _vrstaPopravka;
+        private int _statusNalogaId;
+        private int _vrstaPopravkaId;
 
+        [Key]
         public long Id
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        public Gitara Gitara
+        [Required]
+        public long GitaraId
+        {
+            get { return _gitaraId; }
+            set { _gitaraId = value; }
+        }
+
+        [Required]
+        public long StrankaId
+        {
+            get { return _strankaId; }
+            set { _strankaId = value; }
+        }
+
+        [Required]
+        public long TehnicarId
+        {
+            get { return _tehnicarId; }
+            set { _tehnicarId = value; }
+        }
+
+        public long? PoslovnicaId
+        {
+            get { return _poslovnicaId; }
+            set { _poslovnicaId = value; }
+        }
+
+        [ForeignKey(nameof(GitaraId))]
+        public virtual Gitara Gitara
         {
             get { return _gitara; }
-            set { _gitara = value; }
+            set
+            {
+                _gitara = value;
+                _gitaraId = value.Id;
+            }
         }
 
-        public Stranka Stranka
+        [ForeignKey(nameof(StrankaId))]
+        public virtual Stranka Stranka
         {
             get { return _stranka; }
-            set { _stranka = value; }
+            set
+            {
+                _stranka = value;
+                _strankaId = value.Id;
+            }
         }
 
-        public ZapTehnicar Tehnicar
+        [ForeignKey(nameof(TehnicarId))]
+        public virtual ZapTehnicar Tehnicar
         {
             get { return _tehnicar; }
-            set { _tehnicar = value; }
+            set
+            {
+                _tehnicar = value;
+                _tehnicarId = value.Id;
+            }
         }
 
+        [ForeignKey(nameof(PoslovnicaId))]
+        public virtual Poslovnica? Poslovnica { get; set; }
+
+        [Required]
+        [MaxLength(1000)]
         public String OpisKvara
         {
             get { return _opisKvara; }
@@ -59,45 +112,55 @@ namespace Servis_Centar_Za_Gitare.models
             set { _datumZatvaranja = value; }
         }
 
-        public StatusNalogaEnum Status
+        [Required]
+        public int StatusNalogaId
         {
-            get { return _status; }
-            set { _status = value; }
+            get { return _statusNalogaId; }
+            set { _statusNalogaId = value; }
         }
 
-        public VrstaPopravkaEnum VrstaPopravka
+        [ForeignKey(nameof(StatusNalogaId))]
+        public virtual StatusNaloga StatusNaloga { get; set; } = null!;
+
+        [Required]
+        public int VrstaPopravkaId
         {
-            get { return _vrstaPopravka; }
-            set { _vrstaPopravka = value; }
+            get { return _vrstaPopravkaId; }
+            set { _vrstaPopravkaId = value; }
         }
+
+        [ForeignKey(nameof(VrstaPopravkaId))]
+        public virtual VrstaPopravka VrstaPopravka { get; set; } = null!;
 
         public Nalog() { }
 
         public Nalog(long id, Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
-            DateTime datumOtvaranja, DateTime datumZatvaranja, StatusNalogaEnum status, VrstaPopravkaEnum vrstaPopravka)
+            DateTime datumOtvaranja, DateTime datumZatvaranja, int statusNalogaId, int vrstaPopravkaId)
         {
             Id = id;
             Gitara = gitara;
             Stranka = stranka;
             Tehnicar = tehnicar;
+            PoslovnicaId = tehnicar.PoslovnicaId;
             OpisKvara = opisKvara;
             DatumOtvaranja = datumOtvaranja;
             DatumZatvaranja = datumZatvaranja;
-            Status = status;
-            VrstaPopravka = vrstaPopravka;
+            StatusNalogaId = statusNalogaId;
+            VrstaPopravkaId = vrstaPopravkaId;
         }
 
         public Nalog(Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
-            DateTime datumOtvaranja, DateTime datumZatvaranja, StatusNalogaEnum status, VrstaPopravkaEnum vrstaPopravka)
+            DateTime datumOtvaranja, DateTime datumZatvaranja, int statusNalogaId, int vrstaPopravkaId)
         {
             Gitara = gitara;
             Stranka = stranka;
             Tehnicar = tehnicar;
+            PoslovnicaId = tehnicar.PoslovnicaId;
             OpisKvara = opisKvara;
             DatumOtvaranja = datumOtvaranja;
             DatumZatvaranja = datumZatvaranja;
-            Status = status;
-            VrstaPopravka = vrstaPopravka;
+            StatusNalogaId = statusNalogaId;
+            VrstaPopravkaId = vrstaPopravkaId;
         }
     }
 }

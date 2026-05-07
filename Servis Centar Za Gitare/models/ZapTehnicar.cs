@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Servis_Centar_Za_Gitare.models
@@ -8,10 +9,10 @@ namespace Servis_Centar_Za_Gitare.models
     {
         private List<Znanje> _znanja = new List<Znanje>();
 
-        public List<Znanje> Znanja
+        public virtual ICollection<Znanje> Znanja
         {
             get { return _znanja; }
-            set { _znanja = value; }
+            set { _znanja = value.ToList(); }
         }
 
         public ZapTehnicar() { }
