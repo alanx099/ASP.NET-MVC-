@@ -12,7 +12,6 @@ C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\refint\Ser
 C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.pdb
 C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\Servis Centar Za Gitare.genruntimeconfig.cache
 C:\Users\Marko\source\repos\Servis Centar Za Gitare\obj\Debug\net10.0\ref\Servis Centar Za Gitare.dll
-c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.exe
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.deps.json
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.runtimeconfig.json
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.dll
@@ -134,6 +133,14 @@ c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 c:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
-C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\compressed\amdnycpueg-{0}-egmtkep8pw-egmtkep8pw.gz
-C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\compressed\ziej7isweh-{0}-65y9nfixyj-65y9nfixyj.gz
+C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\compressed\ziej7isweh-{0}-9pjrccrabv-9pjrccrabv.gz
+C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\compressed\amdnycpueg-{0}-qwymka4fgs-qwymka4fgs.gz
+C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\bin\Debug\net10.0\Servis Centar Za Gitare.exe
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\appsettings.json
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\Servis Centar Za Gitare.staticwebassets.runtime.json
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\Servis Centar Za Gitare.staticwebassets.endpoints.json
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\Servis Centar Za Gitare.deps.json
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\Servis Centar Za Gitare.runtimeconfig.json
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\Servis Centar Za Gitare.dll
+C:\Users\Marko\source\repos\ASP.NET-MVC-\artifacts\verify-build\Servis Centar Za Gitare.pdb
 C:\Users\Marko\source\repos\ASP.NET-MVC-\Servis Centar Za Gitare\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

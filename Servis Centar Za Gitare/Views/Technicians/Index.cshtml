@@ -7,6 +7,9 @@
     <p class="hero-kicker">Technician roster</p>
     <h1 class="hero-title">Technicians</h1>
     <p class="hero-subtitle">Skilled repair specialists displayed as premium profile cards with their knowledge areas and service context.</p>
+    <div class="hero-actions">
+        <a class="action-link primary" asp-action="Create">Add technician</a>
+    </div>
 </section>
 
 <section class="entity-grid">
@@ -38,6 +41,7 @@
                 </div>
                 <div class="queue-footer">
                     <a class="action-btn" asp-action="Details" asp-route-id="@technician.Id">View technician details</a>
+                    <a class="action-btn secondary" asp-action="Edit" asp-route-id="@technician.Id">Edit technician</a>
                 </div>
             </div>
         </article>

@@ -1,0 +1,140 @@
+@model Servis_Centar_Za_Gitare.ViewModels.TechnicianFormViewModel
+
+@{
+    ViewData["Title"] = "New Technician";
+}
+
+<h2 class="section-title">New Technician</h2>
+
+<form asp-action="Create" method="post" class="gc-form" novalidate>
+    @Html.AntiForgeryToken()
+    <div class="gc-card--form">
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.Ime" class="gc-label">First Name</label>
+            <input asp-for="Technician.Ime" class="form-control gc-input" aria-describedby="Technician_Ime-error" />
+            <span asp-validation-for="Technician.Ime" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.Prezime" class="gc-label">Last Name</label>
+            <input asp-for="Technician.Prezime" class="form-control gc-input" aria-describedby="Technician_Prezime-error" />
+            <span asp-validation-for="Technician.Prezime" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.Email" class="gc-label">Email</label>
+            <input asp-for="Technician.Email" class="form-control gc-input" aria-describedby="Technician_Email-error" />
+            <span asp-validation-for="Technician.Email" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.BrojTelefona" class="gc-label">Phone Number</label>
+            <input asp-for="Technician.BrojTelefona" class="form-control gc-input" aria-describedby="Technician_BrojTelefona-error" />
+            <span asp-validation-for="Technician.BrojTelefona" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.Adresa" class="gc-label">Address</label>
+            <input asp-for="Technician.Adresa" class="form-control gc-input" aria-describedby="Technician_Adresa-error" />
+            <span asp-validation-for="Technician.Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.DatumZaposlenja" class="gc-label">Hire Date</label>
+            <input asp-for="Technician.DatumZaposlenja" class="form-control gc-input" aria-describedby="Technician_DatumZaposlenja-error" />
+            <span asp-validation-for="Technician.DatumZaposlenja" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.Placa" class="gc-label">Salary</label>
+            <input asp-for="Technician.Placa" class="form-control gc-input" aria-describedby="Technician_Placa-error" />
+            <span asp-validation-for="Technician.Placa" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Technician.PoslovnicaId" class="gc-label">Office Location</label>
+            <div class="gc-select">
+                <select asp-for="Technician.PoslovnicaId" class="form-control gc-input" asp-items="Model.Poslovnice" data-gc-select="true" aria-describedby="Technician_PoslovnicaId-error">
+                    <option value="">-- No office --</option>
+                </select>
+            </div>
+            <span asp-validation-for="Technician.PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="SelectedKnowledgePairs" class="gc-label">Knowledge areas</label>
+            <div class="badge-row" style="gap:0.75rem;">
+                <div class="gc-select" style="flex:1; min-width:220px;">
+                    <select id="tip-gitare-combo" class="form-control gc-input" asp-items="Model.TipGitareOptions" data-gc-select="true" aria-label="Guitar type"></select>
+                </div>
+                <div class="gc-select" style="flex:1; min-width:220px;">
+                    <select id="vrsta-popravke-combo" class="form-control gc-input" asp-items="Model.VrstaPopravkeOptions" data-gc-select="true" aria-label="Repair type"></select>
+                </div>
+                <button type="button" id="add-knowledge-pair" class="btn gc-btn-secondary">Add</button>
+            </div>
+
+            <div class="tag-row" id="selected-knowledge-list" style="margin-top:0.75rem;"></div>
+
+            <select asp-for="SelectedKnowledgePairs" id="knowledge-hidden-select" asp-items="Model.KnowledgeOptions" multiple style="display:none;"></select>
+            <span asp-validation-for="SelectedKnowledgePairs" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="gc-actions">
+            <button type="submit" class="btn gc-btn-primary">Create</button>
+            <a asp-action="Index" class="btn gc-btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        (function() {
+            const tipSelect = document.getElementById("tip-gitare-combo");
+            const vrstaSelect = document.getElementById("vrsta-popravke-combo");
+            const addButton = document.getElementById("add-knowledge-pair");
+            const hiddenSelect = document.getElementById("knowledge-hidden-select");
+            const selectedList = document.getElementById("selected-knowledge-list");
+
+            if (!tipSelect || !vrstaSelect || !addButton || !hiddenSelect || !selectedList) {
+                return;
+            }
+
+            function renderSelectedKnowledge() {
+                selectedList.innerHTML = "";
+
+                Array.from(hiddenSelect.options)
+                    .filter(option => option.selected)
+                    .forEach(option => {
+                        const chip = document.createElement("span");
+                        chip.className = "tag-chip";
+                        chip.style.display = "inline-flex";
+                        chip.style.alignItems = "center";
+                        chip.style.gap = "0.5rem";
+
+                        const text = document.createElement("span");
+                        text.textContent = option.text;
+
+                        const removeButton = document.createElement("button");
+                        removeButton.type = "button";
+                        removeButton.className = "action-link secondary";
+                        removeButton.style.padding = "0";
+                        removeButton.textContent = "x";
+                        removeButton.setAttribute("aria-label", "Remove knowledge area");
+                        removeButton.addEventListener("click", function() {
+                            option.selected = false;
+                            renderSelectedKnowledge();
+                        });
+
+                        chip.appendChild(text);
+                        chip.appendChild(removeButton);
+                        selectedList.appendChild(chip);
+                    });
+            }
+
+            addButton.addEventListener("click", function() {
+                const key = tipSelect.value + ":" + vrstaSelect.value;
+                const option = Array.from(hiddenSelect.options).find(opt => opt.value === key);
+                if (!option) {
+                    return;
+                }
+
+                option.selected = true;
+                renderSelectedKnowledge();
+            });
+
+            renderSelectedKnowledge();
+        })();
+    </script>
+}

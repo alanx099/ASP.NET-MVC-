@@ -145,11 +145,14 @@
     }
   }
 
-  function closeList(toggle, list) {
-    toggle.setAttribute('aria-expanded', 'false');
-    list.setAttribute('aria-hidden', 'true');
+function closeList(toggle, list, shouldReturnFocus = false) {
+  toggle.setAttribute('aria-expanded', 'false');
+  list.setAttribute('aria-hidden', 'true');
+
+  if (shouldReturnFocus) {
     toggle.focus();
   }
+}
 
   function selectOption(value, optionEl, toggle, list, nativeSelect, valueSpan) {
     // Update native select

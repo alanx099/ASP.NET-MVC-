@@ -104,10 +104,10 @@ namespace Servis_Centar_Za_Gitare.Data.Mock
 
             _repairs.AddRange(new[]
             {
-                new Nalog(1, guitarOne, customerOne, technicianOne, "Pukla zica", new DateTime(2026, 4, 8), new DateTime(2026, 4, 12), 1, 1),
-                new Nalog(2, guitarTwo, customerTwo, technicianOne, "Visok action", new DateTime(2026, 4, 10), new DateTime(2026, 4, 14), 2, 2),
-                new Nalog(3, guitarThree, customerThree, technicianTwo, "Neispravna elektronika", new DateTime(2026, 4, 11), new DateTime(2026, 4, 18), 3, 6),
-                new Nalog(4, guitarFour, customerOne, technicianTwo, "Zamjena pragova", new DateTime(2026, 4, 13), new DateTime(2026, 4, 20), 4, 4)
+                new Nalog(guitarOne, customerOne, technicianOne, "Pukla zica", new DateTime(2026, 4, 8), new DateTime(2026, 4, 12), 1, 1),
+                new Nalog(guitarTwo, customerTwo, technicianOne, "Visok action", new DateTime(2026, 4, 10), new DateTime(2026, 4, 14), 2, 2),
+                new Nalog(guitarThree, customerThree, technicianTwo, "Neispravna elektronika", new DateTime(2026, 4, 11), new DateTime(2026, 4, 18), 3, 6),
+                new Nalog(guitarFour, customerOne, technicianTwo, "Zamjena pragova", new DateTime(2026, 4, 13), new DateTime(2026, 4, 20), 4, 4)
             });
 
             _office = new Poslovnica(

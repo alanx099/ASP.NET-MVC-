@@ -15,19 +15,18 @@ builder.Services.AddScoped<ITechnicianRepository, TechnicianRepository>();
 
 var app = builder.Build();
 
-// Apply migrations and seed mock data
+// Apply pending migrations.
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var db = services.GetRequiredService<AppDbContext>();
-        DbSeeder.SeedAsync(db).GetAwaiter().GetResult();
+        db.Database.Migrate();
     }
     catch (Exception ex)
     {
-        // If seeding fails, log to console. The app can still start for diagnostics.
-        Console.WriteLine($"Database seeding error: {ex.Message}");
+        Console.WriteLine($"Database migration error: {ex.Message}");
     }
 }
 

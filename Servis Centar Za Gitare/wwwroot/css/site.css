@@ -754,17 +754,25 @@ body::after {
     backdrop-filter: blur(8px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.45);
     color:#e9eef2;
+;
 }
 
-.gc-form { max-width:1200px; margin:0 auto; }
+.gc-form { max-width:1200px; margin:0 auto;     width:50% }
 
 .gc-form-row { margin-bottom:16px; }
+.gc-form-group {
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+}
 
-.gc-form-group { margin-bottom:18px; position:relative; z-index:1; }
+.gc-form-group:has(.gc-select__toggle[aria-expanded="true"]) {
+    z-index: 1000;
+}
 
 .gc-label { display:block; font-weight:600; margin-bottom:8px; color:#d7dbe0; font-size:0.95rem; }
 
-.gc-input { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#eef3f7; padding:10px 12px; border-radius:6px; transition:box-shadow .12s,border-color .12s;}
+.gc-input { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#eef3f7; padding:10px 12px; border-radius:6px; transition:box-shadow .12s,border-color .12s; width:100%;  }
 
 .gc-input:focus { outline:none; box-shadow:0 0 0 4px var(--gc-focus); border-color:var(--gc-accent); }
 
@@ -819,7 +827,7 @@ body::after {
 
 .gc-select__toggle[aria-expanded="true"] .gc-select__chevron { transform:rotate(180deg); }
 
-.gc-select__list { position:absolute; top:calc(100% + 8px); left:0; right:0; max-height:320px; overflow:auto; margin:0; padding:6px; list-style:none; border-radius:10px; background:rgba(8,10,15,0.98); border:1px solid rgba(255,255,255,0.08); box-shadow:0 12px 30px rgba(0,0,0,0.9); z-index:9999; transition:opacity .12s ease,transform .12s ease; opacity:0; transform:translateY(-6px); pointer-events:none; }
+.gc-select__list { position:absolute; top:calc(100% + 8px); left:0; right:0; max-height:320px; overflow:auto; margin:0; padding:6px; list-style:none; border-radius:10px; background:rgba(8,10,15,0.98); border:1px solid rgba(255,255,255,0.08); box-shadow:0 12px 30px rgba(0,0,0,0.9); z-index:9999999; transition:opacity .12s ease,transform .12s ease; opacity:0; transform:translateY(-6px); pointer-events:none; }
 
 .gc-select__list[aria-hidden="false"] { opacity:1; transform:translateY(0); pointer-events:auto; }
 

@@ -62,10 +62,9 @@ namespace Servis_Centar_Za_Gitare.Controllers
         // GET: customers/nova
         [HttpGet]
         [Route("customers/nova")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["Poslovnice"] = new SelectList(_context.Poslovnice.AsNoTracking().ToList(), "Id", "Ime");
-            var model = new Stranka();
+            var model = await BuildCustomerCreateViewModelAsync(new CustomerCreateViewModel());
             return View(model);
         }
 
@@ -73,17 +72,74 @@ namespace Servis_Centar_Za_Gitare.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("customers/nova")]
-        public async Task<IActionResult> Create(Stranka stranka)
+        public async Task<IActionResult> Create(CustomerCreateViewModel model)
         {
+            TryValidateModel(model.Customer, nameof(model.Customer));
+
+            if (model.AddGuitar)
+            {
+                if (string.IsNullOrWhiteSpace(model.GuitarSerijskiBroj))
+                {
+                    ModelState.AddModelError(nameof(model.GuitarSerijskiBroj), "Serial number is required when adding a guitar.");
+                }
+
+                if (!model.GuitarMarkaId.HasValue)
+                {
+                    ModelState.AddModelError(nameof(model.GuitarMarkaId), "Brand is required when adding a guitar.");
+                }
+
+                if (string.IsNullOrWhiteSpace(model.GuitarBrojZica))
+                {
+                    ModelState.AddModelError(nameof(model.GuitarBrojZica), "Number of strings is required when adding a guitar.");
+                }
+
+                if (!model.GuitarTipGitareId.HasValue)
+                {
+                    ModelState.AddModelError(nameof(model.GuitarTipGitareId), "Guitar type is required when adding a guitar.");
+                }
+
+                if (!model.GuitarDatumZaprimanja.HasValue)
+                {
+                    ModelState.AddModelError(nameof(model.GuitarDatumZaprimanja), "Received date is required when adding a guitar.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                await _context.Stranke.AddAsync(stranka);
+                await using var transaction = await _context.Database.BeginTransactionAsync();
+
+                await _context.Stranke.AddAsync(model.Customer);
                 await _context.SaveChangesAsync();
+
+                if (model.AddGuitar)
+                {
+                    var guitar = new Gitara
+                    {
+                        SerijskiBroj = model.GuitarSerijskiBroj!.Trim(),
+                        MarkaId = model.GuitarMarkaId!.Value,
+                        BrojZica = model.GuitarBrojZica!.Trim(),
+                        TipGitareId = model.GuitarTipGitareId!.Value,
+                        DatumZaprimanja = model.GuitarDatumZaprimanja!.Value,
+                        KupacId = model.Customer.Id
+                    };
+
+                    await _context.Gitare.AddAsync(guitar);
+                    await _context.SaveChangesAsync();
+                }
+
+                await transaction.CommitAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Poslovnice"] = new SelectList(_context.Poslovnice.AsNoTracking().ToList(), "Id", "Ime");
-            return View(stranka);
+            return View(await BuildCustomerCreateViewModelAsync(model));
+        }
+
+        private async Task<CustomerCreateViewModel> BuildCustomerCreateViewModelAsync(CustomerCreateViewModel model)
+        {
+            model.Poslovnice = new SelectList(await _context.Poslovnice.AsNoTracking().ToListAsync(), "Id", "Ime", model.Customer.PoslovnicaId);
+            model.Marke = new SelectList(await _context.Marke.AsNoTracking().OrderBy(brand => brand.Naziv).ToListAsync(), "Id", "Naziv", model.GuitarMarkaId);
+            model.TipoviGitare = new SelectList(await _context.TipoveGitara.AsNoTracking().OrderBy(type => type.Naziv).ToListAsync(), "Id", "Naziv", model.GuitarTipGitareId);
+            return model;
         }
 
         // GET: customers/uredi/{id}

@@ -1,8 +1,7 @@
-@model Servis_Centar_Za_Gitare.models.Stranka
+@model Servis_Centar_Za_Gitare.ViewModels.CustomerCreateViewModel
 
 @{
     ViewData["Title"] = "New Customer";
-    var poslovnice = ViewData["Poslovnice"] as SelectList;
 }
 
 <h2 class="section-title">New Customer</h2>
@@ -11,41 +10,89 @@
     @Html.AntiForgeryToken()
     <div class="gc-card--form">
     <div class="form-group gc-form-group">
-        <label asp-for="Ime" class="gc-label">First Name</label>
-        <input asp-for="Ime" class="form-control gc-input" aria-describedby="Ime-error" />
-        <span asp-validation-for="Ime" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <label asp-for="Customer.Ime" class="gc-label">First Name</label>
+        <input asp-for="Customer.Ime" class="form-control gc-input" aria-describedby="Customer_Ime-error" />
+        <span asp-validation-for="Customer.Ime" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="form-group gc-form-group">
-        <label asp-for="Prezime" class="gc-label">Last Name</label>
-        <input asp-for="Prezime" class="form-control gc-input" aria-describedby="Prezime-error" />
-        <span asp-validation-for="Prezime" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <label asp-for="Customer.Prezime" class="gc-label">Last Name</label>
+        <input asp-for="Customer.Prezime" class="form-control gc-input" aria-describedby="Customer_Prezime-error" />
+        <span asp-validation-for="Customer.Prezime" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="form-group gc-form-group">
-        <label asp-for="Email" class="gc-label">Email</label>
-        <input asp-for="Email" class="form-control gc-input" aria-describedby="Email-error" />
-        <span asp-validation-for="Email" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <label asp-for="Customer.Email" class="gc-label">Email</label>
+        <input asp-for="Customer.Email" class="form-control gc-input" aria-describedby="Customer_Email-error" />
+        <span asp-validation-for="Customer.Email" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="form-group gc-form-group">
-        <label asp-for="BrojTelefona" class="gc-label">Phone Number</label>
-        <input asp-for="BrojTelefona" class="form-control gc-input" aria-describedby="BrojTelefona-error" />
-        <span asp-validation-for="BrojTelefona" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <label asp-for="Customer.BrojTelefona" class="gc-label">Phone Number</label>
+        <input asp-for="Customer.BrojTelefona" class="form-control gc-input" aria-describedby="Customer_BrojTelefona-error" />
+        <span asp-validation-for="Customer.BrojTelefona" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="form-group gc-form-group">
-        <label asp-for="Adresa" class="gc-label">Address</label>
-        <input asp-for="Adresa" class="form-control gc-input" aria-describedby="Adresa-error" />
-        <span asp-validation-for="Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <label asp-for="Customer.Adresa" class="gc-label">Address</label>
+        <input asp-for="Customer.Adresa" class="form-control gc-input" aria-describedby="Customer_Adresa-error" />
+        <span asp-validation-for="Customer.Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="form-group gc-form-group">
-        <label asp-for="DatumRegistracije" class="gc-label">Registration Date</label>
-        <input asp-for="DatumRegistracije" class="form-control gc-input" aria-describedby="DatumRegistracije-error" />
-        <span asp-validation-for="DatumRegistracije" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <label asp-for="Customer.DatumRegistracije" class="gc-label">Registration Date</label>
+        <input asp-for="Customer.DatumRegistracije" class="form-control gc-input" aria-describedby="Customer_DatumRegistracije-error" />
+        <span asp-validation-for="Customer.DatumRegistracije" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="form-group gc-form-group">
-        <label asp-for="PoslovnicaId" class="gc-label">Office Location</label>
+        <label asp-for="Customer.PoslovnicaId" class="gc-label">Office Location</label>
         <div class="gc-select">
-            <select asp-for="PoslovnicaId" class="form-control gc-input" asp-items="poslovnice" data-gc-select="true" aria-describedby="PoslovnicaId-error"></select>
+            <select asp-for="Customer.PoslovnicaId" class="form-control gc-input" asp-items="Model.Poslovnice" data-gc-select="true" aria-describedby="Customer_PoslovnicaId-error"></select>
         </div>
-        <span asp-validation-for="PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        <span asp-validation-for="Customer.PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
+    </div>
+
+    <div class="form-group gc-form-group">
+        <label class="gc-label" for="add-guitar-toggle">Add a guitar for this customer</label>
+        <input id="add-guitar-toggle" asp-for="AddGuitar" type="checkbox" />
+    </div>
+
+    <section id="new-guitar-section" style="display:none; border-top:1px solid rgba(255,255,255,.15); margin-top:1rem; padding-top:1rem;">
+        <h3 class="section-title" style="margin-top:0;">New Guitar</h3>
+        <div class="form-group gc-form-group">
+            <label asp-for="GuitarSerijskiBroj" class="gc-label">Serial Number</label>
+            <input asp-for="GuitarSerijskiBroj" class="form-control gc-input" aria-describedby="GuitarSerijskiBroj-error" />
+            <span asp-validation-for="GuitarSerijskiBroj" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="GuitarMarkaId" class="gc-label">Brand</label>
+            <div class="gc-select">
+                <select asp-for="GuitarMarkaId" class="form-control gc-input" asp-items="Model.Marke" data-gc-select="true" aria-describedby="GuitarMarkaId-error">
+                    <option value="">Select brand</option>
+                </select>
+            </div>
+            <span asp-validation-for="GuitarMarkaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="GuitarBrojZica" class="gc-label">Number of Strings</label>
+            <input asp-for="GuitarBrojZica" class="form-control gc-input" aria-describedby="GuitarBrojZica-error" />
+            <span asp-validation-for="GuitarBrojZica" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="GuitarTipGitareId" class="gc-label">Guitar Type</label>
+            <div class="gc-select">
+                <select asp-for="GuitarTipGitareId" class="form-control gc-input" asp-items="Model.TipoviGitare" data-gc-select="true" aria-describedby="GuitarTipGitareId-error">
+                    <option value="">Select guitar type</option>
+                </select>
+            </div>
+            <span asp-validation-for="GuitarTipGitareId" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="GuitarDatumZaprimanja" class="gc-label">Received Date</label>
+            <input asp-for="GuitarDatumZaprimanja" class="form-control gc-input" aria-describedby="GuitarDatumZaprimanja-error" />
+            <span asp-validation-for="GuitarDatumZaprimanja" class="invalid-feedback" role="alert" aria-live="polite"></span>
+        </div>
+    </section>
+
+    <div class="form-group gc-form-group">
+        <label asp-for="Customer.Napomena" class="gc-label">Notes</label>
+        <textarea asp-for="Customer.Napomena" class="form-control gc-input" aria-describedby="Customer_Napomena-error"></textarea>
+        <span asp-validation-for="Customer.Napomena" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     <div class="gc-actions">
         <button type="submit" class="btn gc-btn-primary">Create</button>
@@ -56,4 +103,20 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        (function () {
+            const toggle = document.getElementById("add-guitar-toggle");
+            const section = document.getElementById("new-guitar-section");
+            if (!toggle || !section) {
+                return;
+            }
+
+            const sync = function () {
+                section.style.display = toggle.checked ? "block" : "none";
+            };
+
+            toggle.addEventListener("change", sync);
+            sync();
+        })();
+    </script>
 }

@@ -76,7 +76,12 @@ namespace Servis_Centar_Za_Gitare.Controllers
         public async Task<IActionResult> Create()
         {
             await LoadLookupsAsync();
-            var model = new Nalog { DatumOtvaranja = System.DateTime.Now };
+            var now = System.DateTime.UtcNow;
+            var model = new Nalog
+            {
+                DatumOtvaranja = now,
+                DatumZatvaranja = now
+            };
             return View(model);
         }
 
@@ -88,6 +93,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         {
             if (ModelState.IsValid)
             {
+                NormalizeDates(nalog);
                 await _context.Nalozi.AddAsync(nalog);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -117,6 +123,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
             if (id != nalog.Id) return BadRequest();
             if (ModelState.IsValid)
             {
+                NormalizeDates(nalog);
                 _context.Nalozi.Update(nalog);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -136,6 +143,30 @@ namespace Servis_Centar_Za_Gitare.Controllers
             ViewData["Tehnicari"] = new SelectList(tehnicarList, "Id", "Text");
             ViewData["StatusiNaloga"] = new SelectList(await _context.StatusiNaloga.AsNoTracking().ToListAsync(), "Id", "Naziv");
             ViewData["VrstePopravke"] = new SelectList(await _context.VrstePopravke.AsNoTracking().ToListAsync(), "Id", "Naziv");
+        }
+
+        private static void NormalizeDates(Nalog nalog)
+        {
+            nalog.DatumOtvaranja = ToUtc(nalog.DatumOtvaranja);
+
+            if (nalog.DatumZatvaranja == default)
+            {
+                nalog.DatumZatvaranja = nalog.DatumOtvaranja;
+            }
+            else
+            {
+                nalog.DatumZatvaranja = ToUtc(nalog.DatumZatvaranja);
+            }
+        }
+
+        private static DateTime ToUtc(DateTime value)
+        {
+            return value.Kind switch
+            {
+                DateTimeKind.Utc => value,
+                DateTimeKind.Local => value.ToUniversalTime(),
+                _ => DateTime.SpecifyKind(value, DateTimeKind.Utc)
+            };
         }
     }
 }

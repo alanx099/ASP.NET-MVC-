@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Servis_Centar_Za_Gitare.models;
 
 namespace Servis_Centar_Za_Gitare.ViewModels
@@ -50,5 +53,37 @@ namespace Servis_Centar_Za_Gitare.ViewModels
     {
         public ZapTehnicar Technician { get; set; } = new ZapTehnicar();
         public IEnumerable<Nalog> Repairs { get; set; } = new List<Nalog>();
+    }
+
+    public class TechnicianFormViewModel
+    {
+        public ZapTehnicar Technician { get; set; } = new ZapTehnicar();
+        public IEnumerable<SelectListItem> Poslovnice { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> TipGitareOptions { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> VrstaPopravkeOptions { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> KnowledgeOptions { get; set; } = new List<SelectListItem>();
+        public string[] SelectedKnowledgePairs { get; set; } = Array.Empty<string>();
+    }
+
+    public class CustomerCreateViewModel
+    {
+        public Stranka Customer { get; set; } = new Stranka();
+        public bool AddGuitar { get; set; }
+
+        [MaxLength(64)]
+        public string? GuitarSerijskiBroj { get; set; }
+
+        public int? GuitarMarkaId { get; set; }
+
+        [MaxLength(4)]
+        public string? GuitarBrojZica { get; set; }
+
+        public int? GuitarTipGitareId { get; set; }
+
+        public DateTime? GuitarDatumZaprimanja { get; set; }
+
+        public IEnumerable<SelectListItem> Poslovnice { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> Marke { get; set; } = new List<SelectListItem>();
+        public IEnumerable<SelectListItem> TipoviGitare { get; set; } = new List<SelectListItem>();
     }
 }

@@ -7,6 +7,9 @@
     <p class="hero-kicker">Customer directory</p>
     <h1 class="hero-title">Customers</h1>
     <p class="hero-subtitle">A premium contact roster with relationship context, guitar counts, and quick access to each customer dossier.</p>
+    <div class="hero-actions">
+        <a class="action-link primary" asp-action="Create">Add customer</a>
+    </div>
 </section>
 
 <section class="entity-grid">
@@ -32,6 +35,7 @@
                 <p class="section-copy">@customer.Napomena</p>
                 <div class="queue-footer">
                     <a class="action-btn" asp-action="Details" asp-route-id="@customer.Id">View customer details</a>
+                    <a class="action-btn secondary" asp-action="Edit" asp-route-id="@customer.Id">Edit customer</a>
                 </div>
             </div>
         </article>

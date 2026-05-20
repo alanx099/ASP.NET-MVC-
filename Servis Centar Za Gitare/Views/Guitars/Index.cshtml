@@ -7,6 +7,9 @@
     <p class="hero-kicker">Instrument inventory</p>
     <h1 class="hero-title">Guitars</h1>
     <p class="hero-subtitle">A curated instrument index with owner context, intake information, and elegant card-based browsing.</p>
+    <div class="hero-actions">
+        <a class="action-link primary" asp-action="Create">Add guitar</a>
+    </div>
 </section>
 
 <section class="entity-grid">
@@ -29,6 +32,7 @@
                 </div>
                 <div class="queue-footer">
                     <a class="action-btn" asp-action="Details" asp-route-id="@guitar.Id">View guitar details</a>
+                    <a class="action-btn secondary" asp-action="Edit" asp-route-id="@guitar.Id">Edit guitar</a>
                 </div>
             </div>
         </article>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Servis_Centar_Za_Gitare.models
 {
@@ -57,6 +58,7 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         [ForeignKey(nameof(GitaraId))]
+        [ValidateNever]
         public virtual Gitara Gitara
         {
             get { return _gitara; }
@@ -68,6 +70,7 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         [ForeignKey(nameof(StrankaId))]
+        [ValidateNever]
         public virtual Stranka Stranka
         {
             get { return _stranka; }
@@ -79,6 +82,7 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         [ForeignKey(nameof(TehnicarId))]
+        [ValidateNever]
         public virtual ZapTehnicar Tehnicar
         {
             get { return _tehnicar; }
@@ -90,6 +94,7 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         [ForeignKey(nameof(PoslovnicaId))]
+        [ValidateNever]
         public virtual Poslovnica? Poslovnica { get; set; }
 
         [Required]
@@ -120,6 +125,7 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         [ForeignKey(nameof(StatusNalogaId))]
+        [ValidateNever]
         public virtual StatusNaloga StatusNaloga { get; set; } = null!;
 
         [Required]
@@ -130,24 +136,10 @@ namespace Servis_Centar_Za_Gitare.models
         }
 
         [ForeignKey(nameof(VrstaPopravkaId))]
+        [ValidateNever]
         public virtual VrstaPopravka VrstaPopravka { get; set; } = null!;
 
         public Nalog() { }
-
-        public Nalog(long id, Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
-            DateTime datumOtvaranja, DateTime datumZatvaranja, int statusNalogaId, int vrstaPopravkaId)
-        {
-            Id = id;
-            Gitara = gitara;
-            Stranka = stranka;
-            Tehnicar = tehnicar;
-            PoslovnicaId = tehnicar.PoslovnicaId;
-            OpisKvara = opisKvara;
-            DatumOtvaranja = datumOtvaranja;
-            DatumZatvaranja = datumZatvaranja;
-            StatusNalogaId = statusNalogaId;
-            VrstaPopravkaId = vrstaPopravkaId;
-        }
 
         public Nalog(Gitara gitara, Stranka stranka, ZapTehnicar tehnicar, String opisKvara,
             DateTime datumOtvaranja, DateTime datumZatvaranja, int statusNalogaId, int vrstaPopravkaId)
