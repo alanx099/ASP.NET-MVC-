@@ -34,21 +34,22 @@ namespace Servis_Centar_Za_Gitare.models
         [Key]
         public long Id { get => _id; set => _id = value; }
 
-        [Required]
-        [MaxLength(64)]
+        [Required(ErrorMessage = "Serial number is required.")]
+        [StringLength(64, ErrorMessage = "Serial number can contain up to 64 characters.")]
         public string SerijskiBroj { get => _serijskiBroj; set => _serijskiBroj = value; }
 
-        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Brand is required.")]
         public int MarkaId { get => _markaId; set => _markaId = value; }
 
         [ForeignKey(nameof(MarkaId))]
         public virtual Marka Marka { get; set; } = null!;
 
-        [Required]
-        [MaxLength(4)]
+        [Required(ErrorMessage = "Number of strings is required.")]
+        [RegularExpression(@"^\d{1,2}$", ErrorMessage = "Enter a valid number of strings.")]
+        [StringLength(4, ErrorMessage = "Number of strings can contain up to 4 characters.")]
         public string BrojZica { get => _brojZica; set => _brojZica = value; }
 
-        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Guitar type is required.")]
         public int TipGitareId { get => _tipGitareId; set => _tipGitareId = value; }
 
         [ForeignKey(nameof(TipGitareId))]
@@ -56,7 +57,7 @@ namespace Servis_Centar_Za_Gitare.models
 
         public DateTime DatumZaprimanja { get => _datumZaprimanja; set => _datumZaprimanja = value; }
 
-        [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "Owner is required.")]
         public long KupacId { get => _kupacId; set => _kupacId = value; }
 
         [ForeignKey(nameof(KupacId))]

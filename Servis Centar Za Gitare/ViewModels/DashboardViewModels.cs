@@ -49,6 +49,13 @@ namespace Servis_Centar_Za_Gitare.ViewModels
         public ZapTehnicar? Technician { get; set; }
     }
 
+    public class RepairQueueItemViewModel
+    {
+        public Nalog Repair { get; set; } = new Nalog();
+        public bool NeedsTechnician { get; set; }
+        public bool MissingSkillCoverage { get; set; }
+    }
+
     public class TechnicianDetailsViewModel
     {
         public ZapTehnicar Technician { get; set; } = new ZapTehnicar();
@@ -57,12 +64,40 @@ namespace Servis_Centar_Za_Gitare.ViewModels
 
     public class TechnicianFormViewModel
     {
+        [Required]
         public ZapTehnicar Technician { get; set; } = new ZapTehnicar();
         public IEnumerable<SelectListItem> Poslovnice { get; set; } = new List<SelectListItem>();
         public IEnumerable<SelectListItem> TipGitareOptions { get; set; } = new List<SelectListItem>();
         public IEnumerable<SelectListItem> VrstaPopravkeOptions { get; set; } = new List<SelectListItem>();
         public IEnumerable<SelectListItem> KnowledgeOptions { get; set; } = new List<SelectListItem>();
+        [MinLength(1, ErrorMessage = "Add at least one knowledge area.")]
         public string[] SelectedKnowledgePairs { get; set; } = Array.Empty<string>();
+    }
+
+    public class PendingSkillNeedViewModel
+    {
+        public int Count { get; set; }
+        public int TipGitareId { get; set; }
+        public int VrstaPopravkaId { get; set; }
+        public string TipGitareName { get; set; } = string.Empty;
+        public string VrstaPopravkaName { get; set; } = string.Empty;
+    }
+
+    public class ListStateViewModel
+    {
+        public string Sort { get; set; } = string.Empty;
+        public string Direction { get; set; } = "asc";
+        public int PageSize { get; set; } = 10;
+        public int Take { get; set; } = 10;
+        public int TotalCount { get; set; }
+        public string ActionName { get; set; } = "Index";
+        public IEnumerable<SelectListItem> SortOptions { get; set; } = new List<SelectListItem>();
+
+        public bool IsAll => PageSize < 0;
+        public bool IsDescending => Direction == "desc";
+        public bool HasMore => !IsAll && Take < TotalCount;
+        public int VisibleCount => Math.Min(Take, TotalCount);
+        public int NextTake => IsAll ? TotalCount : Math.Min(Take + PageSize, TotalCount);
     }
 
     public class CustomerCreateViewModel
@@ -70,12 +105,13 @@ namespace Servis_Centar_Za_Gitare.ViewModels
         public Stranka Customer { get; set; } = new Stranka();
         public bool AddGuitar { get; set; }
 
-        [MaxLength(64)]
+        [StringLength(64, ErrorMessage = "Serial number can contain up to 64 characters.")]
         public string? GuitarSerijskiBroj { get; set; }
 
         public int? GuitarMarkaId { get; set; }
 
-        [MaxLength(4)]
+        [RegularExpression(@"^\d{1,2}$", ErrorMessage = "Enter a valid number of strings.")]
+        [StringLength(4, ErrorMessage = "Number of strings can contain up to 4 characters.")]
         public string? GuitarBrojZica { get; set; }
 
         public int? GuitarTipGitareId { get; set; }

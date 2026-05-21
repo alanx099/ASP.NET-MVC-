@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="~/js/gc-select.js" asp-append-version="true"></script>
+    <script src="~/js/gc-datetime.js" asp-append-version="true"></script>
+    <script src="~/js/gc-autocomplete.js" asp-append-version="true"></script>
 </head>
 <body>
     <div class="ambient ambient-one"></div>
@@ -63,10 +65,16 @@
                 </nav>
             }
 
+            @if (TempData["DeleteMessage"] is string deleteMessage)
+            {
+                <div class="gc-flash" role="status" aria-live="polite">@deleteMessage</div>
+            }
+
             @RenderBody()
         </main>
     </div>
 
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/gc-delete.js" asp-append-version="true"></script>
 </body>
 </html>

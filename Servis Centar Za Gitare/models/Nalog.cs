@@ -12,11 +12,11 @@ namespace Servis_Centar_Za_Gitare.models
         private long _id;
         private long _gitaraId;
         private long _strankaId;
-        private long _tehnicarId;
+        private long? _tehnicarId;
         private long? _poslovnicaId;
         private Gitara _gitara = null!;
         private Stranka _stranka = null!;
-        private ZapTehnicar _tehnicar = null!;
+        private ZapTehnicar? _tehnicar;
         private String _opisKvara = string.Empty;
         private DateTime _datumOtvaranja;
         private DateTime _datumZatvaranja;
@@ -30,22 +30,21 @@ namespace Servis_Centar_Za_Gitare.models
             set { _id = value; }
         }
 
-        [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "Guitar is required.")]
         public long GitaraId
         {
             get { return _gitaraId; }
             set { _gitaraId = value; }
         }
 
-        [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "Customer is required.")]
         public long StrankaId
         {
             get { return _strankaId; }
             set { _strankaId = value; }
         }
 
-        [Required]
-        public long TehnicarId
+        public long? TehnicarId
         {
             get { return _tehnicarId; }
             set { _tehnicarId = value; }
@@ -83,13 +82,13 @@ namespace Servis_Centar_Za_Gitare.models
 
         [ForeignKey(nameof(TehnicarId))]
         [ValidateNever]
-        public virtual ZapTehnicar Tehnicar
+        public virtual ZapTehnicar? Tehnicar
         {
             get { return _tehnicar; }
             set
             {
                 _tehnicar = value;
-                _tehnicarId = value.Id;
+                _tehnicarId = value?.Id;
             }
         }
 
@@ -97,8 +96,8 @@ namespace Servis_Centar_Za_Gitare.models
         [ValidateNever]
         public virtual Poslovnica? Poslovnica { get; set; }
 
-        [Required]
-        [MaxLength(1000)]
+        [Required(ErrorMessage = "Description of issue is required.")]
+        [StringLength(1000, MinimumLength = 3, ErrorMessage = "Description must contain between 3 and 1000 characters.")]
         public String OpisKvara
         {
             get { return _opisKvara; }
@@ -117,7 +116,7 @@ namespace Servis_Centar_Za_Gitare.models
             set { _datumZatvaranja = value; }
         }
 
-        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Status is required.")]
         public int StatusNalogaId
         {
             get { return _statusNalogaId; }
@@ -128,7 +127,7 @@ namespace Servis_Centar_Za_Gitare.models
         [ValidateNever]
         public virtual StatusNaloga StatusNaloga { get; set; } = null!;
 
-        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Repair type is required.")]
         public int VrstaPopravkaId
         {
             get { return _vrstaPopravkaId; }

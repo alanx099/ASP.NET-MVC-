@@ -44,30 +44,33 @@ namespace Servis_Centar_Za_Gitare.models
         [ForeignKey(nameof(PoslovnicaId))]
         public virtual Poslovnica? Poslovnica { get; set; }
 
-        [Required]
-        [MaxLength(80)]
+        [Required(ErrorMessage = "First name is required.")]
+        [StringLength(80, ErrorMessage = "First name can contain up to 80 characters.")]
         public string Ime { get => _ime; set => _ime = value; }
 
-        [Required]
-        [MaxLength(80)]
+        [Required(ErrorMessage = "Last name is required.")]
+        [StringLength(80, ErrorMessage = "Last name can contain up to 80 characters.")]
         public string Prezime { get => _prezime; set => _prezime = value; }
 
-        [Required]
-        [MaxLength(120)]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address.")]
+        [StringLength(120, ErrorMessage = "Email can contain up to 120 characters.")]
         public string Email { get => _email; set => _email = value; }
 
-        [Required]
-        [MaxLength(30)]
+        [Required(ErrorMessage = "Phone number is required.")]
+        [Phone(ErrorMessage = "Enter a valid phone number.")]
+        [StringLength(30, ErrorMessage = "Phone number can contain up to 30 characters.")]
         public string BrojTelefona { get => _brojTelefona; set => _brojTelefona = value; }
 
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Address is required.")]
+        [StringLength(200, ErrorMessage = "Address can contain up to 200 characters.")]
         public string Adresa { get => _adresa; set => _adresa = value; }
 
-        [Required]
-        [MaxLength(30)]
+        [Required(ErrorMessage = "Hire date is required.")]
+        [StringLength(30, ErrorMessage = "Hire date can contain up to 30 characters.")]
         public string DatumZaposlenja { get => _datumZaposlenja; set => _datumZaposlenja = value; }
 
+        [Range(0, 1000000, ErrorMessage = "Salary must be between 0 and 1,000,000.")]
         public double Placa { get => _placa; set => _placa = value; }
 
         public virtual ICollection<Nalog> Nalozi { get => _nalozi; set => _nalozi = value.ToList(); }

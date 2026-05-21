@@ -1,0 +1,60 @@
+@model ListStateViewModel
+
+<section class="gc-list-controls glass-panel">
+    <form asp-action="@Model.ActionName" method="get" class="gc-list-controls__form">
+        <label class="gc-list-control">
+            <span>Sort</span>
+            <div class="gc-select gc-list-sort">
+                <select name="sort" class="form-control gc-input" data-gc-select="true" onchange="this.form.submit()">
+                    @foreach (var option in Model.SortOptions)
+                    {
+                        if (option.Selected)
+                        {
+                            <option value="@option.Value" selected>@option.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@option.Value">@option.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+        </label>
+        <input type="hidden" name="direction" value="@Model.Direction" />
+        <input type="hidden" name="take" value="@Model.PageSize" />
+        <button class="action-btn secondary" type="submit">Apply</button>
+    </form>
+    <div class="gc-list-amount" aria-label="Items per batch">
+        <span>Amount</span>
+        @foreach (var size in new[] { 10, 50, 100 })
+        {
+            <a class="gc-amount-option @(Model.PageSize == size ? "active" : string.Empty)"
+               asp-action="@Model.ActionName"
+               asp-route-sort="@Model.Sort"
+               asp-route-direction="@Model.Direction"
+               asp-route-pageSize="@size"
+               asp-route-take="@size">@size</a>
+        }
+        <a class="gc-amount-option @(Model.IsAll ? "active" : string.Empty)"
+           asp-action="@Model.ActionName"
+           asp-route-sort="@Model.Sort"
+           asp-route-direction="@Model.Direction"
+           asp-route-pageSize="-1"
+           asp-route-take="-1">All</a>
+    </div>
+    <div class="gc-list-direction" aria-label="Sort direction">
+        <a class="gc-direction-option @(!Model.IsDescending ? "active" : string.Empty)"
+           asp-action="@Model.ActionName"
+           asp-route-sort="@Model.Sort"
+           asp-route-direction="asc"
+           asp-route-pageSize="@Model.PageSize"
+           asp-route-take="@(Model.IsAll ? -1 : Model.PageSize)">Asc</a>
+        <a class="gc-direction-option @(Model.IsDescending ? "active" : string.Empty)"
+           asp-action="@Model.ActionName"
+           asp-route-sort="@Model.Sort"
+           asp-route-direction="desc"
+           asp-route-pageSize="@Model.PageSize"
+           asp-route-take="@(Model.IsAll ? -1 : Model.PageSize)">Desc</a>
+    </div>
+    <p class="gc-list-controls__count">Showing @Model.VisibleCount of @Model.TotalCount</p>
+</section>

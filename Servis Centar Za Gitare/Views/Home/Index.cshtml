@@ -74,8 +74,8 @@
                     <div class="queue-line">
                         <span><strong>Customer:</strong> @repair.Stranka.Ime @repair.Stranka.Prezime</span>
                         <span><strong>Guitar:</strong> @repair.Gitara.Marka?.Naziv @repair.Gitara.SerijskiBroj</span>
-                        <span><strong>Technician:</strong> @repair.Tehnicar.Ime @repair.Tehnicar.Prezime</span>
-                        <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
+                        <span><strong>Technician:</strong> @(repair.Tehnicar != null ? repair.Tehnicar.Ime + " " + repair.Tehnicar.Prezime : "Unassigned")</span>
+                        <span><strong>Opened:</strong> <span data-gc-date-display="@repair.DatumOtvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@repair.DatumOtvaranja.ToString("dd MMM yyyy")</span></span>
                     </div>
                     <div class="queue-footer">
                         <a class="action-btn" asp-controller="Repairs" asp-action="Details" asp-route-id="@repair.Id">View details</a>

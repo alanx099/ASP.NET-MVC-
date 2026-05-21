@@ -1,0 +1,13 @@
+@model ListStateViewModel
+
+@if (Model.HasMore)
+{
+    <div class="gc-load-more">
+        <a class="action-link primary"
+           asp-action="@Model.ActionName"
+           asp-route-sort="@Model.Sort"
+           asp-route-direction="@Model.Direction"
+           asp-route-pageSize="@Model.PageSize"
+           asp-route-take="@Model.NextTake">+ Load more</a>
+    </div>
+}

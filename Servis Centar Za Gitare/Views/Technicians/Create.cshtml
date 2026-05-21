@@ -34,11 +34,7 @@
             <input asp-for="Technician.Adresa" class="form-control gc-input" aria-describedby="Technician_Adresa-error" />
             <span asp-validation-for="Technician.Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
         </div>
-        <div class="form-group gc-form-group">
-            <label asp-for="Technician.DatumZaposlenja" class="gc-label">Hire Date</label>
-            <input asp-for="Technician.DatumZaposlenja" class="form-control gc-input" aria-describedby="Technician_DatumZaposlenja-error" />
-            <span asp-validation-for="Technician.DatumZaposlenja" class="invalid-feedback" role="alert" aria-live="polite"></span>
-        </div>
+        @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel("Technician.DatumZaposlenja", "Hire Date", Model.Technician.DatumZaposlenja))
         <div class="form-group gc-form-group">
             <label asp-for="Technician.Placa" class="gc-label">Salary</label>
             <input asp-for="Technician.Placa" class="form-control gc-input" aria-describedby="Technician_Placa-error" />
@@ -48,7 +44,7 @@
             <label asp-for="Technician.PoslovnicaId" class="gc-label">Office Location</label>
             <div class="gc-select">
                 <select asp-for="Technician.PoslovnicaId" class="form-control gc-input" asp-items="Model.Poslovnice" data-gc-select="true" aria-describedby="Technician_PoslovnicaId-error">
-                    <option value="">-- No office --</option>
+                    <option value="">Select office location</option>
                 </select>
             </div>
             <span asp-validation-for="Technician.PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
@@ -57,10 +53,14 @@
             <label asp-for="SelectedKnowledgePairs" class="gc-label">Knowledge areas</label>
             <div class="badge-row" style="gap:0.75rem;">
                 <div class="gc-select" style="flex:1; min-width:220px;">
-                    <select id="tip-gitare-combo" class="form-control gc-input" asp-items="Model.TipGitareOptions" data-gc-select="true" aria-label="Guitar type"></select>
+                    <select id="tip-gitare-combo" class="form-control gc-input" asp-items="Model.TipGitareOptions" data-gc-select="true" aria-label="Guitar type">
+                        <option value="">Select guitar type</option>
+                    </select>
                 </div>
                 <div class="gc-select" style="flex:1; min-width:220px;">
-                    <select id="vrsta-popravke-combo" class="form-control gc-input" asp-items="Model.VrstaPopravkeOptions" data-gc-select="true" aria-label="Repair type"></select>
+                    <select id="vrsta-popravke-combo" class="form-control gc-input" asp-items="Model.VrstaPopravkeOptions" data-gc-select="true" aria-label="Repair type">
+                        <option value="">Select repair type</option>
+                    </select>
                 </div>
                 <button type="button" id="add-knowledge-pair" class="btn gc-btn-secondary">Add</button>
             </div>
@@ -114,6 +114,10 @@
                         removeButton.setAttribute("aria-label", "Remove knowledge area");
                         removeButton.addEventListener("click", function() {
                             option.selected = false;
+                            hiddenSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                            if (window.jQuery) {
+                                window.jQuery(hiddenSelect).valid();
+                            }
                             renderSelectedKnowledge();
                         });
 
@@ -124,6 +128,14 @@
             }
 
             addButton.addEventListener("click", function() {
+                if (!tipSelect.value || !vrstaSelect.value) {
+                    hiddenSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                    if (window.jQuery) {
+                        window.jQuery(hiddenSelect).valid();
+                    }
+                    return;
+                }
+
                 const key = tipSelect.value + ":" + vrstaSelect.value;
                 const option = Array.from(hiddenSelect.options).find(opt => opt.value === key);
                 if (!option) {
@@ -131,6 +143,10 @@
                 }
 
                 option.selected = true;
+                hiddenSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                if (window.jQuery) {
+                    window.jQuery(hiddenSelect).valid();
+                }
                 renderSelectedKnowledge();
             });
 

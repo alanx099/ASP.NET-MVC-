@@ -34,15 +34,13 @@
         <input asp-for="Customer.Adresa" class="form-control gc-input" aria-describedby="Customer_Adresa-error" />
         <span asp-validation-for="Customer.Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group gc-form-group">
-        <label asp-for="Customer.DatumRegistracije" class="gc-label">Registration Date</label>
-        <input asp-for="Customer.DatumRegistracije" class="form-control gc-input" aria-describedby="Customer_DatumRegistracije-error" />
-        <span asp-validation-for="Customer.DatumRegistracije" class="invalid-feedback" role="alert" aria-live="polite"></span>
-    </div>
+    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel("Customer.DatumRegistracije", "Registration Date", Model.Customer.DatumRegistracije))
     <div class="form-group gc-form-group">
         <label asp-for="Customer.PoslovnicaId" class="gc-label">Office Location</label>
         <div class="gc-select">
-            <select asp-for="Customer.PoslovnicaId" class="form-control gc-input" asp-items="Model.Poslovnice" data-gc-select="true" aria-describedby="Customer_PoslovnicaId-error"></select>
+            <select asp-for="Customer.PoslovnicaId" class="form-control gc-input" asp-items="Model.Poslovnice" data-gc-select="true" aria-describedby="Customer_PoslovnicaId-error">
+                <option value="">Select office location</option>
+            </select>
         </div>
         <span asp-validation-for="Customer.PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
@@ -82,11 +80,7 @@
             </div>
             <span asp-validation-for="GuitarTipGitareId" class="invalid-feedback" role="alert" aria-live="polite"></span>
         </div>
-        <div class="form-group gc-form-group">
-            <label asp-for="GuitarDatumZaprimanja" class="gc-label">Received Date</label>
-            <input asp-for="GuitarDatumZaprimanja" class="form-control gc-input" aria-describedby="GuitarDatumZaprimanja-error" />
-            <span asp-validation-for="GuitarDatumZaprimanja" class="invalid-feedback" role="alert" aria-live="polite"></span>
-        </div>
+        @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.GuitarDatumZaprimanja), "Received Date", Model.GuitarDatumZaprimanja, false))
     </section>
 
     <div class="form-group gc-form-group">

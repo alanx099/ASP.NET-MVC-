@@ -17,8 +17,8 @@
     <p class="hero-subtitle">@Model.Repair.OpisKvara</p>
     <div class="hero-actions">
         <span class="status-chip @chipClass">@Model.Repair.StatusNaloga?.Naziv</span>
-        <span class="status-chip info">@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
-        <span class="status-chip success">@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
+        <span class="status-chip info" data-gc-date-display="@Model.Repair.DatumOtvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
+        <span class="status-chip success" data-gc-date-display="@Model.Repair.DatumZatvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
         <a class="action-link primary" asp-controller="Repairs" asp-action="Edit" asp-route-id="@Model.Repair.Id">Edit repair</a>
         <a class="action-link secondary" asp-controller="Repairs" asp-action="Index">Back to repairs</a>
     </div>
@@ -28,8 +28,8 @@
     <article class="detail-card">
         <h3>Repair timeline</h3>
         <dl class="definition-list">
-            <div><dt>Opened</dt><dd>@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</dd></div>
-            <div><dt>Planned close</dt><dd>@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</dd></div>
+            <div><dt>Opened</dt><dd data-gc-date-display="@Model.Repair.DatumOtvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@Model.Repair.DatumOtvaranja.ToString("dd MMM yyyy")</dd></div>
+            <div><dt>Planned close</dt><dd data-gc-date-display="@Model.Repair.DatumZatvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@Model.Repair.DatumZatvaranja.ToString("dd MMM yyyy")</dd></div>
             <div><dt>Status</dt><dd>@Model.Repair.StatusNaloga?.Naziv</dd></div>
             <div><dt>Description</dt><dd>@Model.Repair.OpisKvara</dd></div>
         </dl>
@@ -60,6 +60,11 @@
                 {
                     <p class="meta-value">@Model.Technician.Ime @Model.Technician.Prezime</p>
                     <a class="action-btn" asp-controller="Technicians" asp-action="Details" asp-route-id="@Model.Technician.Id">Open technician</a>
+                }
+                else
+                {
+                    <p class="meta-value">Unassigned</p>
+                    <p class="section-copy">No technician currently has the required skill for this repair.</p>
                 }
             </div>
         </div>

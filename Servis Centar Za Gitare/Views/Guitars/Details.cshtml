@@ -9,7 +9,7 @@
     <p class="hero-subtitle">@Model.Guitar.Marka?.Naziv @Model.Guitar.TipGitare?.Naziv with @Model.Guitar.BrojZica strings.</p>
     <div class="hero-actions">
         <span class="status-chip info">Owner @(Model.Customer != null ? Model.Customer.Ime + " " + Model.Customer.Prezime : "Unknown")</span>
-        <span class="status-chip success">@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
+        <span class="status-chip success" data-gc-date-display="@Model.Guitar.DatumZaprimanja.ToString("yyyy-MM-ddTHH:mm:ss")">@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
     </div>
 </section>
 
@@ -20,7 +20,7 @@
             <div><dt>Brand</dt><dd>@Model.Guitar.Marka?.Naziv</dd></div>
             <div><dt>Type</dt><dd>@Model.Guitar.TipGitare?.Naziv</dd></div>
             <div><dt>String count</dt><dd>@Model.Guitar.BrojZica</dd></div>
-            <div><dt>Intake date</dt><dd>@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</dd></div>
+            <div><dt>Intake date</dt><dd data-gc-date-display="@Model.Guitar.DatumZaprimanja.ToString("yyyy-MM-ddTHH:mm:ss")">@Model.Guitar.DatumZaprimanja.ToString("dd MMM yyyy")</dd></div>
         </dl>
     </article>
 

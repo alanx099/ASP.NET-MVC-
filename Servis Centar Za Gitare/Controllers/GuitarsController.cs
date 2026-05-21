@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -31,14 +32,58 @@ namespace Servis_Centar_Za_Gitare.Controllers
 
         [HttpGet]
         [Route("gitare")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sort = "brand", string direction = "asc", int pageSize = 10, int take = 10)
         {
-            var guitars = _guitarRepository.GetAll().OrderBy(guitar => guitar.Marka).ThenBy(guitar => guitar.SerijskiBroj);
+            pageSize = NormalizePageSize(pageSize);
+            direction = NormalizeDirection(direction);
+
+            IQueryable<Gitara> query = _context.Gitare
+                .AsNoTracking()
+                .Include(guitar => guitar.Marka)
+                .Include(guitar => guitar.TipGitare)
+                .Include(guitar => guitar.Kupac);
+
+            var totalCount = await query.CountAsync();
+            take = NormalizeTake(take, pageSize, totalCount);
+
+            query = sort switch
+            {
+                "serial" => direction == "desc"
+                    ? query.OrderByDescending(guitar => guitar.SerijskiBroj)
+                    : query.OrderBy(guitar => guitar.SerijskiBroj),
+                "owner" => direction == "desc"
+                    ? query.OrderByDescending(guitar => guitar.Kupac.Prezime).ThenByDescending(guitar => guitar.Kupac.Ime)
+                    : query.OrderBy(guitar => guitar.Kupac.Prezime).ThenBy(guitar => guitar.Kupac.Ime),
+                "type" => direction == "desc"
+                    ? query.OrderByDescending(guitar => guitar.TipGitare.Naziv).ThenByDescending(guitar => guitar.SerijskiBroj)
+                    : query.OrderBy(guitar => guitar.TipGitare.Naziv).ThenBy(guitar => guitar.SerijskiBroj),
+                "newest" => direction == "desc"
+                    ? query.OrderByDescending(guitar => guitar.DatumZaprimanja)
+                    : query.OrderBy(guitar => guitar.DatumZaprimanja),
+                _ => direction == "desc"
+                    ? query.OrderByDescending(guitar => guitar.Marka.Naziv).ThenByDescending(guitar => guitar.SerijskiBroj)
+                    : query.OrderBy(guitar => guitar.Marka.Naziv).ThenBy(guitar => guitar.SerijskiBroj)
+            };
+
+            var guitars = await query.Take(take).ToListAsync();
+
+            ViewData["GuitarRepairCounts"] = await _context.Nalozi
+                .AsNoTracking()
+                .GroupBy(repair => repair.GitaraId)
+                .ToDictionaryAsync(group => group.Key, group => group.Count());
             ViewData["Breadcrumbs"] = new[]
             {
                 new BreadcrumbItemViewModel { Text = "Home", Url = Url.Action("Index", "Home") ?? "/" },
                 new BreadcrumbItemViewModel { Text = "Guitars", Url = Url.Action(nameof(Index), "Guitars") ?? "/Guitars", IsActive = true }
             };
+            ViewData["ListState"] = BuildListState(sort, direction, pageSize, take, totalCount, new[]
+            {
+                ("brand", "Brand"),
+                ("serial", "Serial number"),
+                ("owner", "Owner"),
+                ("type", "Guitar type"),
+                ("newest", "Newest received")
+            });
             return View(guitars);
         }
 
@@ -83,6 +128,8 @@ namespace Servis_Centar_Za_Gitare.Controllers
         [Route("gitare/nova")]
         public async Task<IActionResult> Create(Gitara guitar)
         {
+            ValidateGuitar(guitar);
+
             if (ModelState.IsValid)
             {
                 await _context.Gitare.AddAsync(guitar);
@@ -112,6 +159,8 @@ namespace Servis_Centar_Za_Gitare.Controllers
         public async Task<IActionResult> Edit(int id, Gitara guitar)
         {
             if (id != guitar.Id) return BadRequest();
+            ValidateGuitar(guitar);
+
             if (ModelState.IsValid)
             {
                 _context.Gitare.Update(guitar);
@@ -123,12 +172,106 @@ namespace Servis_Centar_Za_Gitare.Controllers
             return View(guitar);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("gitare/obrisi/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var guitar = await _context.Gitare.FindAsync((long)id);
+            if (guitar == null)
+            {
+                return NotFound();
+            }
+
+            if (await _context.Nalozi.AnyAsync(repair => repair.GitaraId == guitar.Id))
+            {
+                TempData["DeleteMessage"] = "Guitar cannot be deleted while it has repair orders.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.Gitare.Remove(guitar);
+            await _context.SaveChangesAsync();
+            TempData["DeleteMessage"] = "Guitar deleted.";
+            return RedirectToAction(nameof(Index));
+        }
+
         private async Task LoadLookupsAsync()
         {
             ViewData["Marke"] = new SelectList(await _context.Marke.AsNoTracking().ToListAsync(), "Id", "Naziv");
             ViewData["TipoviGitare"] = new SelectList(await _context.TipoveGitara.AsNoTracking().ToListAsync(), "Id", "Naziv");
             var kupci = await _context.Stranke.AsNoTracking().Select(s => new { s.Id, Text = s.Ime + " " + s.Prezime }).ToListAsync();
             ViewData["Kupci"] = new SelectList(kupci, "Id", "Text");
+        }
+
+        private void ValidateGuitar(Gitara guitar)
+        {
+            if (guitar.DatumZaprimanja == default)
+            {
+                ModelState.AddModelError(nameof(guitar.DatumZaprimanja), "Received date is required.");
+            }
+
+            if (guitar.DatumZaprimanja > System.DateTime.Now.AddDays(1))
+            {
+                ModelState.AddModelError(nameof(guitar.DatumZaprimanja), "Received date cannot be more than one day in the future.");
+            }
+
+            if (!_context.Marke.Any(brand => brand.Id == guitar.MarkaId))
+            {
+                ModelState.AddModelError(nameof(guitar.MarkaId), "Select an existing brand.");
+            }
+
+            if (!_context.TipoveGitara.Any(type => type.Id == guitar.TipGitareId))
+            {
+                ModelState.AddModelError(nameof(guitar.TipGitareId), "Select an existing guitar type.");
+            }
+
+            if (!_context.Stranke.Any(customer => customer.Id == guitar.KupacId))
+            {
+                ModelState.AddModelError(nameof(guitar.KupacId), "Select an existing owner.");
+            }
+        }
+
+        private static int NormalizePageSize(int pageSize)
+        {
+            return pageSize == -1 || new[] { 10, 50, 100 }.Contains(pageSize) ? pageSize : 10;
+        }
+
+        private static string NormalizeDirection(string direction)
+        {
+            return direction == "desc" ? "desc" : "asc";
+        }
+
+        private static int NormalizeTake(int take, int pageSize, int totalCount)
+        {
+            if (pageSize == -1)
+            {
+                return totalCount;
+            }
+
+            if (totalCount <= pageSize)
+            {
+                return totalCount;
+            }
+
+            return System.Math.Min(System.Math.Max(take <= 0 ? pageSize : take, pageSize), totalCount);
+        }
+
+        private static ListStateViewModel BuildListState(string sort, string direction, int pageSize, int take, int totalCount, IEnumerable<(string Value, string Text)> sortOptions)
+        {
+            return new ListStateViewModel
+            {
+                Sort = sort,
+                Direction = direction,
+                PageSize = pageSize,
+                Take = take,
+                TotalCount = totalCount,
+                SortOptions = sortOptions.Select(option => new SelectListItem
+                {
+                    Value = option.Value,
+                    Text = option.Text,
+                    Selected = option.Value == sort
+                })
+            };
         }
     }
 }

@@ -1,6 +1,7 @@
-@model IEnumerable<Nalog>
+@model IEnumerable<RepairQueueItemViewModel>
 @{
     ViewData["Title"] = "Repairs";
+    var listState = ViewData["ListState"] as ListStateViewModel;
 }
 
 <section class="hero-panel">
@@ -13,10 +14,22 @@
     </div>
 </section>
 
+@if (listState != null)
+{
+    @await Html.PartialAsync("_ListControls", listState)
+}
+
 <section class="card-grid">
     @foreach (var repair in Model)
     {
-        var chipClass = repair.StatusNaloga?.Id switch
+        var item = repair;
+        var repairModel = item.Repair;
+        var cardClass = item.MissingSkillCoverage
+            ? "queue-card repair-card repair-card--impossible"
+            : item.NeedsTechnician
+                ? "queue-card repair-card repair-card--needs-tech"
+                : "queue-card repair-card";
+        var chipClass = repairModel.StatusNaloga?.Id switch
         {
             4 => "success",
             5 => "danger",
@@ -25,27 +38,48 @@
             _ => "info"
         };
 
-        <article class="queue-card">
+        <article class="@cardClass" data-delete-card data-repair-alert="@(item.MissingSkillCoverage ? "impossible" : item.NeedsTechnician ? "needs-tech" : "normal")">
             <div class="queue-head">
                 <div>
-                    <p class="section-label">@repair.VrstaPopravka?.Naziv</p>
-                    <h2 class="queue-title">@repair.Stranka.Ime @repair.Stranka.Prezime</h2>
-                    <p class="queue-subtitle">@repair.OpisKvara</p>
+                    <p class="section-label">@repairModel.VrstaPopravka?.Naziv</p>
+                    <h2 class="queue-title">@repairModel.Stranka.Ime @repairModel.Stranka.Prezime</h2>
+                    <p class="queue-subtitle">@repairModel.OpisKvara</p>
+                    @if (item.MissingSkillCoverage)
+                    {
+                        <p class="repair-alert-copy">No technician has the required skill. Add or update technician skills before this can move forward.</p>
+                    }
+                    else if (item.NeedsTechnician)
+                    {
+                        <p class="repair-warning-copy">Qualified technician exists. Assign one to start this repair.</p>
+                    }
                 </div>
-                <span class="status-chip @chipClass">@repair.StatusNaloga?.Naziv</span>
+                <span class="status-chip @chipClass">@repairModel.StatusNaloga?.Naziv</span>
             </div>
 
             <div class="queue-line">
-                <span><strong>Guitar:</strong> @repair.Gitara.Marka?.Naziv @repair.Gitara.SerijskiBroj</span>
-                <span><strong>Technician:</strong> @repair.Tehnicar.Ime @repair.Tehnicar.Prezime</span>
-                <span><strong>Opened:</strong> @repair.DatumOtvaranja.ToString("dd MMM yyyy")</span>
-                <span><strong>Planned close:</strong> @repair.DatumZatvaranja.ToString("dd MMM yyyy")</span>
+                <span><strong>Guitar:</strong> @repairModel.Gitara.Marka?.Naziv @repairModel.Gitara.SerijskiBroj</span>
+                <span><strong>Technician:</strong> @(repairModel.Tehnicar != null ? repairModel.Tehnicar.Ime + " " + repairModel.Tehnicar.Prezime : "Unassigned")</span>
+                <span><strong>Opened:</strong> <span data-gc-date-display="@repairModel.DatumOtvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@repairModel.DatumOtvaranja.ToString("dd MMM yyyy")</span></span>
+                <span><strong>Planned close:</strong> <span data-gc-date-display="@repairModel.DatumZatvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@repairModel.DatumZatvaranja.ToString("dd MMM yyyy")</span></span>
             </div>
 
             <div class="queue-footer">
-                <a class="action-btn" asp-action="Details" asp-route-id="@repair.Id">View repair details</a>
-                <a class="action-btn secondary" asp-action="Edit" asp-route-id="@repair.Id">Edit repair</a>
+                <a class="action-btn" asp-action="Details" asp-route-id="@repairModel.Id">View repair details</a>
+                <a class="action-btn secondary repair-edit-action" asp-action="Edit" asp-route-id="@repairModel.Id">Edit repair</a>
+                <form asp-action="Delete" asp-route-id="@repairModel.Id" method="post" data-delete-form data-delete-label="repair #@repairModel.Id">
+                    @Html.AntiForgeryToken()
+                    <button class="action-btn danger" type="submit">Delete</button>
+                </form>
             </div>
         </article>
     }
 </section>
+
+@if (listState != null)
+{
+    @await Html.PartialAsync("_LoadMore", listState)
+}
+
+@section Scripts {
+    <script src="~/js/gc-repair-alerts.js" asp-append-version="true"></script>
+}

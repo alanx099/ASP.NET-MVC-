@@ -132,7 +132,8 @@ namespace Servis_Centar_Za_Gitare.Data
                 .HasOne(n => n.Tehnicar)
                 .WithMany(t => t.Nalozi)
                 .HasForeignKey(n => n.TehnicarId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Nalog>()
                 .HasOne(n => n.Poslovnica)

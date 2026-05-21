@@ -1,0 +1,67 @@
+@model DateTimePickerViewModel
+
+<div class="form-group gc-form-group gc-datetime-field">
+    <label for="@($"{Model.Id}_Display")" class="gc-label">@Model.Label</label>
+    <div class="gc-datetime" data-gc-datetime>
+        <input id="@($"{Model.Id}_Display")"
+               class="form-control gc-input gc-datetime__display"
+               type="text"
+               autocomplete="off"
+               inputmode="numeric"
+               aria-describedby="@($"{Model.Id}-error")"
+               data-gc-datetime-display />
+        <button class="gc-datetime__button"
+                type="button"
+                aria-label="Open date and time picker"
+                data-gc-datetime-toggle>
+            <span class="gc-datetime__icon" aria-hidden="true"></span>
+        </button>
+        @if (Model.Required)
+        {
+            <input id="@Model.Id"
+                   name="@Model.Name"
+                   type="hidden"
+                   value="@Model.Value"
+                   data-gc-datetime-value
+                   data-val="true"
+                   data-val-required="The @Model.Label field is required." />
+        }
+        else
+        {
+            <input id="@Model.Id"
+                   name="@Model.Name"
+                   type="hidden"
+                   value="@Model.Value"
+                   data-gc-datetime-value />
+        }
+        <div class="gc-datetime__popover" data-gc-datetime-popover aria-hidden="true">
+            <div class="gc-datetime__header">
+                <button type="button" class="gc-datetime__nav" data-gc-datetime-prev aria-label="Previous month">&lt;</button>
+                <strong data-gc-datetime-month></strong>
+                <button type="button" class="gc-datetime__nav" data-gc-datetime-next aria-label="Next month">&gt;</button>
+            </div>
+            <div class="gc-datetime__weekdays" data-gc-datetime-weekdays></div>
+            <div class="gc-datetime__grid" data-gc-datetime-days></div>
+            <div class="gc-datetime__time">
+                <label>
+                    <span>Hour</span>
+                    <input type="number" min="0" max="23" step="1" data-gc-datetime-hour />
+                </label>
+                <label>
+                    <span>Minute</span>
+                    <input type="number" min="0" max="59" step="1" data-gc-datetime-minute />
+                </label>
+            </div>
+            <div class="gc-datetime__footer">
+                <button type="button" class="gc-datetime__quick" data-gc-datetime-today>Today</button>
+                <button type="button" class="gc-datetime__apply" data-gc-datetime-apply>Apply</button>
+            </div>
+        </div>
+    </div>
+    <span class="invalid-feedback field-validation-valid"
+          data-valmsg-for="@Model.Name"
+          data-valmsg-replace="true"
+          id="@($"{Model.Id}-error")"
+          role="alert"
+          aria-live="polite"></span>
+</div>

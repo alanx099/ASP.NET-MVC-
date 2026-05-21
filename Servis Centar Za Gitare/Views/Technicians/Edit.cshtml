@@ -35,11 +35,7 @@
             <input asp-for="Technician.Adresa" class="form-control gc-input" aria-describedby="Technician_Adresa-error" />
             <span asp-validation-for="Technician.Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
         </div>
-        <div class="form-group gc-form-group">
-            <label asp-for="Technician.DatumZaposlenja" class="gc-label">Hire Date</label>
-            <input asp-for="Technician.DatumZaposlenja" class="form-control gc-input" aria-describedby="Technician_DatumZaposlenja-error" />
-            <span asp-validation-for="Technician.DatumZaposlenja" class="invalid-feedback" role="alert" aria-live="polite"></span>
-        </div>
+        @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel("Technician.DatumZaposlenja", "Hire Date", Model.Technician.DatumZaposlenja))
         <div class="form-group gc-form-group">
             <label asp-for="Technician.Placa" class="gc-label">Salary</label>
             <input asp-for="Technician.Placa" class="form-control gc-input" aria-describedby="Technician_Placa-error" />
@@ -115,6 +111,10 @@
                         removeButton.setAttribute("aria-label", "Remove knowledge area");
                         removeButton.addEventListener("click", function() {
                             option.selected = false;
+                            hiddenSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                            if (window.jQuery) {
+                                window.jQuery(hiddenSelect).valid();
+                            }
                             renderSelectedKnowledge();
                         });
 
@@ -132,6 +132,10 @@
                 }
 
                 option.selected = true;
+                hiddenSelect.dispatchEvent(new Event("change", { bubbles: true }));
+                if (window.jQuery) {
+                    window.jQuery(hiddenSelect).valid();
+                }
                 renderSelectedKnowledge();
             });
 

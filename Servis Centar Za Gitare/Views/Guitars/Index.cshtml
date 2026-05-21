@@ -1,6 +1,8 @@
 @model IEnumerable<Gitara>
 @{
     ViewData["Title"] = "Guitars";
+    var repairCounts = ViewData["GuitarRepairCounts"] as IDictionary<long, int> ?? new Dictionary<long, int>();
+    var listState = ViewData["ListState"] as ListStateViewModel;
 }
 
 <section class="hero-panel">
@@ -12,10 +14,21 @@
     </div>
 </section>
 
+@if (listState != null)
+{
+    @await Html.PartialAsync("_ListControls", listState)
+}
+
 <section class="entity-grid">
     @foreach (var guitar in Model)
     {
-        <article class="entity-card">
+        var repairCount = repairCounts.TryGetValue(guitar.Id, out var repairs) ? repairs : 0;
+        var canDelete = repairCount == 0;
+        var deleteTitle = canDelete
+            ? "Delete guitar"
+            : "Guitar cannot be deleted while it has repair orders.";
+
+        <article class="entity-card" data-delete-card>
             <div class="entity-head">
                 <div>
                         <p class="section-label">@guitar.Marka?.Naziv</p>
@@ -28,13 +41,22 @@
             <div class="entity-body">
                 <div class="badge-row">
                     <span class="info-chip">Owner @(guitar.Kupac != null ? guitar.Kupac.Ime + " " + guitar.Kupac.Prezime : "Unknown")</span>
-                    <span class="info-chip">@guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
+                    <span class="info-chip" data-gc-date-display="@guitar.DatumZaprimanja.ToString("yyyy-MM-ddTHH:mm:ss")">@guitar.DatumZaprimanja.ToString("dd MMM yyyy")</span>
                 </div>
                 <div class="queue-footer">
                     <a class="action-btn" asp-action="Details" asp-route-id="@guitar.Id">View guitar details</a>
                     <a class="action-btn secondary" asp-action="Edit" asp-route-id="@guitar.Id">Edit guitar</a>
+                    <form asp-action="Delete" asp-route-id="@guitar.Id" method="post" data-delete-form data-delete-label="@guitar.SerijskiBroj">
+                        @Html.AntiForgeryToken()
+                        <button class="action-btn danger" type="submit" title="@deleteTitle" @(canDelete ? null : "disabled")>Delete</button>
+                    </form>
                 </div>
             </div>
         </article>
     }
 </section>
+
+@if (listState != null)
+{
+    @await Html.PartialAsync("_LoadMore", listState)
+}

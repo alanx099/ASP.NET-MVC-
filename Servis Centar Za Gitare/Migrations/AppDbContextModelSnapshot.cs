@@ -78,7 +78,7 @@ namespace Servis_Centar_Za_Gitare.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Marke");
+                    b.ToTable("Marke", (string)null);
 
                     b.HasData(
                         new
@@ -189,7 +189,7 @@ namespace Servis_Centar_Za_Gitare.Migrations
                     b.Property<long>("StrankaId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TehnicarId")
+                    b.Property<long?>("TehnicarId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("VrstaPopravkaId")
@@ -250,7 +250,7 @@ namespace Servis_Centar_Za_Gitare.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusiNaloga");
+                    b.ToTable("StatusiNaloga", (string)null);
 
                     b.HasData(
                         new
@@ -348,7 +348,7 @@ namespace Servis_Centar_Za_Gitare.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoveGitara");
+                    b.ToTable("TipoveGitara", (string)null);
 
                     b.HasData(
                         new
@@ -388,7 +388,7 @@ namespace Servis_Centar_Za_Gitare.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VrstePopravke");
+                    b.ToTable("VrstePopravke", (string)null);
 
                     b.HasData(
                         new
@@ -585,8 +585,7 @@ namespace Servis_Centar_Za_Gitare.Migrations
                     b.HasOne("Servis_Centar_Za_Gitare.models.ZapTehnicar", "Tehnicar")
                         .WithMany("Nalozi")
                         .HasForeignKey("TehnicarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Servis_Centar_Za_Gitare.models.VrstaPopravka", "VrstaPopravka")
                         .WithMany("Nalozi")

@@ -10,7 +10,7 @@
     <p class="hero-subtitle">@technician.Email</p>
     <div class="hero-actions">
         <span class="status-chip success">@technician.Znanja.Count skills</span>
-        <span class="status-chip info">@technician.DatumZaposlenja</span>
+        <span class="status-chip info" data-gc-date-display="@technician.DatumZaposlenja">@technician.DatumZaposlenja</span>
         <span class="status-chip warning">@technician.Placa.ToString("C0")</span>
     </div>
 </section>
@@ -21,7 +21,7 @@
         <dl class="definition-list">
             <div><dt>Phone</dt><dd>@technician.BrojTelefona</dd></div>
             <div><dt>Address</dt><dd>@technician.Adresa</dd></div>
-            <div><dt>Hire date</dt><dd>@technician.DatumZaposlenja</dd></div>
+            <div><dt>Hire date</dt><dd data-gc-date-display="@technician.DatumZaposlenja">@technician.DatumZaposlenja</dd></div>
             <div><dt>Salary</dt><dd>@technician.Placa.ToString("C0")</dd></div>
         </dl>
     </article>

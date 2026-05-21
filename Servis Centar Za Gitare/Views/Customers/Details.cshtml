@@ -10,7 +10,7 @@
     <p class="hero-subtitle">@customer.Napomena</p>
     <div class="hero-actions">
         <span class="status-chip info">@customer.Gitare.Count guitars</span>
-        <span class="status-chip success">@customer.DatumRegistracije</span>
+        <span class="status-chip success" data-gc-date-display="@customer.DatumRegistracije">@customer.DatumRegistracije</span>
     </div>
 </section>
 
@@ -21,7 +21,7 @@
             <div><dt>Email</dt><dd>@customer.Email</dd></div>
             <div><dt>Phone</dt><dd>@customer.BrojTelefona</dd></div>
             <div><dt>Address</dt><dd>@customer.Adresa</dd></div>
-            <div><dt>Registration date</dt><dd>@customer.DatumRegistracije</dd></div>
+            <div><dt>Registration date</dt><dd data-gc-date-display="@customer.DatumRegistracije">@customer.DatumRegistracije</dd></div>
         </dl>
     </article>
 
@@ -65,7 +65,7 @@
                         <div>
                                 <p class="section-label">@repair.VrstaPopravka?.Naziv</p>
                             <h4 class="queue-title">@repair.OpisKvara</h4>
-                            <p class="queue-subtitle">@repair.DatumOtvaranja.ToString("dd MMM yyyy")</p>
+                            <p class="queue-subtitle" data-gc-date-display="@repair.DatumOtvaranja.ToString("yyyy-MM-ddTHH:mm:ss")">@repair.DatumOtvaranja.ToString("dd MMM yyyy")</p>
                         </div>
                             <span class="status-chip info">@repair.StatusNaloga?.Naziv</span>
                     </div>

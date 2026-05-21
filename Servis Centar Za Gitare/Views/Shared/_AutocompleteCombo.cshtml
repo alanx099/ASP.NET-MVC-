@@ -1,0 +1,37 @@
+@model AutocompleteComboViewModel
+
+<div class="form-group gc-form-group gc-autocomplete-field">
+    <label for="@($"{Model.Id}_Search")" class="gc-label">@Model.Label</label>
+    <div class="gc-autocomplete"
+         data-gc-autocomplete
+         data-endpoint="@Model.Endpoint"
+         data-customer-field="@Model.CustomerField"
+         data-guitar-field="@Model.GuitarField"
+         data-repair-type-field="@Model.RepairTypeField">
+        <input id="@Model.Id"
+               name="@Model.Name"
+               type="hidden"
+               value="@Model.Value"
+               data-gc-autocomplete-value />
+        <input id="@($"{Model.Id}_Search")"
+               type="text"
+               value="@Model.DisplayValue"
+               class="form-control gc-input gc-autocomplete__input"
+               autocomplete="off"
+               placeholder="@Model.Placeholder"
+               aria-autocomplete="list"
+               aria-expanded="false"
+               aria-describedby="@Model.DescribedBy"
+               data-gc-autocomplete-input />
+        <div class="gc-autocomplete__list"
+             role="listbox"
+             aria-hidden="true"
+             data-gc-autocomplete-list></div>
+    </div>
+    <span class="invalid-feedback field-validation-valid"
+          data-valmsg-for="@Model.Name"
+          data-valmsg-replace="true"
+          id="@Model.DescribedBy"
+          role="alert"
+          aria-live="polite"></span>
+</div>

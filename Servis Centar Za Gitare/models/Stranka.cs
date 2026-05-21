@@ -47,31 +47,33 @@ namespace Servis_Centar_Za_Gitare.models
         [ForeignKey(nameof(PoslovnicaId))]
         public virtual Poslovnica? Poslovnica { get; set; }
 
-        [Required]
-        [MaxLength(80)]
+        [Required(ErrorMessage = "First name is required.")]
+        [StringLength(80, ErrorMessage = "First name can contain up to 80 characters.")]
         public string Ime { get => _ime; set => _ime = value; }
 
-        [Required]
-        [MaxLength(80)]
+        [Required(ErrorMessage = "Last name is required.")]
+        [StringLength(80, ErrorMessage = "Last name can contain up to 80 characters.")]
         public string Prezime { get => _prezime; set => _prezime = value; }
 
-        [Required]
-        [MaxLength(120)]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address.")]
+        [StringLength(120, ErrorMessage = "Email can contain up to 120 characters.")]
         public string Email { get => _email; set => _email = value; }
 
-        [Required]
-        [MaxLength(30)]
+        [Required(ErrorMessage = "Phone number is required.")]
+        [Phone(ErrorMessage = "Enter a valid phone number.")]
+        [StringLength(30, ErrorMessage = "Phone number can contain up to 30 characters.")]
         public string BrojTelefona { get => _brojTelefona; set => _brojTelefona = value; }
 
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Address is required.")]
+        [StringLength(200, ErrorMessage = "Address can contain up to 200 characters.")]
         public string Adresa { get => _adresa; set => _adresa = value; }
 
-        [Required]
-        [MaxLength(30)]
+        [Required(ErrorMessage = "Registration date is required.")]
+        [StringLength(30, ErrorMessage = "Registration date can contain up to 30 characters.")]
         public string DatumRegistracije { get => _datumRegistracije; set => _datumRegistracije = value; }
 
-        [MaxLength(1000)]
+        [StringLength(1000, ErrorMessage = "Notes can contain up to 1000 characters.")]
         public string Napomena { get => _napomena; set => _napomena = value; }
 
         public virtual ICollection<Gitara> Gitare { get => _gitare; set => _gitare = value.ToList(); }
