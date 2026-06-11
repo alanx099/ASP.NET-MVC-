@@ -14,6 +14,11 @@
     formatDateOutputs();
   }
 
+  document.addEventListener("gc:content-added", function (event) {
+    const root = event.detail?.root || document;
+    formatDateOutputs(root);
+  });
+
   function enhancePicker(root) {
     const display = root.querySelector("[data-gc-datetime-display]");
     const valueInput = root.querySelector("[data-gc-datetime-value]");
@@ -152,8 +157,8 @@
     }
   }
 
-  function formatDateOutputs() {
-    document.querySelectorAll("[data-gc-date-display]").forEach(function (element) {
+  function formatDateOutputs(root) {
+    (root || document).querySelectorAll("[data-gc-date-display]").forEach(function (element) {
       const value = element.getAttribute("datetime") || element.dataset.gcDateDisplay || element.textContent;
       const parsed = parseDate(value);
       if (parsed) {

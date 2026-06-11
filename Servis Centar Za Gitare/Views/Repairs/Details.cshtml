@@ -70,3 +70,10 @@
         </div>
     </article>
 </section>
+
+@await Html.PartialAsync("_RepairFiles", Model.Repair.Id)
+
+@section Scripts {
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script src="~/js/gc-repair-files.js" asp-append-version="true"></script>
+}

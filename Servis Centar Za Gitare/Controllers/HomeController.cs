@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servis_Centar_Za_Gitare.Data.Interfaces;
 using Servis_Centar_Za_Gitare.Data.Mock;
@@ -6,6 +7,7 @@ using Servis_Centar_Za_Gitare.ViewModels;
 
 namespace Servis_Centar_Za_Gitare.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ICustomerRepository _customerRepository;

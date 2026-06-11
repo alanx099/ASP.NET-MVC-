@@ -18,6 +18,7 @@
     <script src="~/js/gc-select.js" asp-append-version="true"></script>
     <script src="~/js/gc-datetime.js" asp-append-version="true"></script>
     <script src="~/js/gc-autocomplete.js" asp-append-version="true"></script>
+    <script src="~/js/gc-load-more.js" asp-append-version="true"></script>
 </head>
 <body>
     <div class="ambient ambient-one"></div>
@@ -36,11 +37,23 @@
 
             <nav class="primary-nav" aria-label="Primary">
                 <a class="nav-link @(controllerName == "Home" ? "active" : string.Empty)" asp-controller="Home" asp-action="Index">Dashboard</a>
-                <a class="nav-link @(controllerName == "Customers" ? "active" : string.Empty)" asp-controller="Customers" asp-action="Index">Customers</a>
-                <a class="nav-link @(controllerName == "Guitars" ? "active" : string.Empty)" asp-controller="Guitars" asp-action="Index">Guitars</a>
-                <a class="nav-link @(controllerName == "Repairs" ? "active" : string.Empty)" asp-controller="Repairs" asp-action="Index">Repairs</a>
-                <a class="nav-link @(controllerName == "Technicians" ? "active" : string.Empty)" asp-controller="Technicians" asp-action="Index">Technicians</a>
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+                    <a class="nav-link @(controllerName == "Customers" ? "active" : string.Empty)" asp-controller="Customers" asp-action="Index">Customers</a>
+                    <a class="nav-link @(controllerName == "Guitars" ? "active" : string.Empty)" asp-controller="Guitars" asp-action="Index">Guitars</a>
+                    <a class="nav-link @(controllerName == "Repairs" ? "active" : string.Empty)" asp-controller="Repairs" asp-action="Index">Repairs</a>
+                    <a class="nav-link @(controllerName == "Technicians" ? "active" : string.Empty)" asp-controller="Technicians" asp-action="Index">Technicians</a>
+                }
+                @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                {
+                    <a class="nav-link @(controllerName == "MojServis" ? "active" : string.Empty)" asp-controller="MojServis" asp-action="Index">Moj servis</a>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="nav-link @(controllerName == "UserManagement" ? "active" : string.Empty)" asp-controller="UserManagement" asp-action="Index">Users</a>
+                }
             </nav>
+            <partial name="_LoginPartial" />
         </header>
 
         <main class="page-stage">

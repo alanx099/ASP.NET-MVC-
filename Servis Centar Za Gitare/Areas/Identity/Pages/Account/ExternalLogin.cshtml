@@ -1,0 +1,25 @@
+@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2 class="section-title">Register</h2>
+
+<form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="gc-form">
+    <div class="gc-card--form">
+        <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+        <input asp-for="Input.Email" type="hidden" />
+        <div class="form-group gc-form-group">
+            <label asp-for="Input.Email" class="gc-label"></label>
+            <input asp-for="Input.Email" class="form-control gc-input" disabled />
+        </div>
+        <div class="gc-actions">
+            <button type="submit" class="btn gc-btn-primary">Register</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

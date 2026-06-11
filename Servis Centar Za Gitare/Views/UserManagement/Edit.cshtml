@@ -1,0 +1,42 @@
+@model UserManagementEditViewModel
+@{
+    ViewData["Title"] = "Edit user";
+}
+
+<h2 class="section-title">Edit user</h2>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="gc-form">
+    @Html.AntiForgeryToken()
+    <div class="gc-card--form">
+        <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+        <p class="section-copy">@Model.Email</p>
+
+        <div class="form-group gc-form-group">
+            <label asp-for="SelectedRoles" class="gc-label">Roles</label>
+            <select asp-for="SelectedRoles" asp-items="Model.RoleOptions" class="form-control gc-input" multiple></select>
+            <span asp-validation-for="SelectedRoles" class="invalid-feedback"></span>
+        </div>
+
+        <div class="form-group gc-form-group">
+            <label asp-for="StrankaId" class="gc-label">Linked customer</label>
+            <select asp-for="StrankaId" asp-items="Model.CustomerOptions" class="form-control gc-input">
+                <option value="">No linked customer</option>
+            </select>
+            <span asp-validation-for="StrankaId" class="invalid-feedback"></span>
+        </div>
+
+        <label class="gc-checkbox">
+            <input asp-for="LockedOut" />
+            <span>Locked out</span>
+        </label>
+
+        <div class="gc-actions">
+            <button type="submit" class="btn gc-btn-primary">Save</button>
+            <a asp-action="Index" class="btn gc-btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,27 @@
+@model long
+
+<section class="gc-repair-files"
+         data-repair-files
+         data-list-url="@Url.Action("Files", "Repairs", new { id = Model })"
+         data-upload-url="@Url.Action("UploadFile", "Repairs", new { id = Model })">
+    @Html.AntiForgeryToken()
+    <div class="gc-repair-files__header">
+        <div>
+            <p class="section-label">Repair images</p>
+            <h3 class="gc-repair-files__title">Images</h3>
+        </div>
+    </div>
+    <form class="dropzone gc-dropzone" data-repair-dropzone action="@Url.Action("UploadFile", "Repairs", new { id = Model })" method="post" enctype="multipart/form-data">
+        <div class="dz-message" data-dz-message>
+            <span>Drop images here or click to upload</span>
+        </div>
+    </form>
+    <div class="gc-repair-files__controls">
+        <button type="button" class="btn gc-btn-primary" data-repair-upload-button disabled>Upload files</button>
+        <div class="gc-upload-progress" data-repair-upload-progress hidden>
+            <div class="gc-upload-progress__bar" data-repair-upload-progress-bar></div>
+        </div>
+    </div>
+    <div class="gc-file-grid" data-repair-file-list aria-live="polite"></div>
+    <p class="field-validation-valid gc-repair-files__error" data-repair-files-error role="alert" aria-live="polite" hidden></p>
+</section>

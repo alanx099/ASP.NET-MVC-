@@ -35,20 +35,11 @@
             <input asp-for="Technician.Adresa" class="form-control gc-input" aria-describedby="Technician_Adresa-error" />
             <span asp-validation-for="Technician.Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
         </div>
-        @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel("Technician.DatumZaposlenja", "Hire Date", Model.Technician.DatumZaposlenja))
+        @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel("Technician.DatumZaposlenja", "Hire Date", Model.Technician.DatumZaposlenja, maxFutureDays: 1, maxFutureMessage: "Hire date cannot be more than one day in the future."))
         <div class="form-group gc-form-group">
             <label asp-for="Technician.Placa" class="gc-label">Salary</label>
             <input asp-for="Technician.Placa" class="form-control gc-input" aria-describedby="Technician_Placa-error" />
             <span asp-validation-for="Technician.Placa" class="invalid-feedback" role="alert" aria-live="polite"></span>
-        </div>
-        <div class="form-group gc-form-group">
-            <label asp-for="Technician.PoslovnicaId" class="gc-label">Office Location</label>
-            <div class="gc-select">
-                <select asp-for="Technician.PoslovnicaId" class="form-control gc-input" asp-items="Model.Poslovnice" data-gc-select="true" aria-describedby="Technician_PoslovnicaId-error">
-                    <option value="">-- No office --</option>
-                </select>
-            </div>
-            <span asp-validation-for="Technician.PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
         </div>
         <div class="form-group gc-form-group">
             <label asp-for="SelectedKnowledgePairs" class="gc-label">Knowledge areas</label>

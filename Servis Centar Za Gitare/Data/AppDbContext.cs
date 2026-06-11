@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Servis_Centar_Za_Gitare.models;
 
 namespace Servis_Centar_Za_Gitare.Data
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -17,6 +18,7 @@ namespace Servis_Centar_Za_Gitare.Data
         public DbSet<Zaposlenik> Zaposlenici => Set<Zaposlenik>();
         public DbSet<ZapTehnicar> Tehnicari => Set<ZapTehnicar>();
         public DbSet<Znanje> Znanja => Set<Znanje>();
+        public DbSet<NalogDatoteka> NalogDatoteke => Set<NalogDatoteka>();
         public DbSet<Marka> Marke => Set<Marka>();
         public DbSet<TipGitare> TipoveGitara => Set<TipGitare>();
         public DbSet<StatusNaloga> StatusiNaloga => Set<StatusNaloga>();
@@ -109,6 +111,16 @@ namespace Servis_Centar_Za_Gitare.Data
                 .HasForeignKey(s => s.PoslovnicaId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<Stranka>()
+                .HasOne(s => s.AppUser)
+                .WithOne(u => u.Stranka)
+                .HasForeignKey<Stranka>(s => s.AppUserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Stranka>()
+                .HasIndex(s => s.AppUserId)
+                .IsUnique();
+
             modelBuilder.Entity<Zaposlenik>()
                 .HasOne(z => z.Poslovnica)
                 .WithMany(p => p.Zaposlenici)
@@ -152,6 +164,12 @@ namespace Servis_Centar_Za_Gitare.Data
                 .WithMany(v => v.Nalozi)
                 .HasForeignKey(n => n.VrstaPopravkaId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<NalogDatoteka>()
+                .HasOne(d => d.Nalog)
+                .WithMany(n => n.Datoteke)
+                .HasForeignKey(d => d.NalogId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Znanje relationships and key
             modelBuilder.Entity<Znanje>()

@@ -11,6 +11,7 @@ namespace Servis_Centar_Za_Gitare.models
     {
         private long _id;
         private long? _poslovnicaId;
+        private string? _appUserId;
         private String _ime = string.Empty;
         private String _prezime = string.Empty;
         private String _email = string.Empty;
@@ -46,6 +47,11 @@ namespace Servis_Centar_Za_Gitare.models
 
         [ForeignKey(nameof(PoslovnicaId))]
         public virtual Poslovnica? Poslovnica { get; set; }
+
+        public string? AppUserId { get => _appUserId; set => _appUserId = value; }
+
+        [ForeignKey(nameof(AppUserId))]
+        public virtual AppUser? AppUser { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]
         [StringLength(80, ErrorMessage = "First name can contain up to 80 characters.")]

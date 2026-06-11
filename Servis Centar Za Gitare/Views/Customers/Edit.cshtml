@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit Customer";
-    var poslovnice = ViewData["Poslovnice"] as SelectList;
 }
 
 <h2 class="section-title">Edit Customer</h2>
@@ -36,14 +35,7 @@
         <input asp-for="Adresa" class="form-control gc-input" aria-describedby="Adresa-error" />
         <span asp-validation-for="Adresa" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumRegistracije), "Registration Date", Model.DatumRegistracije))
-    <div class="form-group gc-form-group">
-        <label asp-for="PoslovnicaId" class="gc-label">Office Location</label>
-        <div class="gc-select">
-            <select asp-for="PoslovnicaId" class="form-control gc-input" asp-items="poslovnice" data-gc-select="true" aria-describedby="PoslovnicaId-error"></select>
-        </div>
-        <span asp-validation-for="PoslovnicaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
-    </div>
+    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumRegistracije), "Registration Date", Model.DatumRegistracije, maxFutureDays: 1, maxFutureMessage: "Registration date cannot be more than one day in the future."))
     <div class="gc-actions">
         <button type="submit" class="btn gc-btn-primary">Save</button>
         <a asp-action="Index" class="btn gc-btn-secondary">Cancel</a>

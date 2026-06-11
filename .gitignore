@@ -1,1 +1,7 @@
 /pgdata
+.vs/
+bin/
+obj/
+clientsecret.txt
+artifacts/
+**/wwwroot/uploads/

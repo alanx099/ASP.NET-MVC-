@@ -1,0 +1,1174 @@
+{
+  "info": {
+    "name": "Servisni Centar Gitara API",
+    "description": "Manual API test collection for the Servisni Centar Gitara ASP.NET Core MVC/API project. All requests use {{baseUrl}}. Most API controllers are protected by ASP.NET Core Identity roles. The collection includes an Authorization: Bearer {{token}} header for protected routes. If the application is running with cookie authentication instead of JWT bearer authentication, log in through the browser/Identity UI first and let Postman use the auth cookie, or manually copy the .AspNetCore.Identity.Application cookie into Postman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/customers?query=marko&officeId=1&take=50",
+            "description": "Returns customers filtered by query and office. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/customers/1",
+            "description": "Returns one customer by id. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers",
+            "description": "Creates a customer. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Marko\",\r\n  \"prezime\": \"Horvat\",\r\n  \"email\": \"marko.horvat@example.com\",\r\n  \"brojTelefona\": \"+385911234567\",\r\n  \"adresa\": \"Ilica 1, Zagreb\",\r\n  \"datumRegistracije\": \"2026-06-11T10:00\",\r\n  \"napomena\": \"Test customer\",\r\n  \"poslovnicaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/1",
+            "description": "Updates a customer. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Marko\",\r\n  \"prezime\": \"Horvat\",\r\n  \"email\": \"marko.horvat@example.com\",\r\n  \"brojTelefona\": \"+385911234567\",\r\n  \"adresa\": \"Ilica 1, Zagreb\",\r\n  \"datumRegistracije\": \"2026-06-11T10:00\",\r\n  \"napomena\": \"Updated customer\",\r\n  \"poslovnicaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/customers/1",
+            "description": "Deletes a customer. Requires Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/employees?query=ana&officeId=1&take=50",
+            "description": "Returns employees filtered by query and office. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/employees/1",
+            "description": "Returns one employee by id. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/employees",
+            "description": "Creates an employee. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Ana\",\r\n  \"prezime\": \"Kovac\",\r\n  \"email\": \"ana.kovac@example.com\",\r\n  \"brojTelefona\": \"+385921234567\",\r\n  \"adresa\": \"Savska 10, Zagreb\",\r\n  \"datumZaposlenja\": \"2026-06-11T09:00\",\r\n  \"placa\": 1200,\r\n  \"poslovnicaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/employees/1",
+            "description": "Updates an employee. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Ana\",\r\n  \"prezime\": \"Kovac\",\r\n  \"email\": \"ana.kovac@example.com\",\r\n  \"brojTelefona\": \"+385921234567\",\r\n  \"adresa\": \"Savska 10, Zagreb\",\r\n  \"datumZaposlenja\": \"2026-06-11T09:00\",\r\n  \"placa\": 1350,\r\n  \"poslovnicaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/employees/1",
+            "description": "Deletes an employee. Requires Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Guitars",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/guitars?query=fender&customerId=1&brandId=1&typeId=1&take=50",
+            "description": "Returns guitars filtered by query, customer, brand, and type. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/guitars/1",
+            "description": "Returns one guitar by id. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/guitars",
+            "description": "Creates a guitar. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serijskiBroj\": \"SN-POSTMAN-001\",\r\n  \"markaId\": 1,\r\n  \"brojZica\": \"6\",\r\n  \"tipGitareId\": 1,\r\n  \"datumZaprimanja\": \"2026-06-11T10:00:00Z\",\r\n  \"kupacId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/guitars/1",
+            "description": "Updates a guitar. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serijskiBroj\": \"SN-POSTMAN-001\",\r\n  \"markaId\": 1,\r\n  \"brojZica\": \"6\",\r\n  \"tipGitareId\": 1,\r\n  \"datumZaprimanja\": \"2026-06-11T10:00:00Z\",\r\n  \"kupacId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/guitars/1",
+            "description": "Deletes a guitar. Requires Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Knowledge",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/knowledge?technicianId=1&guitarTypeId=1&repairTypeId=1&take=50",
+            "description": "Returns technician knowledge/skills filtered by technician, guitar type, and repair type. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by composite id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/knowledge/1/1/1",
+            "description": "Returns one knowledge record by technicianId, guitarTypeId, and repairTypeId. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/knowledge",
+            "description": "Creates a knowledge record. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tehnicarId\": 1,\r\n  \"tipGitareId\": 1,\r\n  \"vrstaPopravkaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/knowledge/1/1/1",
+            "description": "Updates a knowledge record identified by the composite key. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tehnicarId\": 1,\r\n  \"tipGitareId\": 1,\r\n  \"vrstaPopravkaId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/knowledge/1/1/1",
+            "description": "Deletes a knowledge record. Requires Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Brands",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/brands?query=fender&take=50",
+            "description": "Returns a filtered list from api/brands. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/brands/1",
+            "description": "Returns one existing item from api/brands. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/brands",
+            "description": "Creates a new item in api/brands. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Brand\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/brands/1",
+            "description": "Updates an existing item in api/brands. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Brand\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/brands/1",
+            "description": "Deletes an existing item from api/brands. Requires an authenticated Admin role."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Guitar Types",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/guitar-types?query=classic&take=50",
+            "description": "Returns a filtered list from api/guitar-types. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/guitar-types/1",
+            "description": "Returns one existing item from api/guitar-types. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/guitar-types",
+            "description": "Creates a new item in api/guitar-types. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Guitar Type\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/guitar-types/1",
+            "description": "Updates an existing item in api/guitar-types. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Guitar Type\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/guitar-types/1",
+            "description": "Deletes an existing item from api/guitar-types. Requires an authenticated Admin role."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Repair Statuses",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repair-statuses?query=zaprimljen&take=50",
+            "description": "Returns a filtered list from api/repair-statuses. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repair-statuses/1",
+            "description": "Returns one existing item from api/repair-statuses. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/repair-statuses",
+            "description": "Creates a new item in api/repair-statuses. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Status\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/repair-statuses/1",
+            "description": "Updates an existing item in api/repair-statuses. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Status\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repair-statuses/1",
+            "description": "Deletes an existing item from api/repair-statuses. Requires an authenticated Admin role."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Repair Types",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repair-types?query=setup&take=50",
+            "description": "Returns a filtered list from api/repair-types. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repair-types/1",
+            "description": "Returns one existing item from api/repair-types. Requires an authenticated Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/repair-types",
+            "description": "Creates a new item in api/repair-types. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Repair Type\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/repair-types/1",
+            "description": "Updates an existing item in api/repair-types. Requires an authenticated Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"naziv\": \"Postman Repair Type\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repair-types/1",
+            "description": "Deletes an existing item from api/repair-types. Requires an authenticated Admin role."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Me",
+      "item": [
+        {
+          "name": "Get my guitars",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/me/guitars",
+            "description": "Returns guitars for the currently authenticated user. Requires User or Admin."
+          }
+        },
+        {
+          "name": "Get my service orders",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/me/service-orders",
+            "description": "Returns service orders for the currently authenticated user. Requires User or Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Offices",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/offices?query=zagreb&take=50",
+            "description": "Returns offices filtered by query. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/offices/1",
+            "description": "Returns one office by id. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/offices",
+            "description": "Creates an office. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Postman poslovnica\",\r\n  \"adresa\": \"Testna ulica 1, Zagreb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/offices/1",
+            "description": "Updates an office. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Postman poslovnica updated\",\r\n  \"adresa\": \"Testna ulica 2, Zagreb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/offices/1",
+            "description": "Deletes an office. Requires Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Repairs",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repairs?query=fender&customerId=1&guitarId=1&technicianId=1&officeId=1&statusId=1&repairTypeId=1&take=50",
+            "description": "Returns repairs filtered by query and related ids. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repairs/1",
+            "description": "Returns one repair by id. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/repairs",
+            "description": "Creates a repair/service order. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"gitaraId\": 1,\r\n  \"strankaId\": 1,\r\n  \"tehnicarId\": 1,\r\n  \"poslovnicaId\": 1,\r\n  \"opisKvara\": \"Setup and intonation check\",\r\n  \"datumOtvaranja\": \"2026-06-11T10:00:00Z\",\r\n  \"datumZatvaranja\": null,\r\n  \"statusNalogaId\": 1,\r\n  \"vrstaPopravkaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/repairs/1",
+            "description": "Updates a repair/service order. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"gitaraId\": 1,\r\n  \"strankaId\": 1,\r\n  \"tehnicarId\": 1,\r\n  \"poslovnicaId\": 1,\r\n  \"opisKvara\": \"Updated setup and intonation check\",\r\n  \"datumOtvaranja\": \"2026-06-11T10:00:00Z\",\r\n  \"datumZatvaranja\": \"2026-06-12T10:00:00Z\",\r\n  \"statusNalogaId\": 2,\r\n  \"vrstaPopravkaId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/repairs/1",
+            "description": "Deletes a repair/service order. Requires Admin."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Technicians",
+      "item": [
+        {
+          "name": "Get all",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/technicians?query=ivo&officeId=1&guitarTypeId=1&repairTypeId=1&take=50",
+            "description": "Returns technicians filtered by query, office, guitar type, and repair type. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/technicians/1",
+            "description": "Returns one technician by id. Requires Admin or Manager."
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/technicians",
+            "description": "Creates a technician with optional knowledge records. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Ivo\",\r\n  \"prezime\": \"Majstor\",\r\n  \"email\": \"ivo.majstor@example.com\",\r\n  \"brojTelefona\": \"+385931234567\",\r\n  \"adresa\": \"Radnicka 5, Zagreb\",\r\n  \"datumZaposlenja\": \"2026-06-11T09:00\",\r\n  \"placa\": 1500,\r\n  \"poslovnicaId\": 1,\r\n  \"znanja\": [\r\n    {\r\n      \"tehnicarId\": 1,\r\n      \"tipGitareId\": 1,\r\n      \"vrstaPopravkaId\": 1\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/technicians/1",
+            "description": "Updates a technician and knowledge records. Requires Admin or Manager.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ime\": \"Ivo\",\r\n  \"prezime\": \"Majstor\",\r\n  \"email\": \"ivo.majstor@example.com\",\r\n  \"brojTelefona\": \"+385931234567\",\r\n  \"adresa\": \"Radnicka 5, Zagreb\",\r\n  \"datumZaposlenja\": \"2026-06-11T09:00\",\r\n  \"placa\": 1600,\r\n  \"poslovnicaId\": 1,\r\n  \"znanja\": [\r\n    {\r\n      \"tehnicarId\": 1,\r\n      \"tipGitareId\": 1,\r\n      \"vrstaPopravkaId\": 1\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            "url": "{{baseUrl}}/api/technicians/1",
+            "description": "Deletes a technician. Requires Admin."
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:6969",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "paste-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}

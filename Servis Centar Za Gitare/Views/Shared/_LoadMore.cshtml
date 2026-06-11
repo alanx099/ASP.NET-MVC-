@@ -4,9 +4,11 @@
 {
     <div class="gc-load-more">
         <a class="action-link primary"
+           data-gc-load-more
            asp-action="@Model.ActionName"
            asp-route-sort="@Model.Sort"
            asp-route-direction="@Model.Direction"
+           asp-route-customerId="@Model.CustomerId"
            asp-route-pageSize="@Model.PageSize"
            asp-route-take="@Model.NextTake">+ Load more</a>
     </div>

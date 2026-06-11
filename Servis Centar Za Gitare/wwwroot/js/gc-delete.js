@@ -11,19 +11,22 @@
     const modal = createDeleteModal();
     let pendingForm = null;
 
-    document.querySelectorAll("[data-delete-form]").forEach(function (form) {
-      form.addEventListener("submit", function (event) {
-        const button = form.querySelector("button[type='submit']");
-        if (button && button.disabled) {
-          event.preventDefault();
-          return;
-        }
+    document.addEventListener("submit", function (event) {
+      const form = event.target.closest("[data-delete-form]");
+      if (!form) {
+        return;
+      }
 
-        const label = form.getAttribute("data-delete-label") || "this item";
+      const button = form.querySelector("button[type='submit']");
+      if (button && button.disabled) {
         event.preventDefault();
-        pendingForm = form;
-        openDeleteModal(modal, label);
-      });
+        return;
+      }
+
+      const label = form.getAttribute("data-delete-label") || "this item";
+      event.preventDefault();
+      pendingForm = form;
+      openDeleteModal(modal, label);
     });
 
     modal.querySelector("[data-delete-cancel]").addEventListener("click", function () {

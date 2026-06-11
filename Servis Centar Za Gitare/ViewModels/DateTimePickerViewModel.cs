@@ -5,20 +5,44 @@ namespace Servis_Centar_Za_Gitare.ViewModels
 {
     public class DateTimePickerViewModel
     {
-        public DateTimePickerViewModel(string name, string label, DateTime? value = null, bool required = true)
+        public DateTimePickerViewModel(
+            string name,
+            string label,
+            DateTime? value = null,
+            bool required = true,
+            int? maxFutureDays = null,
+            string? maxFutureMessage = null,
+            string? notBeforeFieldName = null,
+            string? notBeforeMessage = null)
         {
             Name = name;
             Label = label;
             Value = value.HasValue ? FormatDateTime(value.Value) : string.Empty;
             Required = required;
+            MaxFutureDays = maxFutureDays;
+            MaxFutureMessage = maxFutureMessage;
+            NotBeforeFieldName = notBeforeFieldName;
+            NotBeforeMessage = notBeforeMessage;
         }
 
-        public DateTimePickerViewModel(string name, string label, string? value, bool required = true)
+        public DateTimePickerViewModel(
+            string name,
+            string label,
+            string? value,
+            bool required = true,
+            int? maxFutureDays = null,
+            string? maxFutureMessage = null,
+            string? notBeforeFieldName = null,
+            string? notBeforeMessage = null)
         {
             Name = name;
             Label = label;
             Value = NormalizeStringValue(value);
             Required = required;
+            MaxFutureDays = maxFutureDays;
+            MaxFutureMessage = maxFutureMessage;
+            NotBeforeFieldName = notBeforeFieldName;
+            NotBeforeMessage = notBeforeMessage;
         }
 
         public string Name { get; }
@@ -29,7 +53,17 @@ namespace Servis_Centar_Za_Gitare.ViewModels
 
         public bool Required { get; }
 
+        public int? MaxFutureDays { get; }
+
+        public string? MaxFutureMessage { get; }
+
+        public string? NotBeforeFieldName { get; }
+
+        public string? NotBeforeMessage { get; }
+
         public string Id => Name.Replace(".", "_");
+
+        public string? NotBeforeFieldId => NotBeforeFieldName?.Replace(".", "_");
 
         private static string FormatDateTime(DateTime value)
         {

@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit Guitar";
-    var marke = ViewData["Marke"] as SelectList;
     var tipoviGitare = ViewData["TipoviGitare"] as SelectList;
     var kupci = ViewData["Kupci"] as SelectList;
 }
@@ -18,13 +17,7 @@
         <input asp-for="SerijskiBroj" class="form-control gc-input" aria-describedby="SerijskiBroj-error" />
         <span asp-validation-for="SerijskiBroj" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    <div class="form-group gc-form-group">
-        <label asp-for="MarkaId" class="gc-label">Brand</label>
-        <div class="gc-select">
-            <select asp-for="MarkaId" class="form-control gc-input" asp-items="marke" data-gc-select="true" aria-describedby="MarkaId-error"></select>
-        </div>
-        <span asp-validation-for="MarkaId" class="invalid-feedback" role="alert" aria-live="polite"></span>
-    </div>
+    @await Html.PartialAsync("_AutocompleteCombo", new AutocompleteComboViewModel(nameof(Model.MarkaId), "Brand", Url.Action("AutocompleteBrands", "Guitars")!, Model.MarkaId > 0 ? Model.MarkaId : null, ViewData["SelectedBrandText"]?.ToString(), "MarkaId-error") { Placeholder = "Search brand..." })
     <div class="form-group gc-form-group">
         <label asp-for="BrojZica" class="gc-label">Number of Strings</label>
         <input asp-for="BrojZica" class="form-control gc-input" aria-describedby="BrojZica-error" />
@@ -37,7 +30,7 @@
         </div>
         <span asp-validation-for="TipGitareId" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
-    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumZaprimanja), "Received Date", Model.DatumZaprimanja))
+    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumZaprimanja), "Received Date", Model.DatumZaprimanja, maxFutureDays: 1, maxFutureMessage: "Received date cannot be more than one day in the future."))
     <div class="form-group gc-form-group">
         <label asp-for="KupacId" class="gc-label">Owner</label>
         <div class="gc-select">

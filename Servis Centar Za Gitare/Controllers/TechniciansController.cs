@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using Servis_Centar_Za_Gitare.ViewModels;
 
 namespace Servis_Centar_Za_Gitare.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class TechniciansController : Controller
     {
         private readonly ITechnicianRepository _technicianRepository;
@@ -120,6 +122,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         [Route("tehnicari/novi")]
         public async Task<IActionResult> Create(TechnicianFormViewModel model)
         {
+            model.Technician.PoslovnicaId = await GetDefaultOfficeIdAsync();
             ValidateTechnicianForm(model);
 
             if (!ModelState.IsValid)
@@ -169,6 +172,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
             }
 
             model.Technician.Id = id;
+            model.Technician.PoslovnicaId = await GetDefaultOfficeIdAsync();
             ValidateTechnicianForm(model);
 
             if (!ModelState.IsValid)
@@ -184,6 +188,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [Route("tehnicari/obrisi/{id:int}")]
         public async Task<IActionResult> Delete(int id)
@@ -210,7 +215,6 @@ namespace Servis_Centar_Za_Gitare.Controllers
             return new TechnicianFormViewModel
             {
                 Technician = technician,
-                Poslovnice = new SelectList(await _context.Poslovnice.AsNoTracking().ToListAsync(), "Id", "Ime", technician.PoslovnicaId),
                 TipGitareOptions = new SelectList(await _context.TipoveGitara.AsNoTracking().OrderBy(tip => tip.Naziv).ToListAsync(), "Id", "Naziv"),
                 VrstaPopravkeOptions = new SelectList(await _context.VrstePopravke.AsNoTracking().OrderBy(vrsta => vrsta.Naziv).ToListAsync(), "Id", "Naziv"),
                 KnowledgeOptions = await BuildKnowledgeOptionsAsync(selectedPairs),
@@ -354,6 +358,15 @@ namespace Servis_Centar_Za_Gitare.Controllers
                     break;
                 }
             }
+        }
+
+        private async Task<long?> GetDefaultOfficeIdAsync()
+        {
+            return await _context.Poslovnice
+                .AsNoTracking()
+                .OrderBy(office => office.Id)
+                .Select(office => (long?)office.Id)
+                .FirstOrDefaultAsync();
         }
 
         private static bool TryParseDateTime(string value, out DateTime dateTime)

@@ -21,7 +21,7 @@
         <span asp-validation-for="OpisKvara" class="invalid-feedback" role="alert" aria-live="polite"></span>
     </div>
     @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumOtvaranja), "Opening Date", Model.DatumOtvaranja))
-    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumZatvaranja), "Closing Date", Model.DatumZatvaranja))
+    @await Html.PartialAsync("_DateTimePicker", new DateTimePickerViewModel(nameof(Model.DatumZatvaranja), "Closing Date", Model.DatumZatvaranja, notBeforeFieldName: nameof(Model.DatumOtvaranja), notBeforeMessage: "Closing date cannot be before opening date."))
     <div class="form-group gc-form-group">
         <label asp-for="StatusNalogaId" class="gc-label">Status</label>
         <div class="gc-select">
@@ -36,6 +36,8 @@
     </div>
 </form>
 
+@await Html.PartialAsync("_RepairFiles", Model.Id)
+
 <div class="gc-modal" id="repair-skill-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="repair-skill-modal-title">
     <div class="gc-modal__panel">
         <p class="section-label">Technician skill check</p>
@@ -49,6 +51,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <script type="application/json" id="repair-skill-data">@Html.Raw(ViewData["RepairSkillCheck"])</script>
     <script src="~/js/gc-repair-skill.js" asp-append-version="true"></script>
+    <script src="~/js/gc-repair-files.js" asp-append-version="true"></script>
 }

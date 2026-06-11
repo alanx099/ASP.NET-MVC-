@@ -2,6 +2,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using Servis_Centar_Za_Gitare.ViewModels;
 
 namespace Servis_Centar_Za_Gitare.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class RepairsController : Controller
     {
         private const int ReceivedStatusId = 1;
@@ -20,19 +23,37 @@ namespace Servis_Centar_Za_Gitare.Controllers
         private readonly ICustomerRepository _customerRepository;
         private readonly ITechnicianRepository _technicianRepository;
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+        private static readonly HashSet<string> AllowedImageContentTypes = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/webp"
+        };
+        private static readonly HashSet<string> AllowedImageExtensions = new(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".gif",
+            ".webp"
+        };
 
         public RepairsController(
             IRepairRepository repairRepository,
             IGuitarRepository guitarRepository,
             ICustomerRepository customerRepository,
             ITechnicianRepository technicianRepository,
-            AppDbContext context)
+            AppDbContext context,
+            IWebHostEnvironment environment)
         {
             _repairRepository = repairRepository;
             _guitarRepository = guitarRepository;
             _customerRepository = customerRepository;
             _technicianRepository = technicianRepository;
             _context = context;
+            _environment = environment;
         }
 
         [Route("servisni-nalozi")]
@@ -71,18 +92,28 @@ namespace Servis_Centar_Za_Gitare.Controllers
                     : query.OrderBy(repair => repair.VrstaPopravka.Naziv).ThenByDescending(repair => repair.DatumOtvaranja),
                 _ => direction == "desc"
                     ? query
-                        .OrderByDescending(repair => repair.TehnicarId == null && !_context.Znanja.Any(skill =>
-                            skill.TipGitareId == repair.Gitara.TipGitareId &&
-                            skill.VrstaPopravkaId == repair.VrstaPopravkaId))
+                        .OrderByDescending(repair =>
+                            !_context.Znanja.Any(skill =>
+                                skill.TipGitareId == repair.Gitara.TipGitareId &&
+                                skill.VrstaPopravkaId == repair.VrstaPopravkaId) ||
+                            (repair.TehnicarId != null && !_context.Znanja.Any(skill =>
+                                skill.TehnicarId == repair.TehnicarId.Value &&
+                                skill.TipGitareId == repair.Gitara.TipGitareId &&
+                                skill.VrstaPopravkaId == repair.VrstaPopravkaId)))
                         .ThenByDescending(repair => repair.TehnicarId == null && _context.Znanja.Any(skill =>
                             skill.TipGitareId == repair.Gitara.TipGitareId &&
                             skill.VrstaPopravkaId == repair.VrstaPopravkaId))
                         .ThenByDescending(repair => repair.DatumOtvaranja)
                         .ThenBy(repair => repair.Id)
                     : query
-                        .OrderBy(repair => repair.TehnicarId == null && !_context.Znanja.Any(skill =>
-                            skill.TipGitareId == repair.Gitara.TipGitareId &&
-                            skill.VrstaPopravkaId == repair.VrstaPopravkaId))
+                        .OrderBy(repair =>
+                            !_context.Znanja.Any(skill =>
+                                skill.TipGitareId == repair.Gitara.TipGitareId &&
+                                skill.VrstaPopravkaId == repair.VrstaPopravkaId) ||
+                            (repair.TehnicarId != null && !_context.Znanja.Any(skill =>
+                                skill.TehnicarId == repair.TehnicarId.Value &&
+                                skill.TipGitareId == repair.Gitara.TipGitareId &&
+                                skill.VrstaPopravkaId == repair.VrstaPopravkaId)))
                         .ThenBy(repair => repair.TehnicarId == null && _context.Znanja.Any(skill =>
                             skill.TipGitareId == repair.Gitara.TipGitareId &&
                             skill.VrstaPopravkaId == repair.VrstaPopravkaId))
@@ -95,10 +126,11 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 .Select(repair =>
                 {
                     var hasQualifiedTechnician = HasAnyQualifiedTechnician(repair);
+                    var assignedTechnicianIsUnqualified = repair.TehnicarId.HasValue && !TechnicianHasRequiredSkill(repair);
                     return new RepairQueueItemViewModel
                     {
                         Repair = repair,
-                        MissingSkillCoverage = repair.TehnicarId == null && !hasQualifiedTechnician,
+                        MissingSkillCoverage = !hasQualifiedTechnician || assignedTechnicianIsUnqualified,
                         NeedsTechnician = repair.TehnicarId == null && hasQualifiedTechnician
                     };
                 })
@@ -304,7 +336,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 NormalizeDates(nalog);
                 await _context.Nalozi.AddAsync(nalog);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit), new { id = nalog.Id });
             }
 
             await LoadLookupsAsync(nalog);
@@ -344,6 +376,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [Route("servisni-nalozi/obrisi/{id:int}")]
         public async Task<IActionResult> Delete(int id)
@@ -356,8 +389,144 @@ namespace Servis_Centar_Za_Gitare.Controllers
 
             _context.Nalozi.Remove(repair);
             await _context.SaveChangesAsync();
+            DeleteRepairUploadDirectory(repair.Id);
             TempData["DeleteMessage"] = "Repair order deleted.";
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        [Route("servisni-nalozi/{id:long}/datoteke")]
+        public async Task<IActionResult> Files(long id)
+        {
+            if (!await _context.Nalozi.AnyAsync(repair => repair.Id == id))
+            {
+                return NotFound();
+            }
+
+            var files = await _context.NalogDatoteke
+                .AsNoTracking()
+                .Where(file => file.NalogId == id)
+                .OrderByDescending(file => file.DatumUploada)
+                .Select(file => new
+                {
+                    id = file.Id,
+                    name = file.OriginalniNaziv,
+                    size = file.VelicinaBajtova,
+                    contentType = file.TipSadrzaja,
+                    uploadedAt = file.DatumUploada,
+                    url = Url.Content(file.RelativnaPutanja),
+                    deleteUrl = Url.Action(nameof(DeleteFile), "Repairs", new { id, fileId = file.Id })
+                })
+                .ToListAsync();
+
+            return Json(files);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("servisni-nalozi/{id:long}/datoteke")]
+        public async Task<IActionResult> UploadFile(long id, IFormFile? file)
+        {
+            if (!await _context.Nalozi.AnyAsync(repair => repair.Id == id))
+            {
+                return NotFound();
+            }
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest(new { message = "Select an image file." });
+            }
+
+            var extension = Path.GetExtension(file.FileName);
+            if (!AllowedImageContentTypes.Contains(file.ContentType) || !AllowedImageExtensions.Contains(extension))
+            {
+                return BadRequest(new { message = "Only JPG, PNG, GIF, and WebP images are allowed." });
+            }
+
+            const long maxFileSize = 10 * 1024 * 1024;
+            if (file.Length > maxFileSize)
+            {
+                return BadRequest(new { message = "Image can be up to 10 MB." });
+            }
+
+            var uploadDirectory = GetRepairUploadDirectory(id);
+            Directory.CreateDirectory(uploadDirectory);
+
+            var storedName = Guid.NewGuid().ToString("N") + extension.ToLowerInvariant();
+            var physicalPath = Path.Combine(uploadDirectory, storedName);
+
+            await using (var stream = System.IO.File.Create(physicalPath))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var metadata = new NalogDatoteka
+            {
+                NalogId = id,
+                OriginalniNaziv = Path.GetFileName(file.FileName),
+                SpremljeniNaziv = storedName,
+                RelativnaPutanja = $"/uploads/repairs/{id}/{storedName}",
+                TipSadrzaja = file.ContentType,
+                VelicinaBajtova = file.Length,
+                DatumUploada = DateTime.UtcNow
+            };
+
+            _context.NalogDatoteke.Add(metadata);
+            await _context.SaveChangesAsync();
+
+            return Json(new
+            {
+                id = metadata.Id,
+                name = metadata.OriginalniNaziv,
+                size = metadata.VelicinaBajtova,
+                contentType = metadata.TipSadrzaja,
+                uploadedAt = metadata.DatumUploada,
+                url = Url.Content(metadata.RelativnaPutanja),
+                deleteUrl = Url.Action(nameof(DeleteFile), "Repairs", new { id, fileId = metadata.Id })
+            });
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        [Route("servisni-nalozi/{id:long}/datoteke/{fileId:long}")]
+        public async Task<IActionResult> DeleteFile(long id, long fileId)
+        {
+            var file = await _context.NalogDatoteke.FirstOrDefaultAsync(item => item.Id == fileId && item.NalogId == id);
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            var physicalPath = GetPhysicalPath(file.RelativnaPutanja);
+            _context.NalogDatoteke.Remove(file);
+            await _context.SaveChangesAsync();
+
+            if (System.IO.File.Exists(physicalPath))
+            {
+                System.IO.File.Delete(physicalPath);
+            }
+
+            return NoContent();
+        }
+
+        private string GetRepairUploadDirectory(long repairId)
+        {
+            return Path.Combine(_environment.WebRootPath, "uploads", "repairs", repairId.ToString());
+        }
+
+        private string GetPhysicalPath(string relativePath)
+        {
+            var normalizedRelativePath = relativePath.TrimStart('/', '\\').Replace('/', Path.DirectorySeparatorChar);
+            return Path.Combine(_environment.WebRootPath, normalizedRelativePath);
+        }
+
+        private void DeleteRepairUploadDirectory(long repairId)
+        {
+            var uploadDirectory = GetRepairUploadDirectory(repairId);
+            if (Directory.Exists(uploadDirectory))
+            {
+                Directory.Delete(uploadDirectory, recursive: true);
+            }
         }
 
         private async Task LoadLookupsAsync(Nalog? selectedRepair = null)

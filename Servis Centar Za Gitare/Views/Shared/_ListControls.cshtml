@@ -2,6 +2,7 @@
 
 <section class="gc-list-controls glass-panel">
     <form asp-action="@Model.ActionName" method="get" class="gc-list-controls__form">
+
         <label class="gc-list-control">
             <span>Sort</span>
             <div class="gc-select gc-list-sort">
@@ -20,9 +21,21 @@
                 </select>
             </div>
         </label>
+        @if (!string.IsNullOrWhiteSpace(Model.CustomerFilterEndpoint))
+        {
+            @await Html.PartialAsync("_AutocompleteCombo", new AutocompleteComboViewModel("customerId", "Customer", Model.CustomerFilterEndpoint, Model.CustomerId, Model.CustomerText, "customerId-error") { Placeholder = "Search customer..." })
+        }
         <input type="hidden" name="direction" value="@Model.Direction" />
         <input type="hidden" name="take" value="@Model.PageSize" />
-        <button class="action-btn secondary" type="submit">Apply</button>
+        @if (Model.CustomerId.HasValue)
+        {
+            <a class="action-btn secondary"
+               asp-action="@Model.ActionName"
+               asp-route-sort="@Model.Sort"
+               asp-route-direction="@Model.Direction"
+               asp-route-pageSize="@Model.PageSize"
+               asp-route-take="@(Model.IsAll ? -1 : Model.PageSize)">Clear customer</a>
+        }
     </form>
     <div class="gc-list-amount" aria-label="Items per batch">
         <span>Amount</span>
@@ -32,6 +45,7 @@
                asp-action="@Model.ActionName"
                asp-route-sort="@Model.Sort"
                asp-route-direction="@Model.Direction"
+               asp-route-customerId="@Model.CustomerId"
                asp-route-pageSize="@size"
                asp-route-take="@size">@size</a>
         }
@@ -39,6 +53,7 @@
            asp-action="@Model.ActionName"
            asp-route-sort="@Model.Sort"
            asp-route-direction="@Model.Direction"
+           asp-route-customerId="@Model.CustomerId"
            asp-route-pageSize="-1"
            asp-route-take="-1">All</a>
     </div>
@@ -47,14 +62,31 @@
            asp-action="@Model.ActionName"
            asp-route-sort="@Model.Sort"
            asp-route-direction="asc"
+           asp-route-customerId="@Model.CustomerId"
            asp-route-pageSize="@Model.PageSize"
            asp-route-take="@(Model.IsAll ? -1 : Model.PageSize)">Asc</a>
         <a class="gc-direction-option @(Model.IsDescending ? "active" : string.Empty)"
            asp-action="@Model.ActionName"
            asp-route-sort="@Model.Sort"
            asp-route-direction="desc"
+           asp-route-customerId="@Model.CustomerId"
            asp-route-pageSize="@Model.PageSize"
            asp-route-take="@(Model.IsAll ? -1 : Model.PageSize)">Desc</a>
     </div>
     <p class="gc-list-controls__count">Showing @Model.VisibleCount of @Model.TotalCount</p>
 </section>
+
+<script>
+    (function () {
+        const controls = document.currentScript.previousElementSibling;
+        const form = controls ? controls.querySelector(".gc-list-controls__form") : null;
+
+        if (!form) {
+            return;
+        }
+
+        form.addEventListener("gc:autocomplete-selected", function () {
+            form.submit();
+        });
+    })();
+</script>

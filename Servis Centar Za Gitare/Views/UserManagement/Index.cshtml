@@ -1,0 +1,32 @@
+@model UserManagementIndexViewModel
+@{
+    ViewData["Title"] = "User management";
+}
+
+<h2 class="section-title">User management</h2>
+
+<div class="table-responsive">
+    <table class="gc-table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@string.Join(", ", user.Roles)</td>
+                    <td>@(user.CustomerName ?? "-")</td>
+                    <td>@(user.LockedOut ? "Locked" : "Active")</td>
+                    <td><a class="action-btn" asp-action="Edit" asp-route-id="@user.Id">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

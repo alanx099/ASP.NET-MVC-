@@ -91,6 +91,9 @@ namespace Servis_Centar_Za_Gitare.ViewModels
         public int Take { get; set; } = 10;
         public int TotalCount { get; set; }
         public string ActionName { get; set; } = "Index";
+        public long? CustomerId { get; set; }
+        public string CustomerText { get; set; } = string.Empty;
+        public string CustomerFilterEndpoint { get; set; } = string.Empty;
         public IEnumerable<SelectListItem> SortOptions { get; set; } = new List<SelectListItem>();
 
         public bool IsAll => PageSize < 0;

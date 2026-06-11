@@ -1,4 +1,7 @@
 @model DateTimePickerViewModel
+@{
+    var hasValidation = Model.Required || Model.MaxFutureDays.HasValue || !string.IsNullOrWhiteSpace(Model.NotBeforeFieldName);
+}
 
 <div class="form-group gc-form-group gc-datetime-field">
     <label for="@($"{Model.Id}_Display")" class="gc-label">@Model.Label</label>
@@ -16,24 +19,17 @@
                 data-gc-datetime-toggle>
             <span class="gc-datetime__icon" aria-hidden="true"></span>
         </button>
-        @if (Model.Required)
-        {
-            <input id="@Model.Id"
-                   name="@Model.Name"
-                   type="hidden"
-                   value="@Model.Value"
-                   data-gc-datetime-value
-                   data-val="true"
-                   data-val-required="The @Model.Label field is required." />
-        }
-        else
-        {
-            <input id="@Model.Id"
-                   name="@Model.Name"
-                   type="hidden"
-                   value="@Model.Value"
-                   data-gc-datetime-value />
-        }
+        <input id="@Model.Id"
+               name="@Model.Name"
+               type="hidden"
+               value="@Model.Value"
+               data-gc-datetime-value
+               data-val="@(hasValidation ? "true" : null)"
+               data-val-required="@(Model.Required ? $"The {Model.Label} field is required." : null)"
+               data-val-gcmaxfuturedays="@(Model.MaxFutureDays.HasValue ? Model.MaxFutureMessage ?? $"{Model.Label} cannot be more than {Model.MaxFutureDays.Value} day in the future." : null)"
+               data-val-gcmaxfuturedays-days="@Model.MaxFutureDays"
+               data-val-gcafterorequalto="@(!string.IsNullOrWhiteSpace(Model.NotBeforeFieldName) ? Model.NotBeforeMessage ?? $"{Model.Label} cannot be before the related date." : null)"
+               data-val-gcafterorequalto-other="@(!string.IsNullOrWhiteSpace(Model.NotBeforeFieldId) ? "#" + Model.NotBeforeFieldId : null)" />
         <div class="gc-datetime__popover" data-gc-datetime-popover aria-hidden="true">
             <div class="gc-datetime__header">
                 <button type="button" class="gc-datetime__nav" data-gc-datetime-prev aria-label="Previous month">&lt;</button>

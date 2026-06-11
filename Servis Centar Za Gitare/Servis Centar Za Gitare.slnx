@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../Servis Centar Za Gitare.Tests/Servis Centar Za Gitare.Tests.csproj" />
   <Project Path="Servis Centar Za Gitare.csproj" />
 </Solution>

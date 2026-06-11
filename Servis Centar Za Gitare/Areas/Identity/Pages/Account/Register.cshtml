@@ -1,0 +1,48 @@
+@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2 class="section-title">Register</h2>
+
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="gc-form">
+    <div class="gc-card--form">
+        <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Input.Email" class="gc-label"></label>
+            <input asp-for="Input.Email" class="form-control gc-input" autocomplete="username" />
+            <span asp-validation-for="Input.Email" class="invalid-feedback"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Input.Password" class="gc-label"></label>
+            <input asp-for="Input.Password" class="form-control gc-input" autocomplete="new-password" />
+            <span asp-validation-for="Input.Password" class="invalid-feedback"></span>
+        </div>
+        <div class="form-group gc-form-group">
+            <label asp-for="Input.ConfirmPassword" class="gc-label"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-control gc-input" autocomplete="new-password" />
+            <span asp-validation-for="Input.ConfirmPassword" class="invalid-feedback"></span>
+        </div>
+        <div class="gc-actions">
+            <button id="registerSubmit" type="submit" class="btn gc-btn-primary">Register</button>
+            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn gc-btn-secondary">Login</a>
+        </div>
+    </div>
+</form>
+
+@if (Model.ExternalLogins.Count > 0)
+{
+    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="gc-form">
+        @foreach (var provider in Model.ExternalLogins)
+        {
+            <button type="submit" class="btn gc-btn-secondary" name="provider" value="@provider.Name">
+                Continue with @provider.DisplayName
+            </button>
+        }
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

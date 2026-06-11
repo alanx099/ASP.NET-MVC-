@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using Servis_Centar_Za_Gitare.ViewModels;
 
 namespace Servis_Centar_Za_Gitare.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class CustomersController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
@@ -116,6 +118,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         [Route("customers/nova")]
         public async Task<IActionResult> Create(CustomerCreateViewModel model)
         {
+            model.Customer.PoslovnicaId = await GetDefaultOfficeIdAsync();
             TryValidateModel(model.Customer, nameof(model.Customer));
             ValidateCustomer(model.Customer, nameof(model.Customer));
 
@@ -177,7 +180,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
                         MarkaId = model.GuitarMarkaId!.Value,
                         BrojZica = model.GuitarBrojZica!.Trim(),
                         TipGitareId = model.GuitarTipGitareId!.Value,
-                        DatumZaprimanja = model.GuitarDatumZaprimanja!.Value,
+                        DatumZaprimanja = ToUtc(model.GuitarDatumZaprimanja!.Value),
                         KupacId = model.Customer.Id
                     };
 
@@ -194,9 +197,17 @@ namespace Servis_Centar_Za_Gitare.Controllers
 
         private async Task<CustomerCreateViewModel> BuildCustomerCreateViewModelAsync(CustomerCreateViewModel model)
         {
-            model.Poslovnice = new SelectList(await _context.Poslovnice.AsNoTracking().ToListAsync(), "Id", "Ime", model.Customer.PoslovnicaId);
-            model.Marke = new SelectList(await _context.Marke.AsNoTracking().OrderBy(brand => brand.Naziv).ToListAsync(), "Id", "Naziv", model.GuitarMarkaId);
             model.TipoviGitare = new SelectList(await _context.TipoveGitara.AsNoTracking().OrderBy(type => type.Naziv).ToListAsync(), "Id", "Naziv", model.GuitarTipGitareId);
+
+            if (model.GuitarMarkaId.HasValue)
+            {
+                ViewData["SelectedGuitarBrandText"] = await _context.Marke
+                    .AsNoTracking()
+                    .Where(brand => brand.Id == model.GuitarMarkaId.Value)
+                    .Select(brand => brand.Naziv)
+                    .FirstOrDefaultAsync() ?? string.Empty;
+            }
+
             return model;
         }
 
@@ -207,7 +218,6 @@ namespace Servis_Centar_Za_Gitare.Controllers
         {
             var customer = await _context.Stranke.FindAsync((long)id);
             if (customer == null) return NotFound();
-            ViewData["Poslovnice"] = new SelectList(_context.Poslovnice.AsNoTracking().ToList(), "Id", "Ime", customer.PoslovnicaId);
             return View(customer);
         }
 
@@ -218,6 +228,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         public async Task<IActionResult> Edit(int id, Stranka stranka)
         {
             if (id != stranka.Id) return BadRequest();
+            stranka.PoslovnicaId = await GetDefaultOfficeIdAsync();
             ValidateCustomer(stranka);
 
             if (ModelState.IsValid)
@@ -227,11 +238,11 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Poslovnice"] = new SelectList(_context.Poslovnice.AsNoTracking().ToList(), "Id", "Ime", stranka.PoslovnicaId);
             return View(stranka);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [Route("customers/obrisi/{id:int}")]
         public async Task<IActionResult> Delete(int id)
@@ -281,6 +292,15 @@ namespace Servis_Centar_Za_Gitare.Controllers
             }
         }
 
+        private async Task<long?> GetDefaultOfficeIdAsync()
+        {
+            return await _context.Poslovnice
+                .AsNoTracking()
+                .OrderBy(office => office.Id)
+                .Select(office => (long?)office.Id)
+                .FirstOrDefaultAsync();
+        }
+
         private static bool TryParseDateTime(string value, out DateTime dateTime)
         {
             return DateTime.TryParseExact(
@@ -290,6 +310,16 @@ namespace Servis_Centar_Za_Gitare.Controllers
                        DateTimeStyles.AllowWhiteSpaces,
                        out dateTime)
                    || DateTime.TryParse(value, CultureInfo.CurrentCulture, DateTimeStyles.AllowWhiteSpaces, out dateTime);
+        }
+
+        private static DateTime ToUtc(DateTime value)
+        {
+            return value.Kind switch
+            {
+                DateTimeKind.Utc => value,
+                DateTimeKind.Local => value.ToUniversalTime(),
+                _ => DateTime.SpecifyKind(value, DateTimeKind.Local).ToUniversalTime()
+            };
         }
 
         private static int NormalizePageSize(int pageSize)

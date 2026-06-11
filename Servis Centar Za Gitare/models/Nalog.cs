@@ -22,6 +22,7 @@ namespace Servis_Centar_Za_Gitare.models
         private DateTime _datumZatvaranja;
         private int _statusNalogaId;
         private int _vrstaPopravkaId;
+        private List<NalogDatoteka> _datoteke = new List<NalogDatoteka>();
 
         [Key]
         public long Id
@@ -137,6 +138,12 @@ namespace Servis_Centar_Za_Gitare.models
         [ForeignKey(nameof(VrstaPopravkaId))]
         [ValidateNever]
         public virtual VrstaPopravka VrstaPopravka { get; set; } = null!;
+
+        public virtual ICollection<NalogDatoteka> Datoteke
+        {
+            get { return _datoteke; }
+            set { _datoteke = value.ToList(); }
+        }
 
         public Nalog() { }
 

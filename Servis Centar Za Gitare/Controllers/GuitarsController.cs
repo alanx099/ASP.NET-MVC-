@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Servis_Centar_Za_Gitare.ViewModels;
 
 namespace Servis_Centar_Za_Gitare.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class GuitarsController : Controller
     {
         private readonly IGuitarRepository _guitarRepository;
@@ -32,7 +34,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
 
         [HttpGet]
         [Route("gitare")]
-        public async Task<IActionResult> Index(string sort = "brand", string direction = "asc", int pageSize = 10, int take = 10)
+        public async Task<IActionResult> Index(string sort = "brand", string direction = "asc", long? customerId = null, int pageSize = 10, int take = 10)
         {
             pageSize = NormalizePageSize(pageSize);
             direction = NormalizeDirection(direction);
@@ -43,6 +45,11 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 .Include(guitar => guitar.TipGitare)
                 .Include(guitar => guitar.Kupac);
 
+            if (customerId.HasValue)
+            {
+                query = query.Where(guitar => guitar.KupacId == customerId.Value);
+            }
+
             var totalCount = await query.CountAsync();
             take = NormalizeTake(take, pageSize, totalCount);
 
@@ -51,9 +58,6 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 "serial" => direction == "desc"
                     ? query.OrderByDescending(guitar => guitar.SerijskiBroj)
                     : query.OrderBy(guitar => guitar.SerijskiBroj),
-                "owner" => direction == "desc"
-                    ? query.OrderByDescending(guitar => guitar.Kupac.Prezime).ThenByDescending(guitar => guitar.Kupac.Ime)
-                    : query.OrderBy(guitar => guitar.Kupac.Prezime).ThenBy(guitar => guitar.Kupac.Ime),
                 "type" => direction == "desc"
                     ? query.OrderByDescending(guitar => guitar.TipGitare.Naziv).ThenByDescending(guitar => guitar.SerijskiBroj)
                     : query.OrderBy(guitar => guitar.TipGitare.Naziv).ThenBy(guitar => guitar.SerijskiBroj),
@@ -76,15 +80,49 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 new BreadcrumbItemViewModel { Text = "Home", Url = Url.Action("Index", "Home") ?? "/" },
                 new BreadcrumbItemViewModel { Text = "Guitars", Url = Url.Action(nameof(Index), "Guitars") ?? "/Guitars", IsActive = true }
             };
-            ViewData["ListState"] = BuildListState(sort, direction, pageSize, take, totalCount, new[]
+            var selectedCustomerText = customerId.HasValue
+                ? await _context.Stranke
+                    .AsNoTracking()
+                    .Where(customer => customer.Id == customerId.Value)
+                    .Select(customer => customer.Ime + " " + customer.Prezime + " - " + customer.Email)
+                    .FirstOrDefaultAsync() ?? string.Empty
+                : string.Empty;
+
+            ViewData["ListState"] = BuildListState(sort, direction, pageSize, take, totalCount, customerId, selectedCustomerText, Url.Action("AutocompleteCustomers", "Guitars") ?? string.Empty, new[]
             {
                 ("brand", "Brand"),
                 ("serial", "Serial number"),
-                ("owner", "Owner"),
                 ("type", "Guitar type"),
                 ("newest", "Newest received")
             });
             return View(guitars);
+        }
+
+        [HttpGet]
+        [Route("gitare/autocomplete/customers")]
+        public async Task<IActionResult> AutocompleteCustomers(string? term)
+        {
+            var query = _context.Stranke.AsNoTracking();
+            var normalizedTerm = (term ?? string.Empty).Trim().ToLower();
+
+            if (!string.IsNullOrWhiteSpace(normalizedTerm))
+            {
+                query = query.Where(customer =>
+                    (customer.Ime + " " + customer.Prezime + " " + customer.Email).ToLower().Contains(normalizedTerm));
+            }
+
+            var results = await query
+                .OrderBy(customer => customer.Prezime)
+                .ThenBy(customer => customer.Ime)
+                .Take(12)
+                .Select(customer => new
+                {
+                    id = customer.Id,
+                    text = customer.Ime + " " + customer.Prezime + " - " + customer.Email
+                })
+                .ToListAsync();
+
+            return Json(results);
         }
 
         public IActionResult Details(int id)
@@ -122,6 +160,31 @@ namespace Servis_Centar_Za_Gitare.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [Route("gitare/autocomplete/brands")]
+        public async Task<IActionResult> AutocompleteBrands(string? term)
+        {
+            var query = _context.Marke.AsNoTracking();
+            var normalizedTerm = (term ?? string.Empty).Trim().ToLower();
+
+            if (!string.IsNullOrWhiteSpace(normalizedTerm))
+            {
+                query = query.Where(brand => brand.Naziv.ToLower().Contains(normalizedTerm));
+            }
+
+            var results = await query
+                .OrderBy(brand => brand.Naziv)
+                .Take(12)
+                .Select(brand => new
+                {
+                    id = brand.Id,
+                    text = brand.Naziv
+                })
+                .ToListAsync();
+
+            return Json(results);
+        }
+
         // POST: gitare/nova
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,12 +195,13 @@ namespace Servis_Centar_Za_Gitare.Controllers
 
             if (ModelState.IsValid)
             {
+                NormalizeGuitarDates(guitar);
                 await _context.Gitare.AddAsync(guitar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            await LoadLookupsAsync();
+            await LoadLookupsAsync(guitar);
             return View(guitar);
         }
 
@@ -148,7 +212,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
         {
             var guitar = await _context.Gitare.FindAsync((long)id);
             if (guitar == null) return NotFound();
-            await LoadLookupsAsync();
+            await LoadLookupsAsync(guitar);
             return View(guitar);
         }
 
@@ -163,16 +227,18 @@ namespace Servis_Centar_Za_Gitare.Controllers
 
             if (ModelState.IsValid)
             {
+                NormalizeGuitarDates(guitar);
                 _context.Gitare.Update(guitar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            await LoadLookupsAsync();
+            await LoadLookupsAsync(guitar);
             return View(guitar);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [Route("gitare/obrisi/{id:int}")]
         public async Task<IActionResult> Delete(int id)
@@ -195,12 +261,20 @@ namespace Servis_Centar_Za_Gitare.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task LoadLookupsAsync()
+        private async Task LoadLookupsAsync(Gitara? selectedGuitar = null)
         {
-            ViewData["Marke"] = new SelectList(await _context.Marke.AsNoTracking().ToListAsync(), "Id", "Naziv");
             ViewData["TipoviGitare"] = new SelectList(await _context.TipoveGitara.AsNoTracking().ToListAsync(), "Id", "Naziv");
             var kupci = await _context.Stranke.AsNoTracking().Select(s => new { s.Id, Text = s.Ime + " " + s.Prezime }).ToListAsync();
             ViewData["Kupci"] = new SelectList(kupci, "Id", "Text");
+
+            if (selectedGuitar != null && selectedGuitar.MarkaId > 0)
+            {
+                ViewData["SelectedBrandText"] = await _context.Marke
+                    .AsNoTracking()
+                    .Where(brand => brand.Id == selectedGuitar.MarkaId)
+                    .Select(brand => brand.Naziv)
+                    .FirstOrDefaultAsync() ?? string.Empty;
+            }
         }
 
         private void ValidateGuitar(Gitara guitar)
@@ -231,6 +305,21 @@ namespace Servis_Centar_Za_Gitare.Controllers
             }
         }
 
+        private static void NormalizeGuitarDates(Gitara guitar)
+        {
+            guitar.DatumZaprimanja = ToUtc(guitar.DatumZaprimanja);
+        }
+
+        private static System.DateTime ToUtc(System.DateTime value)
+        {
+            return value.Kind switch
+            {
+                System.DateTimeKind.Utc => value,
+                System.DateTimeKind.Local => value.ToUniversalTime(),
+                _ => System.DateTime.SpecifyKind(value, System.DateTimeKind.Local).ToUniversalTime()
+            };
+        }
+
         private static int NormalizePageSize(int pageSize)
         {
             return pageSize == -1 || new[] { 10, 50, 100 }.Contains(pageSize) ? pageSize : 10;
@@ -256,7 +345,7 @@ namespace Servis_Centar_Za_Gitare.Controllers
             return System.Math.Min(System.Math.Max(take <= 0 ? pageSize : take, pageSize), totalCount);
         }
 
-        private static ListStateViewModel BuildListState(string sort, string direction, int pageSize, int take, int totalCount, IEnumerable<(string Value, string Text)> sortOptions)
+        private static ListStateViewModel BuildListState(string sort, string direction, int pageSize, int take, int totalCount, long? customerId, string customerText, string customerFilterEndpoint, IEnumerable<(string Value, string Text)> sortOptions)
         {
             return new ListStateViewModel
             {
@@ -265,6 +354,9 @@ namespace Servis_Centar_Za_Gitare.Controllers
                 PageSize = pageSize,
                 Take = take,
                 TotalCount = totalCount,
+                CustomerId = customerId,
+                CustomerText = customerText,
+                CustomerFilterEndpoint = customerFilterEndpoint,
                 SortOptions = sortOptions.Select(option => new SelectListItem
                 {
                     Value = option.Value,

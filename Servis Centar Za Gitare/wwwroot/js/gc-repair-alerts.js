@@ -7,12 +7,21 @@
     initRepairAlerts();
   }
 
-  function initRepairAlerts() {
+  document.addEventListener("gc:content-added", function (event) {
+    initRepairAlerts(event.detail?.root || document);
+  });
+
+  function initRepairAlerts(root) {
     if (!("animate" in Element.prototype)) {
       return;
     }
 
-    document.querySelectorAll("[data-repair-alert='impossible']").forEach(function (card, index) {
+    (root || document).querySelectorAll("[data-repair-alert='impossible']").forEach(function (card, index) {
+      if (card.dataset.repairAlertAnimated === "true") {
+        return;
+      }
+
+      card.dataset.repairAlertAnimated = "true";
       const delay = index * 120;
       card.animate([
         { transform: "translateX(0) scale(1)", boxShadow: "0 0 0 rgba(255,107,129,0)" },
@@ -29,7 +38,12 @@
       sweepAlarm(card, delay);
     });
 
-    document.querySelectorAll("[data-repair-alert='needs-tech'] .repair-edit-action").forEach(function (button, index) {
+    (root || document).querySelectorAll("[data-repair-alert='needs-tech'] .repair-edit-action").forEach(function (button, index) {
+      if (button.dataset.repairAlertAnimated === "true") {
+        return;
+      }
+
+      button.dataset.repairAlertAnimated = "true";
       button.animate([
         { transform: "translateX(0)", filter: "brightness(1)" },
         { transform: "translateX(5px)", filter: "brightness(1.35)" },
