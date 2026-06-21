@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Integracijski testovi API-ja - Servisni Centar Gitara</title>
+<style>
+:root{--bg:#07111f;--panel:#101b2f;--panel2:#15243d;--card:#0d1729;--text:#f0f7ff;--muted:#a9b8d2;--line:#294262;--accent:#7dd3fc;--accent2:#86efac;--warn:#fde68a;--bad:#fca5a5;--violet:#c4b5fd;--code:#050a13;--shadow:0 14px 34px rgba(0,0,0,.40);--radius:18px}
+[data-theme="light"]{--bg:#f6f8fc;--panel:#fff;--panel2:#eef5ff;--card:#fff;--text:#0f172a;--muted:#526179;--line:#d6e1ef;--accent:#0369a1;--accent2:#15803d;--warn:#92400e;--bad:#b91c1c;--violet:#6d28d9;--code:#111827;--shadow:0 8px 24px rgba(15,23,42,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.58}
+header{position:sticky;top:0;z-index:50;background:rgba(7,17,31,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 14px}[data-theme="light"] header{background:rgba(246,248,252,.94)}
+.top{display:flex;align-items:center;gap:10px;max-width:1120px;margin:0 auto}.logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:950;color:#06101d}.title{flex:1;min-width:0}.title h1{font-size:16px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.title p{font-size:12px;color:var(--muted);margin:1px 0 0}
+button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:8px 11px;font-weight:800;cursor:pointer}
+main{max-width:1120px;margin:0 auto;padding:16px 14px 106px}.hero{padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--panel),var(--card));box-shadow:var(--shadow)}.hero h2{font-size:30px;line-height:1.08;margin:0 0 10px}.hero p{color:var(--muted);margin:8px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.stat{border:1px solid var(--line);background:var(--panel2);border-radius:14px;padding:10px;text-align:center}.stat b{display:block;font-size:18px;color:var(--accent2)}.stat span{font-size:11px;color:var(--muted)}
+.toc{margin:16px 0;display:grid;grid-template-columns:1fr;gap:8px}.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px 12px}.toc .num{min-width:34px;height:34px;border-radius:11px;background:var(--panel2);display:grid;place-items:center;color:var(--accent);font-weight:950}.toc small{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+.toolbar{position:sticky;top:66px;z-index:40;margin:14px 0;background:var(--bg);padding:6px 0}.search{width:100%;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--text);padding:12px 16px;font-size:15px}
+.section{scroll-margin-top:130px;margin:20px 0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}.section-head{padding:16px;background:linear-gradient(135deg,var(--panel2),var(--panel));border-bottom:1px solid var(--line)}.section-head .tag{font-size:12px;color:var(--accent2);font-weight:950;text-transform:uppercase;letter-spacing:.08em}.section-head h2{font-size:25px;line-height:1.15;margin:4px 0}.section-head p{margin:6px 0 0;color:var(--muted)}.body{padding:14px}.grid{display:grid;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}.card h3{font-size:16px;margin:0 0 9px;color:var(--accent)}.card h4{font-size:14px;margin:12px 0 6px;color:var(--accent2)}
+ul{padding-left:20px;margin:8px 0}li{margin:5px 0}.must{border-left:4px solid var(--accent2)}.warn{border-left:4px solid var(--warn)}.danger{border-left:4px solid var(--bad)}.violet{border-left:4px solid var(--violet)}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--panel2);padding:1px 5px;border-radius:6px}pre{background:var(--code);color:#e9f0ff;border-radius:14px;padding:13px;overflow:auto;border:1px solid var(--line);font-size:12px;line-height:1.5}.table{width:100%;border-collapse:collapse;font-size:13px;overflow:hidden;border-radius:12px}.table th,.table td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.table th{color:var(--accent2);background:var(--panel2)}.answerbox{border:1px dashed var(--line);background:var(--panel2);border-radius:14px;padding:12px;color:var(--muted);margin-top:8px}.template{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--card));border-radius:16px;padding:14px;margin:12px 0}.template b{color:var(--accent2)}
+.steps{counter-reset:step}.steps li{list-style:none;position:relative;margin-left:0;padding-left:32px}.steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:var(--panel2);color:var(--accent2);display:grid;place-items:center;font-weight:900;font-size:12px}
+.flash{display:grid;gap:10px;margin-top:8px}.flash button{width:100%;text-align:left;border-radius:14px;background:var(--card);padding:12px 13px}.answer{display:none;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}.flash button.open .answer{display:block}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:60;background:rgba(7,17,31,.93);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;gap:8px;overflow-x:auto}[data-theme="light"] .bottomnav{background:rgba(246,248,252,.94)}.bottomnav a{white-space:nowrap;text-decoration:none;color:var(--text);border:1px solid var(--line);background:var(--panel);padding:8px 10px;border-radius:999px;font-size:12px;font-weight:950}.footer-note{color:var(--muted);font-size:12px;text-align:center;margin:24px 0}
+@media(min-width:800px){.toc{grid-template-columns:repeat(2,1fr)}.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}.body{padding:18px}.hero h2{font-size:40px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="logo">IT</div><div class="title"><h1>Integracijski testovi API-ja - Servisni Centar Gitara</h1><p>Kako se rade testovi i kako smo ih mi napravili</p></div><button id="themeBtn">Dark</button></div></header>
+<main>
+<section class="hero">
+<h2>Materijal za učenje, ne samo šalabahter</h2>
+<p>Ovaj HTML objašnjava integracijske testove u ASP.NET Core projektu kroz naš konkretan projekt. Fokus je na tome da znaš objasniti profesoru zašto test nije samo poziv metode controllera, nego stvarni HTTP poziv kroz aplikaciju, rute, middleware, autorizaciju i EF Core bazu za testiranje.</p>
+<div class="stats"><div class="stat"><b>xUnit</b><span>test framework</span></div><div class="stat"><b>HttpClient</b><span>stvarni API pozivi</span></div><div class="stat"><b>InMemory</b><span>testna baza</span></div></div>
+</section>
+
+<nav class="toc">
+<a href="#q1"><span class="num">1</span><span><b>Što su integracijski testovi?</b><small>razlika od unit testova</small></span></a>
+<a href="#q2"><span class="num">2</span><span><b>Profesorovi zahtjevi</b><small>CRUD, uspjeh, 404, 400</small></span></a>
+<a href="#q3"><span class="num">3</span><span><b>Struktura našeg test projekta</b><small>datoteke i paketi</small></span></a>
+<a href="#q4"><span class="num">4</span><span><b>CustomWebApplicationFactory</b><small>testna aplikacija</small></span></a>
+<a href="#q5"><span class="num">5</span><span><b>Testna baza i seed</b><small>InMemory + TestDataSeeder</small></span></a>
+<a href="#q6"><span class="num">6</span><span><b>Test autentikacija</b><small>uloge bez stvarnog login-a</small></span></a>
+<a href="#q7"><span class="num">7</span><span><b>Obrazac CRUD testa</b><small>GET, POST, PUT, DELETE</small></span></a>
+<a href="#q8"><span class="num">8</span><span><b>Primjer: Guitars API</b><small>naš konkretan test</small></span></a>
+<a href="#q9"><span class="num">9</span><span><b>Što pokrivamo?</b><small>endpointi i scenariji</small></span></a>
+<a href="#q10"><span class="num">10</span><span><b>Kako pokrenuti i objasniti</b><small>dotnet test i usmeni odgovor</small></span></a>
+<a href="#flashcards"><span class="num">F</span><span><b>Brze kartice</b><small>ponavljanje prije obrane</small></span></a>
+</nav>
+<div class="toolbar"><input id="search" class="search" placeholder="Pretraži: WebApplicationFactory, InMemory, 404, BadRequest, Admin, HttpClient, seed..."></div>
+
+<section class="section" id="q1" data-keywords="integracijski test unit test httpclient controller middleware routing database">
+<div class="section-head"><div class="tag">Pitanje 1</div><h2>Što su integracijski testovi API-ja?</h2><p>Integracijski test provjerava više dijelova aplikacije zajedno, a ne jednu izoliranu metodu.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card must"><h3>Definicija</h3><p>Integracijski test API-ja pokreće aplikaciju skoro kao pravi server i šalje HTTP zahtjev preko <code>HttpClient</code>-a. Time se zajedno testiraju ruta, controller, model binding, validacija, autorizacija, servisni sloj ako postoji i pristup bazi.</p></div>
+<div class="card warn"><h3>Razlika od unit testa</h3><p>Unit test bi direktno instancirao controller i pozvao metodu, npr. <code>controller.Get(1)</code>. To ovdje ne radimo. Naš test zove <code>/api/guitars/1</code>, pa ASP.NET Core sam prolazi kroz routing, filtere i middleware.</p></div>
+</div>
+<div class="card violet"><h3>Gotov odgovor za profesora</h3><div class="answerbox">Integracijski testovi u našem projektu testiraju stvarne API endpointove preko HttpClienta. Ne instanciramo controller ručno i ne mockamo DbContext, nego pokrećemo aplikaciju u Testing environmentu pomoću WebApplicationFactory. Stvarnu development bazu zamjenjujemo EF Core InMemory bazom kako bi testovi bili izolirani, ponovljivi i sigurni.</div></div>
+</div>
+</section>
+
+<section class="section" id="q2" data-keywords="profesor zahtjevi crud uspješno nepostojeći id validacija 404 400 201">
+<div class="section-head"><div class="tag">Pitanje 2</div><h2>Što profesor traži od dobrih integracijskih testova?</h2><p>Zahtjev nije samo jedan GET test. Treba pokazati ponašanje API-ja u normalnim i rubnim slučajevima.</p></div>
+<div class="body">
+<div class="card"><table class="table"><tr><th>Zahtjev</th><th>Što to znači u testu?</th><th>Primjer očekivanog statusa</th></tr><tr><td>CRUD operacije</td><td>Testirati čitanje, kreiranje, uređivanje i brisanje.</td><td><code>200</code>, <code>201</code>, <code>204</code></td></tr><tr><td>Uspješni scenariji</td><td>Validan zahtjev mora vratiti očekivan rezultat i po potrebi spremiti promjenu.</td><td><code>OK</code>, <code>Created</code>, <code>NoContent</code></td></tr><tr><td>Nepostojeći ID</td><td>Kada zapis ne postoji, API ne smije puknuti niti vratiti krivi objekt.</td><td><code>404 NotFound</code></td></tr><tr><td>Validacijske pogreške</td><td>Neispravan body ili nepostojeći povezani ID mora biti odbijen.</td><td><code>400 BadRequest</code></td></tr><tr><td>Autorizacija</td><td>Admin smije brisati, Manager ne smije gdje je Delete samo za Admina.</td><td><code>401</code>, <code>403</code></td></tr></table></div>
+<div class="card must"><h3>Naš obrazac imenovanja</h3><p>Testovi imaju imena u obliku <code>Metoda_WhenUvjet_ReturnsRezultat</code>, npr. <code>GetById_WhenGuitarDoesNotExist_ReturnsNotFound</code>. To odmah kaže što test radi, u kojem slučaju i koji rezultat očekuje.</p></div>
+</div>
+</section>
+
+<section class="section" id="q3" data-keywords="xunit paket mvc testing fluentassertions test project csproj">
+<div class="section-head"><div class="tag">Pitanje 3</div><h2>Kako je složen naš testni projekt?</h2><p>Testovi su odvojeni u posebnom xUnit projektu <code>Servis Centar Za Gitare.Tests</code>.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card"><h3>Najvažnije datoteke</h3><ul><li><code>Servis Centar Za Gitare.Tests.csproj</code> - paketi i referenca na web projekt.</li><li><code>Infrastructure/CustomWebApplicationFactory.cs</code> - pokreće aplikaciju u testnom modu.</li><li><code>Infrastructure/TestDataSeeder.cs</code> - puni InMemory bazu početnim podacima.</li><li><code>Infrastructure/TestAuthHandler.cs</code> - glumi prijavljenog korisnika s rolom.</li><li><code>Api/ApiTestBase.cs</code> - zajednički helperi za sve API testove.</li><li><code>Api/*ApiTests.cs</code> - testovi po controllerima.</li></ul></div>
+<div class="card"><h3>Paketi koje koristimo</h3><ul><li><code>Microsoft.AspNetCore.Mvc.Testing</code> za <code>WebApplicationFactory</code>.</li><li><code>Microsoft.EntityFrameworkCore.InMemory</code> za testnu bazu.</li><li><code>FluentAssertions</code> za čitljive provjere.</li><li><code>xunit</code> i <code>xunit.runner.visualstudio</code> za pokretanje testova.</li></ul></div>
+</div>
+<pre><code>&lt;PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.7" /&gt;
+&lt;PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.7" /&gt;
+&lt;PackageReference Include="FluentAssertions" Version="8.5.0" /&gt;
+&lt;PackageReference Include="xunit" Version="2.9.3" /&gt;</code></pre>
+</div>
+</section>
+
+<section class="section" id="q4" data-keywords="customwebapplicationfactory webapplicationfactory testing environment configuretestservices dbcontext">
+<div class="section-head"><div class="tag">Pitanje 4</div><h2>Što radi CustomWebApplicationFactory?</h2><p>To je srce integracijskog testiranja u ASP.NET Core aplikaciji.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card must"><h3>Uloga klase</h3><p><code>CustomWebApplicationFactory : WebApplicationFactory&lt;Program&gt;</code> pokreće naš web projekt za potrebe testova. Ona kaže aplikaciji da radi u <code>Testing</code> environmentu i mijenja produkcijske servise testnim servisima.</p></div>
+<div class="card warn"><h3>Zašto je to važno?</h3><p>Bez ove klase test bi mogao slučajno koristiti stvarnu development bazu, stvarni login ili stvarne vanjske servise. Mi to izbjegavamo tako da u testovima zamijenimo <code>AppDbContext</code> i autentikaciju.</p></div>
+</div>
+<pre><code>builder.UseEnvironment("Testing");
+
+builder.ConfigureTestServices(services =&gt;
+{
+    services.RemoveAll&lt;AppDbContext&gt;();
+    services.RemoveAll&lt;DbContextOptions&lt;AppDbContext&gt;&gt;();
+
+    services.AddDbContext&lt;AppDbContext&gt;(options =&gt;
+        options.UseInMemoryDatabase(_databaseName));
+});</code></pre>
+<div class="card violet"><h3>Gotov odgovor za papir</h3><div class="answerbox">CustomWebApplicationFactory nam omogućuje da testovi pokrenu stvarnu ASP.NET Core aplikaciju, ali s testnom konfiguracijom. U njoj se postavlja Testing environment, stvarni AppDbContext se uklanja iz dependency injection containera, a umjesto njega se dodaje EF Core InMemory baza. Tako testovi ne diraju razvojnu bazu.</div></div>
+</div>
+</section>
+
+<section class="section" id="q5" data-keywords="inmemory database seed testdataseeder ensuredeleted ensurecreated podaci">
+<div class="section-head"><div class="tag">Pitanje 5</div><h2>Kako rade testna baza i TestDataSeeder?</h2><p>Svaki test dobiva poznato početno stanje baze.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card must"><h3>InMemory baza</h3><p>Koristimo <code>UseInMemoryDatabase</code> jer želimo brze i izolirane testove. To nije stvarna PostgreSQL baza, nego EF Core provider koji čuva podatke u memoriji tijekom testa.</p></div>
+<div class="card"><h3>Seed podaci</h3><p><code>TestDataSeeder.SeedApiDataAsync</code> prvo briše i ponovno kreira testnu bazu, zatim dodaje poslovnicu, korisnika, stranku, zaposlenika, tehničara, gitaru, znanje i servisni nalog. Zbog toga svaki test zna koji ID postoji.</p></div>
+</div>
+<pre><code>await db.Database.EnsureDeletedAsync();
+await db.Database.EnsureCreatedAsync();
+
+db.Poslovnice.Add(new Poslovnica
+{
+    Id = ExistingOfficeId,
+    Ime = "Test poslovnica",
+    Adresa = "Test adresa 1"
+});
+
+await db.SaveChangesAsync();</code></pre>
+<div class="card warn"><h3>Zašto imamo konstante?</h3><p>Konstante poput <code>ExistingGuitarId</code>, <code>ExistingCustomerId</code> i <code>MissingLongId</code> čine testove čitljivima. Umjesto magičnog broja <code>999</code>, test jasno kaže da traži nepostojeći ID.</p></div>
+</div>
+</section>
+
+<section class="section" id="q6" data-keywords="authorization authentication testauthhandler admin manager user forbidden unauthorized">
+<div class="section-head"><div class="tag">Pitanje 6</div><h2>Kako testiramo autorizaciju bez pravog login-a?</h2><p>U integracijskim testovima ne želimo otvarati browser ni prolaziti Google login.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card must"><h3>TestAuthHandler</h3><p><code>TestAuthHandler</code> čita header <code>X-Test-Role</code>. Ako header postoji, test napravi korisnika s tom rolom. Ako header ne postoji, korisnik je neprijavljen.</p></div>
+<div class="card"><h3>ApiTestBase helper</h3><p><code>CreateAuthenticatedClient()</code> vraća <code>HttpClient</code> s ulogom Manager po defaultu. Ako treba Admin, zovemo <code>CreateAuthenticatedClient(IdentitySeed.AdminRole)</code>.</p></div>
+</div>
+<pre><code>protected HttpClient CreateAuthenticatedClient(string role = IdentitySeed.ManagerRole)
+{
+    var client = Factory.CreateClient();
+    client.DefaultRequestHeaders.Add(TestAuthHandler.RoleHeaderName, role);
+    return client;
+}</code></pre>
+<div class="card violet"><h3>Što time provjeravamo?</h3><div class="answerbox">Ako endpoint ima <code>[Authorize]</code>, neprijavljeni klijent dobiva <code>401 Unauthorized</code>. Ako endpoint traži Admin rolu, a klijent ima Manager rolu, dobiva <code>403 Forbidden</code>. Time testiramo stvarna autorizacijska pravila bez stvarnog cookieja ili Google OAuth procesa.</div></div>
+</div>
+</section>
+
+<section class="section" id="q7" data-keywords="crud get post put delete pattern status codes fluentassertions">
+<div class="section-head"><div class="tag">Pitanje 7</div><h2>Koji je naš obrazac za CRUD testove?</h2><p>Svaki endpoint testiramo kroz stvarni HTTP zahtjev i očekivani status code.</p></div>
+<div class="body">
+<div class="card"><table class="table"><tr><th>Operacija</th><th>Test</th><th>Očekivanje</th></tr><tr><td>GET all</td><td><code>GetAll_ReturnsOkAnd...</code></td><td><code>200 OK</code> i lista nije prazna</td></tr><tr><td>GET by ID</td><td><code>GetById_When...Exists</code></td><td><code>200 OK</code> i točan DTO</td></tr><tr><td>GET missing</td><td><code>GetById_When...DoesNotExist</code></td><td><code>404 NotFound</code></td></tr><tr><td>POST valid</td><td><code>Create_WhenRequestIsValid</code></td><td><code>201 Created</code> i zapis je spremljen</td></tr><tr><td>POST invalid</td><td><code>Create_WhenRequestIsInvalid</code></td><td><code>400 BadRequest</code></td></tr><tr><td>PUT valid</td><td><code>Update_When...Exists</code></td><td><code>204 NoContent</code> i promjena je spremljena</td></tr><tr><td>PUT missing</td><td><code>Update_When...DoesNotExist</code></td><td><code>404 NotFound</code></td></tr><tr><td>DELETE admin</td><td><code>Delete_When...AndUserIsAdmin</code></td><td><code>204 NoContent</code></td></tr><tr><td>DELETE manager</td><td><code>Delete_WhenUserIsManager</code></td><td><code>403 Forbidden</code></td></tr></table></div>
+<div class="card must"><h3>Arrange - Act - Assert</h3><ol class="steps"><li>Arrange: seedamo bazu i pripremimo request.</li><li>Act: pošaljemo HTTP zahtjev preko <code>HttpClient</code>-a.</li><li>Assert: provjerimo status, response body i po potrebi stanje baze.</li></ol></div>
+</div>
+</section>
+
+<section class="section" id="q8" data-keywords="guitars api primjer post put delete findasync created badrequest notfound">
+<div class="section-head"><div class="tag">Pitanje 8</div><h2>Primjer iz našeg projekta: Guitars API</h2><p>Ovo je dobar obrazac za objašnjenje profesoru jer pokriva uspjeh, 404 i 400.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card must"><h3>Uspješno kreiranje</h3><p>Test šalje POST na <code>/api/guitars</code> s validnim <code>GuitarRequestDto</code>. Očekuje <code>201 Created</code>, čita vraćeni <code>GuitarDto</code> i zatim provjerava da je zapis stvarno spremljen u testnoj bazi.</p></div>
+<div class="card warn"><h3>Validacijska greška</h3><p>Za BadRequest namjerno stavimo nepostojeći <code>MarkaId</code> ili <code>KupacId</code>. API mora odbiti zahtjev jer povezani zapis ne postoji.</p></div>
+</div>
+<pre><code>[Fact]
+public async Task Create_WhenRequestIsValid_ReturnsCreatedAndPersistsGuitar()
+{
+    await TestDataSeeder.SeedApiDataAsync(Factory);
+    var request = ValidRequest("NEW-GUITAR-001");
+
+    var response = await CreateAuthenticatedClient()
+        .PostAsJsonAsync("/api/guitars", request);
+
+    response.StatusCode.Should().Be(HttpStatusCode.Created);
+    var created = await response.Content.ReadFromJsonAsync&lt;GuitarDto&gt;();
+    created!.SerijskiBroj.Should().Be(request.SerijskiBroj);
+    (await FindAsync&lt;Gitara&gt;(created.Id))!.SerijskiBroj
+        .Should().Be(request.SerijskiBroj);
+}</code></pre>
+<div class="card violet"><h3>Kako to objasniti</h3><div class="answerbox">Ovaj test ne provjerava samo da controller vrati Created. On provjerava cijeli tok: HTTP POST, JSON model binding, validaciju DTO-a, rad controllera, EF Core spremanje i response DTO. Zato je to integracijski test.</div></div>
+</div>
+</section>
+
+<section class="section" id="q9" data-keywords="endpointi pokrivenost customers employees guitars knowledge lookups me offices repairs technicians">
+<div class="section-head"><div class="tag">Pitanje 9</div><h2>Koje API-je smo pokrili testovima?</h2><p>Testovi su organizirani po controllerima i pokrivaju stvarne rute iz projekta.</p></div>
+<div class="body">
+<div class="card"><table class="table"><tr><th>Test klasa</th><th>Rute</th><th>Glavni scenariji</th></tr><tr><td><code>OfficesApiTests</code></td><td><code>/api/offices</code></td><td>CRUD, 404, 400, 401, 403</td></tr><tr><td><code>CustomersApiTests</code></td><td><code>/api/customers</code></td><td>CRUD, 404, 400, Admin delete</td></tr><tr><td><code>EmployeesApiTests</code></td><td><code>/api/employees</code></td><td>CRUD, 404, 400</td></tr><tr><td><code>TechniciansApiTests</code></td><td><code>/api/technicians</code></td><td>CRUD, 404, 400</td></tr><tr><td><code>GuitarsApiTests</code></td><td><code>/api/guitars</code></td><td>CRUD, 404, 400, spremanje u bazu</td></tr><tr><td><code>RepairsApiTests</code></td><td><code>/api/repairs</code></td><td>CRUD, 404, 400</td></tr><tr><td><code>KnowledgeApiTests</code></td><td><code>/api/knowledge</code></td><td>CRUD nad složenim ključem</td></tr><tr><td><code>LookupApiTests</code></td><td><code>/api/brands</code>, <code>/api/guitar-types</code>, <code>/api/repair-statuses</code>, <code>/api/repair-types</code></td><td>Isti CRUD obrazac kroz <code>[Theory]</code></td></tr><tr><td><code>MeApiTests</code></td><td><code>/api/me/guitars</code>, <code>/api/me/service-orders</code></td><td>Korisnički endpointi, 401 i 403</td></tr></table></div>
+<div class="card warn"><h3>Zašto je LookupApiTests poseban?</h3><p>Za četiri jednostavna lookup controllera koristimo <code>[Theory]</code> i <code>MemberData</code>. Time jedan set testova radi za brandove, tipove gitara, statuse naloga i vrste popravka. To smanjuje duplikaciju, a i dalje testira stvarne rute.</p></div>
+</div>
+</section>
+
+<section class="section" id="q10" data-keywords="dotnet test pokretanje objasniti profesor obrana naredba">
+<div class="section-head"><div class="tag">Pitanje 10</div><h2>Kako pokrenuti testove i kako ih objasniti?</h2><p>Najkraći dokaz da sve radi je <code>dotnet test</code>.</p></div>
+<div class="body">
+<div class="grid two">
+<div class="card must"><h3>Naredba</h3><p>Iz root foldera repozitorija pokreni:</p><pre><code>dotnet test</code></pre><p>Ako želiš ciljano samo test projekt:</p><pre><code>dotnet test "Servis Centar Za Gitare.Tests\Servis Centar Za Gitare.Tests.csproj"</code></pre></div>
+<div class="card"><h3>Kratko objašnjenje za usmeni</h3><div class="answerbox">Testovi pokreću aplikaciju pomoću WebApplicationFactory, mijenjaju stvarnu bazu s InMemory bazom i koriste TestAuthHandler za simulaciju prijavljenog korisnika s rolom. Svaki test puni bazu poznatim podacima, šalje stvarni HTTP zahtjev preko HttpClienta i provjerava status code, response body i ponekad zapis u bazi.</div></div>
+</div>
+<div class="card danger"><h3>Česte greške koje treba izbjeći</h3><ul><li>Direktno pozivanje controllera umjesto HTTP endpointa.</li><li>Korištenje stvarne development baze u testovima.</li><li>Test bez seedanja podataka, pa rezultat ovisi o starom stanju baze.</li><li>Testiranje samo uspješnih scenarija bez <code>404</code> i <code>400</code>.</li><li>Zaboraviti autorizaciju, posebno razliku između <code>401</code> i <code>403</code>.</li></ul></div>
+</div>
+</section>
+
+<section class="section" id="flashcards">
+<div class="section-head"><div class="tag">Brzo ponavljanje</div><h2>Kartice za zadnjih 10 minuta</h2><p>Klikni pitanje da se otvori kratki odgovor.</p></div>
+<div class="body"><div class="flash">
+<button>Zašto je ovo integracijski, a ne unit test?<div class="answer">Jer šaljemo stvarni HTTP zahtjev preko HttpClienta i prolazimo kroz routing, middleware, autorizaciju, controller i EF Core.</div></button>
+<button>Čemu služi WebApplicationFactory?<div class="answer">Pokreće ASP.NET Core aplikaciju u memoriji za potrebe testova.</div></button>
+<button>Zašto koristimo InMemory bazu?<div class="answer">Da testovi budu brzi, izolirani i da ne diraju development bazu.</div></button>
+<button>Što radi TestDataSeeder?<div class="answer">Resetira testnu bazu i puni je poznatim zapisima s poznatim ID-evima.</div></button>
+<button>Kako simuliramo Admina?<div class="answer">Kreiramo HttpClient preko CreateAuthenticatedClient(IdentitySeed.AdminRole), što dodaje X-Test-Role header.</div></button>
+<button>Koja je razlika između 401 i 403?<div class="answer">401 znači korisnik nije prijavljen. 403 znači prijavljen je, ali nema potrebnu rolu.</div></button>
+<button>Što mora vratiti POST kad uspije?<div class="answer">201 Created, a često provjeravamo i da je zapis stvarno spremljen.</div></button>
+<button>Što testiramo za nepostojeći ID?<div class="answer">Endpoint mora vratiti 404 NotFound.</div></button>
+<button>Što testiramo za validacijsku grešku?<div class="answer">Endpoint mora vratiti 400 BadRequest.</div></button>
+<button>Zašto je FluentAssertions koristan?<div class="answer">Provjere su čitljive: response.StatusCode.Should().Be(HttpStatusCode.OK).</div></button>
+</div></div>
+</section>
+
+<p class="footer-note">Najbolji odgovor za profesora: stvarni HTTP poziv, testna aplikacija, InMemory baza, seed podaci, autorizacija i jasni status codeovi.</p>
+</main>
+<nav class="bottomnav"><a href="#q1">Definicija</a><a href="#q2">Zahtjevi</a><a href="#q3">Struktura</a><a href="#q4">Factory</a><a href="#q5">Seed</a><a href="#q6">Auth</a><a href="#q7">CRUD</a><a href="#q8">Guitars</a><a href="#q9">Pokrivenost</a><a href="#q10">Pokretanje</a><a href="#flashcards">Kartice</a></nav>
+<script>
+const root=document.documentElement,themeBtn=document.getElementById('themeBtn'),savedTheme=localStorage.getItem('scg-tests-theme');
+if(savedTheme){root.setAttribute('data-theme',savedTheme);themeBtn.textContent=savedTheme==='light'?'Light':'Dark'}
+themeBtn.addEventListener('click',()=>{const next=root.getAttribute('data-theme')==='light'?'dark':'light';root.setAttribute('data-theme',next);localStorage.setItem('scg-tests-theme',next);themeBtn.textContent=next==='light'?'Light':'Dark'});
+document.querySelectorAll('.flash button').forEach(btn=>btn.addEventListener('click',()=>btn.classList.toggle('open')));
+const search=document.getElementById('search');
+search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();document.querySelectorAll('.section').forEach(sec=>{if(!q){sec.style.display='';return}const text=(sec.innerText+' '+(sec.dataset.keywords||'')).toLowerCase();sec.style.display=text.includes(q)?'':'none'})});
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Servisni Centar Gitara API",
-    "description": "Manual API test collection for the Servisni Centar Gitara ASP.NET Core MVC/API project. All requests use {{baseUrl}}. Most API controllers are protected by ASP.NET Core Identity roles. The collection includes an Authorization: Bearer {{token}} header for protected routes. If the application is running with cookie authentication instead of JWT bearer authentication, log in through the browser/Identity UI first and let Postman use the auth cookie, or manually copy the .AspNetCore.Identity.Application cookie into Postman.",
+    "name": "Servisni Centar Gitara API 3",
+    "description": "Manual API test collection for the Servisni Centar Gitara ASP.NET Core MVC/API project. All requests use {{baseUrl}}. Protected routes use ASP.NET Core Identity cookie authentication. In Postman keep Auth Type = No Auth and set the collection variable identityCookie CURRENT VALUE to the value of the .AspNetCore.Identity.Application cookie copied from the browser after login. A collection pre-request script injects Cookie: .AspNetCore.Identity.Application={{identityCookie}} before every request. If you receive 401, the cookie is missing/expired/wrong host. If you receive 403, the cookie works but the user does not have the required role.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -12,24 +12,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/customers?query=marko&officeId=1&take=50",
-            "description": "Returns customers filtered by query and office. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/customers",
+            "description": "Returns customers. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/customers/1",
             "description": "Returns one customer by id. Requires Admin or Manager."
           }
@@ -38,18 +30,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/customers",
             "description": "Creates a customer. Requires Admin or Manager.",
             "body": {
@@ -67,18 +52,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/customers/1",
             "description": "Updates a customer. Requires Admin or Manager.",
             "body": {
@@ -96,11 +74,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/customers/1",
             "description": "Deletes a customer. Requires Admin."
           }
@@ -114,24 +88,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/employees?query=ana&officeId=1&take=50",
-            "description": "Returns employees filtered by query and office. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/employees",
+            "description": "Returns employees. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/employees/1",
             "description": "Returns one employee by id. Requires Admin or Manager."
           }
@@ -140,18 +106,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/employees",
             "description": "Creates an employee. Requires Admin or Manager.",
             "body": {
@@ -169,18 +128,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/employees/1",
             "description": "Updates an employee. Requires Admin or Manager.",
             "body": {
@@ -198,11 +150,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/employees/1",
             "description": "Deletes an employee. Requires Admin."
           }
@@ -216,24 +164,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/guitars?query=fender&customerId=1&brandId=1&typeId=1&take=50",
-            "description": "Returns guitars filtered by query, customer, brand, and type. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/guitars",
+            "description": "Returns guitars. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/guitars/1",
             "description": "Returns one guitar by id. Requires Admin or Manager."
           }
@@ -242,18 +182,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/guitars",
             "description": "Creates a guitar. Requires Admin or Manager.",
             "body": {
@@ -271,18 +204,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/guitars/1",
             "description": "Updates a guitar. Requires Admin or Manager.",
             "body": {
@@ -300,11 +226,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/guitars/1",
             "description": "Deletes a guitar. Requires Admin."
           }
@@ -318,24 +240,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/knowledge?technicianId=1&guitarTypeId=1&repairTypeId=1&take=50",
-            "description": "Returns technician knowledge/skills filtered by technician, guitar type, and repair type. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/knowledge",
+            "description": "Returns technician knowledge/skills. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by composite id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/knowledge/1/1/1",
             "description": "Returns one knowledge record by technicianId, guitarTypeId, and repairTypeId. Requires Admin or Manager."
           }
@@ -344,18 +258,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/knowledge",
             "description": "Creates a knowledge record. Requires Admin or Manager.",
             "body": {
@@ -373,18 +280,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/knowledge/1/1/1",
             "description": "Updates a knowledge record identified by the composite key. Requires Admin or Manager.",
             "body": {
@@ -402,11 +302,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/knowledge/1/1/1",
             "description": "Deletes a knowledge record. Requires Admin."
           }
@@ -420,24 +316,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/brands?query=fender&take=50",
-            "description": "Returns a filtered list from api/brands. Requires an authenticated Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/brands",
+            "description": "Returns a. Requires an authenticated Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/brands/1",
             "description": "Returns one existing item from api/brands. Requires an authenticated Admin or Manager."
           }
@@ -446,18 +334,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/brands",
             "description": "Creates a new item in api/brands. Requires an authenticated Admin or Manager.",
             "body": {
@@ -475,18 +356,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/brands/1",
             "description": "Updates an existing item in api/brands. Requires an authenticated Admin or Manager.",
             "body": {
@@ -504,11 +378,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/brands/1",
             "description": "Deletes an existing item from api/brands. Requires an authenticated Admin role."
           }
@@ -522,24 +392,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/guitar-types?query=classic&take=50",
-            "description": "Returns a filtered list from api/guitar-types. Requires an authenticated Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/guitar-types",
+            "description": "Returns a. Requires an authenticated Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/guitar-types/1",
             "description": "Returns one existing item from api/guitar-types. Requires an authenticated Admin or Manager."
           }
@@ -548,18 +410,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/guitar-types",
             "description": "Creates a new item in api/guitar-types. Requires an authenticated Admin or Manager.",
             "body": {
@@ -577,18 +432,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/guitar-types/1",
             "description": "Updates an existing item in api/guitar-types. Requires an authenticated Admin or Manager.",
             "body": {
@@ -606,11 +454,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/guitar-types/1",
             "description": "Deletes an existing item from api/guitar-types. Requires an authenticated Admin role."
           }
@@ -624,24 +468,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/repair-statuses?query=zaprimljen&take=50",
-            "description": "Returns a filtered list from api/repair-statuses. Requires an authenticated Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/repair-statuses",
+            "description": "Returns a. Requires an authenticated Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/repair-statuses/1",
             "description": "Returns one existing item from api/repair-statuses. Requires an authenticated Admin or Manager."
           }
@@ -650,18 +486,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/repair-statuses",
             "description": "Creates a new item in api/repair-statuses. Requires an authenticated Admin or Manager.",
             "body": {
@@ -679,18 +508,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/repair-statuses/1",
             "description": "Updates an existing item in api/repair-statuses. Requires an authenticated Admin or Manager.",
             "body": {
@@ -708,11 +530,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/repair-statuses/1",
             "description": "Deletes an existing item from api/repair-statuses. Requires an authenticated Admin role."
           }
@@ -726,24 +544,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/repair-types?query=setup&take=50",
-            "description": "Returns a filtered list from api/repair-types. Requires an authenticated Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/repair-types",
+            "description": "Returns a. Requires an authenticated Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/repair-types/1",
             "description": "Returns one existing item from api/repair-types. Requires an authenticated Admin or Manager."
           }
@@ -752,18 +562,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/repair-types",
             "description": "Creates a new item in api/repair-types. Requires an authenticated Admin or Manager.",
             "body": {
@@ -781,18 +584,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/repair-types/1",
             "description": "Updates an existing item in api/repair-types. Requires an authenticated Admin or Manager.",
             "body": {
@@ -810,11 +606,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/repair-types/1",
             "description": "Deletes an existing item from api/repair-types. Requires an authenticated Admin role."
           }
@@ -828,11 +620,7 @@
           "name": "Get my guitars",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/me/guitars",
             "description": "Returns guitars for the currently authenticated user. Requires User or Admin."
           }
@@ -841,11 +629,7 @@
           "name": "Get my service orders",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/me/service-orders",
             "description": "Returns service orders for the currently authenticated user. Requires User or Admin."
           }
@@ -859,24 +643,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/offices?query=zagreb&take=50",
-            "description": "Returns offices filtered by query. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/offices",
+            "description": "Returns offices. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/offices/1",
             "description": "Returns one office by id. Requires Admin or Manager."
           }
@@ -885,18 +661,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/offices",
             "description": "Creates an office. Requires Admin or Manager.",
             "body": {
@@ -914,18 +683,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/offices/1",
             "description": "Updates an office. Requires Admin or Manager.",
             "body": {
@@ -943,11 +705,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/offices/1",
             "description": "Deletes an office. Requires Admin."
           }
@@ -961,24 +719,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/repairs?query=fender&customerId=1&guitarId=1&technicianId=1&officeId=1&statusId=1&repairTypeId=1&take=50",
-            "description": "Returns repairs filtered by query and related ids. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/repairs",
+            "description": "Returns repairs. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/repairs/1",
             "description": "Returns one repair by id. Requires Admin or Manager."
           }
@@ -987,18 +737,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/repairs",
             "description": "Creates a repair/service order. Requires Admin or Manager.",
             "body": {
@@ -1016,18 +759,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/repairs/1",
             "description": "Updates a repair/service order. Requires Admin or Manager.",
             "body": {
@@ -1045,11 +781,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/repairs/1",
             "description": "Deletes a repair/service order. Requires Admin."
           }
@@ -1063,24 +795,16 @@
           "name": "Get all",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
-            "url": "{{baseUrl}}/api/technicians?query=ivo&officeId=1&guitarTypeId=1&repairTypeId=1&take=50",
-            "description": "Returns technicians filtered by query, office, guitar type, and repair type. Requires Admin or Manager."
+            "header": [],
+            "url": "{{baseUrl}}/api/technicians",
+            "description": "Returns technicians. Requires Admin or Manager."
           }
         },
         {
           "name": "Get by id",
           "request": {
             "method": "GET",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/technicians/1",
             "description": "Returns one technician by id. Requires Admin or Manager."
           }
@@ -1089,18 +813,11 @@
           "name": "Create",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/technicians",
             "description": "Creates a technician with optional knowledge records. Requires Admin or Manager.",
             "body": {
@@ -1118,18 +835,11 @@
           "name": "Update",
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
             "url": "{{baseUrl}}/api/technicians/1",
             "description": "Updates a technician and knowledge records. Requires Admin or Manager.",
             "body": {
@@ -1147,11 +857,7 @@
           "name": "Delete",
           "request": {
             "method": "DELETE",
-            "header": {
-              "key": "Authorization",
-              "value": "Bearer {{token}}",
-              "type": "text"
-            },
+            "header": [],
             "url": "{{baseUrl}}/api/technicians/1",
             "description": "Deletes a technician. Requires Admin."
           }
@@ -1166,9 +872,50 @@
       "type": "string"
     },
     {
-      "key": "token",
-      "value": "paste-jwt-token-here",
+      "key": "identityCookie",
+      "value": "paste-aspnetcore-identity-cookie-value-here",
       "type": "string"
     }
-  ]
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const rawIdentityCookie = pm.collectionVariables.get(\"identityCookie\") || pm.variables.get(\"identityCookie\") || \"\";",
+          "const identityCookie = rawIdentityCookie.replace(/^\\.AspNetCore\\.Identity\\.Application=/, \"\").trim();",
+          "if (identityCookie && !identityCookie.includes(\"paste-aspnetcore-identity-cookie-value-here\")) {",
+          "    pm.request.headers.upsert({",
+          "        key: \"Cookie\",",
+          "        value: \".AspNetCore.Identity.Application=\" + identityCookie",
+          "    });",
+          "} else {",
+          "    pm.request.headers.remove(\"Cookie\");",
+          "    console.warn(\"Set collection variable identityCookie CURRENT VALUE to your .AspNetCore.Identity.Application cookie value.\");",
+          "}"
+        ]
+      }
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Cookie",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": ".AspNetCore.Identity.Application={{identityCookie}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  }
 }

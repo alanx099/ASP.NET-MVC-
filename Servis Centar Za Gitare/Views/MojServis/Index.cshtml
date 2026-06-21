@@ -1,12 +1,13 @@
 @model MyServiceViewModel
 @{
     ViewData["Title"] = "Moj servis";
+    var listState = ViewData["ListState"] as ListStateViewModel;
 }
 
 <section class="hero-panel">
     <p class="hero-kicker">Klijentski portal</p>
     <h1 class="hero-title">Moj servis</h1>
-    <p class="hero-subtitle">Pregled vasih gitara i servisnih naloga.</p>
+    <p class="hero-subtitle">Pregled vasih gitara i servisnih naloga koji su trenutno u tijeku.</p>
 </section>
 
 @if (!Model.IsLinked)
@@ -15,47 +16,68 @@
 }
 else
 {
-    <section class="detail-grid">
-        @foreach (var guitar in Model.Guitars)
-        {
-            var latestRepair = guitar.ServiceOrders.FirstOrDefault();
-            <article class="detail-card">
-                <h3>@guitar.Brand @guitar.Type</h3>
-                <dl class="definition-list">
-                    <div><dt>Serial number</dt><dd>@guitar.SerialNumber</dd></div>
-                    <div><dt>Received</dt><dd>@guitar.ReceivedAt.ToString("dd.MM.yyyy.")</dd></div>
-                    <div><dt>Latest status</dt><dd>@(latestRepair?.Status ?? "No repair orders")</dd></div>
-                    <div><dt>Issue</dt><dd>@(latestRepair?.Description ?? "-")</dd></div>
-                    <div><dt>Planned close</dt><dd>@(latestRepair?.ClosedAt?.ToString("dd.MM.yyyy.") ?? "-")</dd></div>
-                </dl>
+    @if (listState != null)
+    {
+        @await Html.PartialAsync("_ListControls", listState)
+    }
 
-                @if (guitar.ServiceOrders.Any())
-                {
-                    <div class="table-responsive">
-                        <table class="gc-table">
-                            <thead>
-                                <tr>
-                                    <th>Repair</th>
-                                    <th>Status</th>
-                                    <th>Opened</th>
-                                    <th>Planned close</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var repair in guitar.ServiceOrders)
-                                {
+    @if (!Model.Guitars.Any())
+    {
+        <div class="gc-flash" role="status">Trenutno nemate evidentiranih gitara u servisu.</div>
+    }
+    else
+    {
+        <section class="detail-grid">
+            @foreach (var guitar in Model.Guitars)
+            {
+                var latestRepair = guitar.ServiceOrders.FirstOrDefault();
+                <article class="detail-card">
+                    <h3>@guitar.Brand @guitar.Type</h3>
+                    <dl class="definition-list">
+                        <div><dt>Serial number</dt><dd>@guitar.SerialNumber</dd></div>
+                        <div><dt>Received</dt><dd>@guitar.ReceivedAt.ToString("dd.MM.yyyy.")</dd></div>
+                        <div><dt>Active status</dt><dd>@(latestRepair?.Status ?? "No active repair orders")</dd></div>
+                        <div><dt>Issue</dt><dd>@(latestRepair?.Description ?? "-")</dd></div>
+                        <div><dt>Planned close</dt><dd>@(latestRepair?.ClosedAt?.ToString("dd.MM.yyyy.") ?? "-")</dd></div>
+                    </dl>
+
+                    @if (guitar.ServiceOrders.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="gc-table">
+                                <thead>
                                     <tr>
-                                        <td>@repair.RepairType</td>
-                                        <td>@repair.Status</td>
-                                        <td>@repair.OpenedAt.ToString("dd.MM.yyyy.")</td>
-                                        <td>@(repair.ClosedAt?.ToString("dd.MM.yyyy.") ?? "-")</td>
+                                        <th>Repair</th>
+                                        <th>Status</th>
+                                        <th>Opened</th>
+                                        <th>Planned close</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-            </article>
-        }
-    </section>
+                                </thead>
+                                <tbody>
+                                    @foreach (var repair in guitar.ServiceOrders)
+                                    {
+                                        <tr>
+                                            <td>@repair.RepairType</td>
+                                            <td>@repair.Status</td>
+                                            <td>@repair.OpenedAt.ToString("dd.MM.yyyy.")</td>
+                                            <td>@(repair.ClosedAt?.ToString("dd.MM.yyyy.") ?? "-")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="gc-flash" role="status">Ova gitara trenutno nema servisni nalog u tijeku.</div>
+                    }
+                </article>
+            }
+        </section>
+    }
+
+    @if (listState != null)
+    {
+        @await Html.PartialAsync("_LoadMore", listState)
+    }
 }

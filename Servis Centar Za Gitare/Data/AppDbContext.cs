@@ -23,6 +23,7 @@ namespace Servis_Centar_Za_Gitare.Data
         public DbSet<TipGitare> TipoveGitara => Set<TipGitare>();
         public DbSet<StatusNaloga> StatusiNaloga => Set<StatusNaloga>();
         public DbSet<VrstaPopravka> VrstePopravke => Set<VrstaPopravka>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -120,6 +121,16 @@ namespace Servis_Centar_Za_Gitare.Data
             modelBuilder.Entity<Stranka>()
                 .HasIndex(s => s.AppUserId)
                 .IsUnique();
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasIndex(token => token.TokenHash)
+                .IsUnique();
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(token => token.User)
+                .WithMany(user => user.RefreshTokens)
+                .HasForeignKey(token => token.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Zaposlenik>()
                 .HasOne(z => z.Poslovnica)
