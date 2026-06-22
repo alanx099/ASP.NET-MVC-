@@ -153,9 +153,31 @@ Osnovna pravila iz controllera:
 ### Auth
 
 - `POST /api/auth/login`
+- `POST /api/auth/google`
 - `POST /api/auth/refresh`
 - `POST /api/auth/revoke`
 - `GET /api/auth/me`
+
+### Google login
+
+Android native Google login treba poslati Google ID token backendu:
+
+```http
+POST /api/auth/google
+Content-Type: application/json
+
+{
+  "idToken": "GOOGLE_ID_TOKEN"
+}
+```
+
+Backend verificira Google ID token i vraca isti `TokenResponseDto` kao obicni email/password login. Nakon toga Android vise ne koristi Google token za nase API pozive, nego salje:
+
+```http
+Authorization: Bearer <accessToken>
+```
+
+Backend mora imati konfiguriran barem jedan Google client ID pod `Authentication:Google:AllowedClientIds`.
 
 ### Osobni korisnicki API
 
@@ -166,9 +188,13 @@ Za klijentsku Android aplikaciju obicnog korisnika ovo je vjerojatno najbitniji 
 
 Ovi endpointi vracaju gitare i servisne naloge povezane s trenutno prijavljenim Identity korisnikom.
 
+Ne koristiti ove `/api/me/...` endpointove kao glavni pogled za `Admin` ili `Manager`. Staff korisnik treba vidjeti cijeli servisni centar kroz admin/manager API endpointove.
+
 ### Admin/manager API
 
 Ovi endpointi su za administratorski ili managerski dio aplikacije:
+
+Admin/Manager Android home treba biti globalni operativni pregled: svi nalozi, svi kupci, sve gitare, tehnicari, otvoreni poslovi, nedodijeljeni nalozi i problemi s pokrivenosti znanja. Detaljan product/design handoff je u `ADMIN_MANAGER_ANDROID_HANDOFF.md`.
 
 - `GET /api/customers?query=&officeId=&take=50`
 - `GET /api/customers/{id}`

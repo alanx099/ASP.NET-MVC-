@@ -116,6 +116,23 @@ Na Androidu ne prikazivati rute za koje korisnik nema rolu. Role dolaze iz `GET 
 
 ## Ekrani
 
+### Admin/Manager operational dashboard
+
+Za `Admin` i `Manager`, prvi ekran ne smije biti "Moj servis", "moje gitare" ili "moji nalozi". Staff korisnik upravlja cijelim servisnim centrom, pa mora vidjeti globalni operativni dashboard.
+
+Detaljan staff handoff je u `ADMIN_MANAGER_ANDROID_HANDOFF.md`.
+
+Admin/Manager home mora prikazati:
+
+- sveukupni broj kupaca, gitara, servisnih naloga i tehnicara
+- broj otvorenih naloga
+- najnovije servisne naloge
+- naloge bez tehnicara
+- naloge gdje nema tehnicara s potrebnim znanjem
+- brze akcije: create repair, add customer, add guitar
+
+Za staff pogled koristiti `/api/repairs`, `/api/customers`, `/api/guitars`, `/api/technicians`, `/api/offices` i lookup endpointove. `/api/me/guitars` i `/api/me/service-orders` su samo za obicnog `User` korisnika.
+
 ### Login ekran
 
 Svrha: email/password login preko `POST /api/auth/login`.
@@ -438,7 +455,8 @@ Do not mix languages inside the same screen unless matching existing domain term
 Use `API_HANDOFF_ANDROID.md` for endpoint and auth details. Design-wise:
 
 - `User` app should prioritize `/api/me/guitars` and `/api/me/service-orders`.
-- `Manager/Admin` app should prioritize dashboard, repairs queue, customers, guitars, technicians.
+- `Manager/Admin` app should prioritize whole-service-center dashboard, repairs queue, customers, guitars, technicians.
+- Do not make `/api/me/...` the default Admin/Manager experience.
 - After login, call `/api/auth/me` and use roles to choose the initial navigation.
 
 ## Files that define current web design

@@ -73,20 +73,17 @@ Content-Type: application/json
 
 7. Android spremi nase tokene i dalje radi isto kao kod obicnog login-a.
 
-## Sto backend jos treba dodati
+## Backend endpoint
 
-Trenutno imamo:
+Backend sada ima:
 
 - `POST /api/auth/login`
+- `POST /api/auth/google`
 - `POST /api/auth/refresh`
 - `POST /api/auth/revoke`
 - `GET /api/auth/me`
 
-Treba dodati:
-
-- `POST /api/auth/google`
-
-Predlozeni request DTO:
+Request DTO:
 
 ```csharp
 public class GoogleLoginRequestDto
@@ -96,7 +93,7 @@ public class GoogleLoginRequestDto
 }
 ```
 
-Predlozeni backend flow:
+Backend flow:
 
 1. Primi `idToken`.
 2. Verificira potpis, issuer, expiry i audience.
@@ -227,9 +224,9 @@ Postojeci Google web login:
 - ako oba postoje, dodaje `.AddGoogle(...)`
 - Identity external login UI je u `Areas/Identity/Pages/Account`
 
-To pokriva web/browser login, ne Android API login.
+To pokriva web/browser login.
 
-Za Android Google login jos treba dodati `POST /api/auth/google` endpoint.
+Android API Google login je dodan u `Controllers/Api/AuthApiController.cs` kao `POST /api/auth/google`. Endpoint trazi `Authentication:Google:AllowedClientIds` konfiguraciju da bi znao koje Google token audiences smije prihvatiti.
 
 ## Official docs used
 

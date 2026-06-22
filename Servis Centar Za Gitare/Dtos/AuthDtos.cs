@@ -17,6 +17,12 @@ namespace Servis_Centar_Za_Gitare.Dtos
         public string RefreshToken { get; set; } = string.Empty;
     }
 
+    public class GoogleLoginRequestDto
+    {
+        [Required]
+        public string IdToken { get; set; } = string.Empty;
+    }
+
     public record TokenResponseDto(
         string TokenType,
         string AccessToken,
